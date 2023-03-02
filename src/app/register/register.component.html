@@ -1,0 +1,101 @@
+<div class="">
+  <form [formGroup]="registerForm" (ngSubmit)="signUp()">
+    <div class="formbox max-w-[400px] mx-auto mt-14 p-8">
+      <H1> Sign Up </H1>
+      <div class="my-6">
+        <label
+          for="input-label-with-helper-text"
+          class="block text-sm font-medium mb-2"
+          >First Name</label
+        >
+        <input
+          formControlName="firstName"
+          type="text"
+          id="input-label-with-helper-text"
+          class="py-3 px-4 block w-full border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-700 dark:text-gray-400"
+          placeholder="enter your first name"
+          aria-describedby="hs-input-helper-text"
+        />
+        <p
+          *ngIf="controls.firstName.errors?.['required'] && controls.firstName.touched"
+          class="text-sm text-red-600 mt-2"
+          id="hs-input-helper-text"
+        >
+          Enter First Name
+        </p>
+      </div>
+      <div>
+        <label
+          for="input-label-with-helper-text"
+          class="block text-sm font-medium mb-2"
+          >Last Name</label
+        >
+        <input
+          formControlName="lastName"
+          type="text"
+          id="input-label-with-helper-text"
+          class="py-3 px-4 block w-full border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-700 dark:text-gray-400"
+          placeholder="enter your last name"
+          aria-describedby="hs-input-helper-text"
+        />
+        <p
+          *ngIf="controls.lastName.errors?.['required'] && controls.lastName.touched"
+          class="text-sm text-red-600 mt-2"
+          id="hs-input-helper-text"
+        >
+          Enter Last Name
+        </p>
+      </div>
+      <div class="my-6">
+        <label
+          for="input-label-with-helper-text"
+          class="block text-sm font-medium mb-2"
+          >Email</label
+        >
+        <input
+          formControlName="email"
+          type="email"
+          id="input-label-with-helper-text"
+          class="py-3 px-4 block w-full border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-700 dark:text-gray-400"
+          placeholder="you@site.com"
+          aria-describedby="hs-input-helper-text"
+        />
+        <p
+          *ngIf="controls.email.errors?.['required']&&controls.email.touched"
+          class="text-sm text-red-600 mt-2"
+          id="hs-input-helper-text"
+        >
+          Enter Email
+        </p>
+      </div>
+      <div>
+        <label
+          for="input-label-with-helper-text"
+          class="block text-sm font-medium mb-2"
+          >Password</label
+        >
+        <input
+          formControlName="password"
+          type="password"
+          id="input-label-with-helper-text"
+          class="py-3 px-4 block w-full border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-700 dark:text-gray-400"
+          placeholder="******"
+          aria-describedby="hs-input-helper-text"
+        />
+        <p
+          *ngIf="controls.password.errors?.['required']&&controls.password.touched"
+          class="text-sm text-red-600 mt-2"
+          id="hs-input-helper-text"
+        >
+          Enter Password
+        </p>
+      </div>
+      <button
+        type="submit"
+        class="mt-5 py-3 px-4 inline-flex gap-2 rounded-md border border-transparent font-semibold bg-gray-800 text-white hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-800 focus:ring-offset-2 text-sm dark:focus:ring-gray-900 dark:focus:ring-offset-gray-800"
+      >
+        Sign Up
+      </button>
+    </div>
+  </form>
+</div>

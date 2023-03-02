@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+
+
+
+body{
+    // background-color: #b3e0dc;
+    background-color: #ffaaaa70;
+    background-image: url('https://images.pexels.com/photos/1229861/pexels-photo-1229861.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');
+background-repeat: no-repeat;
+background-size: cover;
+}
+.formbox{
+    background-color: #fffaf036;
+    box-shadow: rgba(19, 59, 69, 0.402) 0px 10px 20px, rgba(35, 84, 97, 0.329) 0px 6px 6px;
+border-radius: 5px;
+
+}

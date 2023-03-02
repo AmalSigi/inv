@@ -1,0 +1,210 @@
+<!-- <div class="flex flex-col">
+  <div class="-m-1.5 overflow-x-auto">
+    <div class="p-1.5 min-w-full inline-block align-middle">
+      <div class="overflow-hidden">
+        <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+          <thead>
+            <tr>
+              <th
+                scope="col"
+                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase"
+              >
+                Id
+              </th>
+              <th
+                scope="col"
+                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase"
+              >
+                Product
+              </th>
+              <th
+                scope="col"
+                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase"
+              >
+                Price
+              </th>
+              <th
+                scope="col"
+                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase"
+              >
+                Stock
+              </th>
+              <th
+                scope="col"
+                class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase"
+                style="padding-right: 115px"
+              >
+                Action
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              *ngFor="let product of products"
+              class="odd:bg-white even:bg-gray-100 dark:odd:bg-slate-900 dark:even:bg-slate-800"
+              id=" product.id "
+            >
+              <td
+                class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-gray-200"
+              >
+                {{ product.id }}
+              </td>
+              <td
+                class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200"
+              >
+                {{ product.product }}
+              </td>
+              <td
+                class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200"
+              >
+                {{ product.price | currency : "USD" }}
+                <input
+                  [(ngModel)]="updatedPrice"
+                  type="number"
+                  class="w-20 ml-3 text-black"
+                />
+              </td>
+
+              <td
+                class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200"
+              >
+                {{ product.stock }}
+                <input
+                  [(ngModel)]="updatedStock"
+                  type="number"
+                  class="w-20 ml-3 text-black"
+                />
+              </td>
+
+              <td
+                class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium"
+              >
+                <button
+                  class="text-blue-500 hover:text-blue-700 ml-5"
+                  (click)="edit(product.id)"
+                >
+                  Edit
+                </button>
+                <button
+                  class="text-blue-500 hover:text-blue-700 ml-5 mr-4"
+                  (click)="update(product.id)"
+                >
+                  Update
+                </button>
+                <a
+                  class="text-blue-500 hover:text-blue-700"
+                  routerLink="/product/{{ product.id }}"
+                  >View</a
+                >
+                <button
+                  class="text-blue-500 hover:text-blue-700 ml-5"
+                  (click)="delect(product.id)"
+                >
+                  Delete
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<div class="flex flex-col">
+  <div class="-m-1.5 overflow-x-auto">
+    <div class="p-1.5 min-w-full inline-block align-middle">
+      <div class="overflow-hidden">
+        <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+          <thead>
+            <tr>
+              <th
+                scope="col"
+                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase"
+              >
+                Id
+              </th>
+              <th
+                scope="col"
+                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase"
+              >
+                Product
+              </th>
+              <th
+                scope="col"
+                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase"
+              >
+                Price
+              </th>
+              <th
+                scope="col"
+                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase"
+              >
+                Stock
+              </th>
+              <th
+                scope="col"
+                class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase"
+              >
+                Action
+              </th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+            <tr
+              *ngFor="let product of products"
+              class="hover:bg-gray-100 dark:hover:bg-gray-700"
+            >
+              <td
+                class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-gray-200"
+              >
+                {{ product.id }}
+              </td>
+              <td
+                class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-gray-200"
+              >
+                {{ product.product }}
+              </td>
+              <td
+                class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200"
+              >
+                {{ product.price | currency : "USD" }}
+              </td>
+              <td
+                class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200"
+              >
+                {{ product.stock }}
+              </td>
+              <td
+                class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium"
+              >
+                <!-- <button
+                  class="text-blue-500 hover:text-orange-700"
+                  href="#"
+                  (click)="update(product.id)"
+                >
+                  Update
+                </button> -->
+
+                <button
+                  class="text-blue-500 hover:text-green-700 ml-5"
+                  href="#"
+                  routerLink="/product/{{ product.id }}"
+                >
+                  View
+                </button>
+                <button
+                  class="text-blue-500 hover:text-red-700 ml-5"
+                  href="#"
+                  (click)="delect(product.id)"
+                >
+                  Delete
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

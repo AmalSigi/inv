@@ -1,0 +1,30 @@
+<div class="viewCard mt-14">
+  <div class="imgCard">
+    <img src="{{ product?.image }}" alt="Denim Jeans" style="width: 100%" />
+  </div>
+
+  <h1>{{ product?.product }}</h1>
+  <p class="price">Price :${{ product?.price }}</p>
+
+  <input
+    [(ngModel)]="updatedPrice"
+    type="number"
+    class="w-20 ml-3 dark:text-gray-400"
+    [hidden]="show"
+    placeholder="update "
+  />
+
+  <p>Current Stock : {{ product?.stock }}</p>
+  <input
+    [(ngModel)]="updatedStock"
+    type="number"
+    class="w-20 ml-5 dark:text-gray-400"
+    [hidden]="show"
+    placeholder="update "
+  />
+
+  <p class="mt-14">
+    <button [hidden]="editshow" (click)="edit()">Edit Stock</button>
+    <button [hidden]="show" (click)="update(product.id)">Update Stock</button>
+  </p>
+</div>
