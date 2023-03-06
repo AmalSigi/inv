@@ -9,37 +9,49 @@ import { HttpClient } from "@angular/common/http";
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
-  [x: string]: any;
+  constructor(private readonly router :Router , private readonly http: HttpClient){}
+
+
+  public loginForm = new FormGroup({
+    email: new FormControl('', Validators.required),
+    password: new FormControl('', Validators.required),
+  });
 
   public isAuthenticated: boolean = false;
 
+  // ngOnInit(): void {
+  //   localStorage.setItem('access_token', 'test');
+  // }
+
  
-localStorage: any;
-
-constructor(private readonly router :Router , private readonly http: HttpClient){}
-
-
-public loginForm = new FormGroup({
-  email: new FormControl('', Validators.required),
-  password: new FormControl('', Validators.required),
-});
-
-
 public get controls() {
   return this.loginForm.controls;
 }
 public login(){
- const url:string='https://63bfcce3e262345656f0627b.mockapi.io/actors'
-this.http.get<any[]>(url).subscribe((response)=>{
-  for(let user of response){
+ const url:string='https://api-sales-app.josetovar.dev/login'
+
+const body =this.loginForm.value;
+
+
+this.http.post(url,body).subscribe((response:any)=>{
+console.log(response)
+
+  if(response){
+    console.log('hi')
+this.router.navigate(['dashboard'])
+
+localStorage.setItem('access_token',JSON.stringify(response.access_token));
    
-    if(user.email === this.loginForm.value.email && user.password === this.loginForm.value.password){
-      localStorage.setItem('logged','true')
-      this.router.navigate(['/dashboard'])
+  }
+
    
-    }
+    // if(user.email === this.loginForm.value.email && user.password === this.loginForm.value.password){
+    //   localStorage.setItem('logged','true')
+    //   this.router.navigate(['/dashboard'])
    
-}
+    // }
+   
+
 })
 }
 

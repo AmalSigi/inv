@@ -8,11 +8,14 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 
 import { SampleProductsComponent } from './sample-products/sample-products.component';
 import { ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { TokenInterceptor } from './Active/token.interceptor';
+
 
 @NgModule({
   declarations: [
@@ -30,10 +33,14 @@ import { ToastrModule } from 'ngx-toastr';
     HttpClientModule,
     CommonModule,
     FormsModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(), 
+    BrowserAnimationsModule
 
   ],
-  providers: [],
+  providers: [
+
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -9,7 +9,7 @@
           >First Name</label
         >
         <input
-          formControlName="firstName"
+          formControlName="first_name"
           type="text"
           id="input-label-with-helper-text"
           class="py-3 px-4 block w-full border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-700 dark:text-gray-400"
@@ -17,7 +17,7 @@
           aria-describedby="hs-input-helper-text"
         />
         <p
-          *ngIf="controls.firstName.errors?.['required'] && controls.firstName.touched"
+          *ngIf="controls.first_name.errors?.['required'] && controls.first_name.touched"
           class="text-sm text-red-600 mt-2"
           id="hs-input-helper-text"
         >
@@ -31,7 +31,7 @@
           >Last Name</label
         >
         <input
-          formControlName="lastName"
+          formControlName="last_name"
           type="text"
           id="input-label-with-helper-text"
           class="py-3 px-4 block w-full border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-700 dark:text-gray-400"
@@ -39,7 +39,7 @@
           aria-describedby="hs-input-helper-text"
         />
         <p
-          *ngIf="controls.lastName.errors?.['required'] && controls.lastName.touched"
+          *ngIf="controls.last_name.errors?.['required'] && controls.last_name.touched"
           class="text-sm text-red-600 mt-2"
           id="hs-input-helper-text"
         >

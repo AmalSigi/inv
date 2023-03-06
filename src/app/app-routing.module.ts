@@ -12,8 +12,12 @@ import { SampleProductsComponent } from './sample-products/sample-products.compo
 const routes: Routes = [
   {path:'',component:HomeComponent },
   {path:'home',component:HomeComponent },
-   { path:'login', component:LoginComponent, canActivate:[ActiveGuard] },  
-   { path:'dashboard', component:DashboardComponent, canActivate:[DashboardGuard]  },
+   { path:'login', component:LoginComponent, 
+  //  canActivate:[ActiveGuard] 
+  },  
+   { path:'dashboard', component:DashboardComponent,
+    // canActivate:[DashboardGuard] 
+   },
    { path:'register', component:RegisterComponent },
    { path:'product/:productId', component:SampleProductsComponent },
 

@@ -11,8 +11,8 @@ import { Router } from '@angular/router';
 export class RegisterComponent {
   constructor(private readonly router :Router , private readonly http: HttpClient){}
   public registerForm = new FormGroup({
-    firstName: new FormControl('', Validators.required),
-    lastName: new FormControl('', Validators.required),
+    first_name: new FormControl('', Validators.required),
+    last_name: new FormControl('', Validators.required),
     email: new FormControl('', Validators.required),
     password: new FormControl('', Validators.required),
   });
@@ -24,7 +24,8 @@ export class RegisterComponent {
 
 
   public signUp(){
-  const url:string='https://63bfcce3e262345656f0627b.mockapi.io/actors'
+  // const url:string='https://63bfcce3e262345656f0627b.mockapi.io/actors'
+  const url:string='https://api-sales-app.josetovar.dev/users'
 
 this.http.post(url,this.registerForm.value).subscribe((response=>{
   if(response){
