@@ -15,12 +15,10 @@ export class TokenInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-    // console.log(localStorage.getItem('access_token') )
     const access_token = JSON.parse(
       localStorage.getItem('access_token') || '{}'
     );
 
-// console.log("wks")
     if (!request.url.includes('login')) {
       const authReq = request.clone({
         setHeaders: {

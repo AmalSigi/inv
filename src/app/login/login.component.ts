@@ -34,10 +34,8 @@ const body =this.loginForm.value;
 
 
 this.http.post(url,body).subscribe((response:any)=>{
-console.log(response)
 
   if(response){
-    console.log('hi')
 this.router.navigate(['dashboard'])
 
 localStorage.setItem('access_token',JSON.stringify(response.access_token));

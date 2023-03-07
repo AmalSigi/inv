@@ -15,6 +15,7 @@ import { SampleProductsComponent } from './sample-products/sample-products.compo
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TokenInterceptor } from './Active/token.interceptor';
+import { AddProductComponent } from './add-product/add-product.component';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { TokenInterceptor } from './Active/token.interceptor';
     DashboardComponent,
     HomeComponent,
     RegisterComponent,
-    SampleProductsComponent
+    SampleProductsComponent,
+    AddProductComponent
   ],
   imports: [
     BrowserModule,

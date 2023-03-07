@@ -45,7 +45,6 @@ ngOnInit(): void {
 
 this.api.setApi(params['productId']).subscribe((response:any)=>{
   this.product=response
-  console.log( this.product)
 })
   })
 }
@@ -70,7 +69,6 @@ update(productId: number) {
     
     const updatedProduct = { price, stock };
     this.http.put<any>(`${this.url}/${productId}`, updatedProduct).subscribe((response) => {
-      console.log(response);
       // this.showSuccess()
       this.success()
       this.ngOnInit();

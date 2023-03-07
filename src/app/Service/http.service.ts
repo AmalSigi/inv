@@ -14,7 +14,7 @@ public setApi(productId:number):any{
   return this.http.get(`${this.url}/products/${productId}`)
 
 }
-public getData(productId:number):any{
+public getData():any{
 
   return this.http.get(`${this.url}/products`)
 
@@ -22,7 +22,6 @@ public getData(productId:number):any{
 
 
 public putData(product:any):any{
-
   return this.http.put<any>(`${this.url}/products`,product)
 }
 
