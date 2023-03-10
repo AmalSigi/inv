@@ -1,10 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { DashboardComponent } from '../dashboard/dashboard.component';
 import { of } from 'rxjs';
 import { HttpService } from '../Service/http.service';
 import { ToastrService } from 'ngx-toastr';
+import { DashboardModuleComponent } from '../dashboard-module/dashboard-module.component';
 
 @Component({
   selector: 'app-add-product',
@@ -12,11 +12,9 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./add-product.component.scss']
 })
 export class AddProductComponent {
-constructor(private readonly http: HttpClient, private dashAcess : DashboardComponent , private apiService:HttpService , private toastr:ToastrService){
+constructor(private readonly http: HttpClient, private dashAcess : DashboardModuleComponent , private apiService:HttpService , private toastr:ToastrService){
 
 }
-
-
 
 public addProductForm = new FormGroup({
   name:new FormControl('',Validators.required),
