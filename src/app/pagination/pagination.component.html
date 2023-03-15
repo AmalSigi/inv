@@ -1,8 +1,9 @@
 <nav class="flex items-center space-x-2 border-2 border-slate-700 mt-5">
   <button
-    class="text-gray-500 hover:text-blue-600 p-3 inline-flex items-center gap-2 rounded-md"
+    class="text-gray-500 hover:text-blue-600 p-3 inline-flex items-center gap-2 rounded-md disabled:cursor-not-allowed"
     value="Previous"
     (click)="onPagination($event)"
+    [disabled]="currentPage == 1"
   >
     Previous
   </button>
@@ -25,15 +26,15 @@
   <button
     class="text-gray-500 hover:text-blue-600 p-3 inline-flex items-center text-sm font-medium rounded-full"
     (click)="onPagination($event)"
-    [disabled]="currentPage >= totalPage"
     value="{{ currentPage + 1 }}"
   >
     {{ currentPage + 1 }}
   </button>
   <button
-    class="text-gray-500 hover:text-blue-600 p-3 inline-flex items-center gap-2 rounded-md"
+    class="text-gray-500 hover:text-blue-600 p-3 inline-flex items-center gap-2 rounded-md disabled:cursor-not-allowed"
     value="Next"
     (click)="onPagination($event)"
+    [disabled]="currentPage >= totalPage"
   >
     Next
   </button>
