@@ -4,17 +4,17 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 // import { DashboardComponent } from './dashboard/dashboard.component';
+import { CommonModule } from '@angular/common';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './home/home.component';
-import { RegisterComponent } from './register/register.component';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { CommonModule } from '@angular/common';
 
-import { SampleProductsComponent } from './sample-products/sample-products.component';
-import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 import { TokenInterceptor } from './Active/token.interceptor';
-import { AddProductComponent } from './add-product/add-product.component';
+import { SampleProductsComponent } from './sample-products/sample-products.component';
+
+
 
 
 @NgModule({
@@ -24,6 +24,9 @@ import { AddProductComponent } from './add-product/add-product.component';
     HomeComponent,
     // RegisterComponent,
     SampleProductsComponent,
+    
+
+
   ],
   imports: [
     BrowserModule,

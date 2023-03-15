@@ -1,40 +1,47 @@
-<section class="container mx-auto">
-  <div class="flex item-center mb-6">
-    <div class="mr-6">
-      <label
-        for="hs-select-label"
-        class="block text-sm font-medium mb-2 dark:text-white"
-      >
-        Filter Status
-      </label>
-      <select
-        (change)="setFiltersStatus($event)"
-        id="hs-select-label"
-        class="py-3 px-4 pr-9 block w-full border border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400"
-      >
-        <option value="">All products</option>
-        <option value="true">Only active products</option>
-        <option value="false">Only inactive products</option>
-      </select>
+<div class="flex" style="margin-left: 183px; margin-right: 182px">
+  <section class="container mx-auto">
+    <div class="flex item-center mb-6">
+      <div class="mr-6">
+        <label
+          for="hs-select-label"
+          class="block text-sm font-medium mb-2 dark:text-white"
+        >
+          Filter Status
+        </label>
+        <select
+          (change)="setFiltersStatus($event)"
+          id="hs-select-label"
+          class="py-3 px-4 pr-9 block w-full border border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400"
+        >
+          <option value="">All products</option>
+          <option value="true">Only active products</option>
+          <option value="false">Only inactive products</option>
+        </select>
+      </div>
+      <div>
+        <label
+          for="hs-select-label"
+          class="block text-sm font-medium mb-2 dark:text-white"
+          >Filter Stock</label
+        >
+        <select
+          id="hs-select-label"
+          class="py-3 px-4 pr-9 block w-full border border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400"
+          (change)="setFiltersStock($event)"
+        >
+          <option value="">All products</option>
+          <option value="1">Only products in stock</option>
+          <option value="2">Only products out of stock</option>
+        </select>
+      </div>
     </div>
-    <div>
-      <label
-        for="hs-select-label"
-        class="block text-sm font-medium mb-2 dark:text-white"
-        >Filter Stock</label
-      >
-      <select
-        id="hs-select-label"
-        class="py-3 px-4 pr-9 block w-full border border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400"
-        (change)="setFiltersStock($event)"
-      >
-        <option value="">All products</option>
-        <option value="1">Only products in stock</option>
-        <option value="2">Only products out of stock</option>
-      </select>
-    </div>
-  </div>
-</section>
+  </section>
+
+  <app-pagination
+    (pagination)="onPagination($event)"
+    [data]="products$"
+  ></app-pagination>
+</div>
 
 <section class="container mx-auto">
   <div class="flex flex-col">
@@ -89,7 +96,11 @@
               <tbody class="divide-y divide-gray-200 dark:divide-gray-400">
                 <tr
                   [formGroupName]="product.id"
-                  *ngFor="let product of products$ | async"
+                  *ngFor="
+                    let product of products$
+                      | pagination : currentPage : pageSize
+                      | async
+                  "
                   class="hover:bg-teal-800"
                 >
                   <td

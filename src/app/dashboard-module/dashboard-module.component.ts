@@ -1,10 +1,11 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Observable, map, of } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { formatCurrency, getCurrencySymbol } from '@angular/common';
 import { HttpService } from '../Service/http.service';
+import { PaginationComponent } from '../pagination/pagination.component';
 
 @Component({
   selector: 'app-dashboard-module',
@@ -12,6 +13,9 @@ import { HttpService } from '../Service/http.service';
   styleUrls: ['./dashboard-module.component.scss']
 })
 export class DashboardModuleComponent implements OnInit{
+  currentPage: number=1;
+  pageSize: number=5;
+
  constructor(
     private readonly http: HttpClient,private toastr: ToastrService, private serviceApi : HttpService
   ) {}
@@ -186,5 +190,13 @@ public setFiltersStock(active:any):void {
   }))
 }  
 
+
+onPagination(event: { currentPage: number, pageSize: number }) {
+  // console.log("dash"+this.currentPage)
+  // console.log("dash2"+event.currentPage)
+
+  this.currentPage = event.currentPage;
+  this.pageSize = event.pageSize;
+}
 
 }

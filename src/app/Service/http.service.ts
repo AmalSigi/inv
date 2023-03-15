@@ -15,9 +15,7 @@ public setApi(productId:number):any{
 
 }
 public getData():any{
-
   return this.http.get(`${this.url}/products`)
-
 }
 
 
