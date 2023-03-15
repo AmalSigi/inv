@@ -20,16 +20,18 @@ export class LoginModuleComponent {
   }
   public login(){
     const url:string='https://api-sales-app.josetovar.dev/login'
-   
+ 
    const body =this.loginForm.value;
    
+   console.log(body)
    
    this.http.post(url,body).subscribe((response:any)=>{
    
      if(response){
+   localStorage.setItem('access_token',JSON.stringify(response.access_token));
+
    this.router.navigate(['./dashboard'])
    
-   localStorage.setItem('access_token',JSON.stringify(response.access_token));
       
      }
    
