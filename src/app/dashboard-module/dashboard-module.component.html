@@ -11,7 +11,7 @@
         <select
           (change)="setFiltersStatus($event)"
           id="hs-select-label"
-          class="py-3 px-4 pr-9 block w-full border border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 bg-slate-900 dark:border-gray-700 border-gray-700 dark:text-gray-400 text-gray-400"
+          class="py-3 px-4 pr-9 block w-full border rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 bg-slate-900 dark:border-gray-700 border-gray-700 dark:text-gray-400 text-gray-400"
         >
           <option value="">All products</option>
           <option value="true">Only active products</option>
@@ -26,7 +26,7 @@
         >
         <select
           id="hs-select-label"
-          class="py-3 px-4 pr-9 block w-full border border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 bg-slate-900 dark:border-gray-700 border-gray-700 dark:text-gray-400 text-gray-400"
+          class="py-3 px-4 pr-9 block w-full border rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 bg-slate-900 dark:border-gray-700 border-gray-700 dark:text-gray-400 text-gray-400"
           (change)="setFiltersStock($event)"
         >
           <option value="">All products</option>
@@ -50,7 +50,7 @@
         <div class="overflow-hidden">
           <form [formGroup]="updateProductForm">
             <table
-              class="min-w-full divide-y divide-gray-200 dark:divide-gray-100 divide-gray-100"
+              class="min-w-full divide-y dark:divide-gray-100 divide-gray-100"
             >
               <thead>
                 <tr>
@@ -118,12 +118,12 @@
                     <label for="hs-basic-usage" class="sr-only">switch</label>
                   </td>
                   <td
-                    class="px-6 py-4 whitespace-nowrap text-sm text-red-800 dark:text-gray-200 text-gray-200"
+                    class="px-6 py-4 whitespace-nowrap text-sm dark:text-gray-200 text-gray-200"
                   >
                     {{ product.id }}
                   </td>
                   <td
-                    class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-gray-200 text-gray-200"
+                    class="px-6 py-4 whitespace-nowrap text-sm font-medium dark:text-gray-200 text-gray-200"
                   >
                     {{ product.name }}
                   </td>
