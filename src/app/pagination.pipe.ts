@@ -10,9 +10,9 @@ export class PaginationPipe implements PipeTransform {
     // console.log('pipe'+currentPage)
     return items.pipe(
    map(paginated=>{
-        const startIndex=(currentPage-1)*pageSize;
-        const endindex=startIndex+pageSize
-        return paginated.slice(startIndex,endindex)
+        const startPage=(currentPage-1)*pageSize;
+        const endPage=startPage+pageSize
+        return paginated.slice(startPage,endPage)
       })
        )
 
