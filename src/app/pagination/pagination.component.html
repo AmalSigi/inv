@@ -1,32 +1,32 @@
 <nav class="flex items-center space-x-2 border-2 border-slate-700 mt-5">
   <button
     class="text-gray-500 hover:text-blue-600 p-3 inline-flex items-center gap-2 rounded-md"
-    (click)="onPagination($event)"
     value="Previous"
+    (click)="onPagination($event)"
   >
     Previous
   </button>
   <button
     *ngIf="!(currentPage == 1)"
     class="text-gray-500 hover:text-blue-600 p-3 inline-flex items-center text-sm font-medium rounded-full"
-    aria-current="page"
     [value]="currentPage - 1"
     (click)="onPagination($event)"
+    aria-current="page"
   >
     {{ currentPage - 1 }}
   </button>
   <button
     class="text-red-500 hover:text-blue-600 p-3 inline-flex items-center text-sm font-medium rounded-full"
-    value="{{ currentPage }}"
     (click)="onPagination($event)"
+    value="{{ currentPage }}"
   >
     {{ currentPage }}
   </button>
   <button
     class="text-gray-500 hover:text-blue-600 p-3 inline-flex items-center text-sm font-medium rounded-full"
-    value="{{ currentPage + 1 }}"
     (click)="onPagination($event)"
     [disabled]="currentPage >= totalPage"
+    value="{{ currentPage + 1 }}"
   >
     {{ currentPage + 1 }}
   </button>

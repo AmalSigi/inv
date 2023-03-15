@@ -13,8 +13,9 @@ import { PaginationPipe } from '../pagination.pipe';
   declarations: [
     DashboardModuleComponent,
 AddProductComponent,
-PaginationComponent,
 PaginationPipe,
+
+PaginationComponent,
     
   ],
   imports: [
