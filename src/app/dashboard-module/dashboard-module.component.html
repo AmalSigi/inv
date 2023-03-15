@@ -4,14 +4,14 @@
       <div class="mr-6">
         <label
           for="hs-select-label"
-          class="block text-sm font-medium mb-2 text-white"
+          class="block text-sm font-medium mb-2 dark:text-white"
         >
           Filter Status
         </label>
         <select
           (change)="setFiltersStatus($event)"
           id="hs-select-label"
-          class="py-3 px-4 pr-9 block w-full border border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 bg-slate-900 border-gray-700 text-gray-400"
+          class="py-3 px-4 pr-9 block w-full border border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400"
         >
           <option value="">All products</option>
           <option value="true">Only active products</option>
@@ -21,12 +21,12 @@
       <div>
         <label
           for="hs-select-label"
-          class="block text-sm font-medium mb-2 text-white"
+          class="block text-sm font-medium mb-2 dark:text-white"
           >Filter Stock</label
         >
         <select
           id="hs-select-label"
-          class="py-3 px-4 pr-9 block w-full border border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 bg-slate-900 border-gray-700 text-gray-400"
+          class="py-3 px-4 pr-9 block w-full border border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400"
           (change)="setFiltersStock($event)"
         >
           <option value="">All products</option>
@@ -49,7 +49,9 @@
       <div class="p-1.5 min-w-full inline-block align-middle">
         <div class="overflow-hidden">
           <form [formGroup]="updateProductForm">
-            <table class="min-w-full divide-y divide-gray-200 divide-gray-100">
+            <table
+              class="min-w-full divide-y divide-gray-200 dark:divide-gray-100"
+            >
               <thead>
                 <tr>
                   <th
@@ -91,7 +93,7 @@
                   </th>
                 </tr>
               </thead>
-              <tbody class="divide-y divide-gray-200 divide-gray-400">
+              <tbody class="divide-y divide-gray-200 dark:divide-gray-400">
                 <tr
                   [formGroupName]="product.id"
                   *ngFor="
@@ -102,45 +104,45 @@
                   class="hover:bg-teal-800"
                 >
                   <td
-                    class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 text-gray-200"
+                    class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-gray-200"
                   >
                     <input
                       formControlName="editbool"
                       type="checkbox"
                       id="hs-basic-usage"
                       (change)="onCheckboxChange(product, $event)"
-                      class="relative w-[3.25rem] h-7 bg-gray-100 checked:bg-none checked:bg-blue-600 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 border border-transparent ring-1 ring-transparent focus:border-blue-600 focus:ring-blue-600 ring-offset-white focus:outline-none appearance-none bg-gray-700 checked:bg-blue-600 focus:ring-offset-gray-800 before:inline-block before:w-6 before:h-6 before:bg-white checked:before:bg-blue-200 before:translate-x-0 checked:before:translate-x-full before:shadow before:rounded-full before:transform before:ring-0 before:transition before:ease-in-out before:duration-200 before:bg-gray-400 checked:before:bg-blue-200"
+                      class="relative w-[3.25rem] h-7 bg-gray-100 checked:bg-none checked:bg-blue-600 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 border border-transparent ring-1 ring-transparent focus:border-blue-600 focus:ring-blue-600 ring-offset-white focus:outline-none appearance-none dark:bg-gray-700 dark:checked:bg-blue-600 dark:focus:ring-offset-gray-800 before:inline-block before:w-6 before:h-6 before:bg-white checked:before:bg-blue-200 before:translate-x-0 checked:before:translate-x-full before:shadow before:rounded-full before:transform before:ring-0 before:transition before:ease-in-out before:duration-200 dark:before:bg-gray-400 dark:checked:before:bg-blue-200"
                     />
                     <label for="hs-basic-usage" class="sr-only">switch</label>
                   </td>
                   <td
-                    class="px-6 py-4 whitespace-nowrap text-sm text-red-800 text-gray-200"
+                    class="px-6 py-4 whitespace-nowrap text-sm text-red-800 dark:text-gray-200"
                   >
                     {{ product.id }}
                   </td>
                   <td
-                    class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 text-gray-200"
+                    class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-gray-200"
                   >
                     {{ product.name }}
                   </td>
                   <td
-                    class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 text-gray-200"
+                    class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200"
                   >
                     <input
                       (change)="setFormatCurrency(product, $event)"
                       formControlName="price"
                       type="text"
-                      class="py-3 border px-4 block w-full border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 bg-slate-900 border-gray-700 text-gray-400"
+                      class="py-3 border px-4 block w-full border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400"
                     />
                   </td>
 
                   <td
-                    class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 text-gray-200"
+                    class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200"
                   >
                     <input
                       formControlName="stock"
                       type="number"
-                      class="py-3 border px-4 block w-full border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 bg-slate-900 border-gray-700 text-gray-400"
+                      class="py-3 border px-4 block w-full border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400"
                     />
                   </td>
                   <td
@@ -150,14 +152,14 @@
                       [disabled]="setDisableValueForUpdate(product)"
                       (click)="setUpdatedValues(product)"
                       type="button"
-                      class="py-2 mr-2 px-3 inline-flex justify-center disabled:bg-slate-400 disabled:cursor-not-allowed items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm focus:ring-offset-gray-800"
+                      class="py-2 mr-2 px-3 inline-flex justify-center disabled:bg-slate-400 disabled:cursor-not-allowed items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800"
                     >
                       Update
                     </button>
                     <button
                       routerLink="/product/{{ product.id }}"
                       type="button"
-                      class="py-2 mr-2 px-3 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-green-500 text-white hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition-all text-sm focus:ring-offset-gray-800"
+                      class="py-2 mr-2 px-3 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-green-500 text-white hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800"
                     >
                       View
                     </button>
@@ -168,7 +170,7 @@
                       "
                       type="button"
                       (click)="delete(product.id)"
-                      class="py-2 px-3 inline-flex justify-center items-center disabled:bg-slate-400 disabled:cursor-not-allowed gap-2 rounded-md border border-transparent font-semibold bg-red-500 text-white hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition-all text-sm focus:ring-offset-gray-800"
+                      class="py-2 px-3 inline-flex justify-center items-center disabled:bg-slate-400 disabled:cursor-not-allowed gap-2 rounded-md border border-transparent font-semibold bg-red-500 text-white hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800"
                     >
                       Delete
                     </button>
