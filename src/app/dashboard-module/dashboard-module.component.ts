@@ -23,7 +23,7 @@ import { PaginationComponent } from '../pagination/pagination.component';
 export class DashboardModuleComponent implements OnInit{
   currentPage: number=1;
   pageSize: number=5;
-
+  pageLength!:number
  constructor(
     private readonly http: HttpClient,private toastr: ToastrService, private serviceApi : HttpService
   ) {}
@@ -69,41 +69,25 @@ public checkBool :boolean= false
 
   public setFormatCurrency(product: any, event: any): void {
     const price = formatCurrency(
-      
       this.getValueFromCurrency(event.target.value),
       'en-US',
       '$'
-    );
-
-
+      );
 
     this.updateProductForm.controls[product.id.toString()]
       .get('price')
       ?.setValue(price);
-      
-  
-  }
+}
 
   public getValueFromCurrency(value: string): number {
     let price: number;
-
     if (value.includes('$')) {
       price = Number(value.substring(1).replaceAll(',', ''));
     } else {
       price = Number(value.replaceAll(',', ''));
     }
-
-    // Methods for string
-    // 1. includes
-    // 2. substring()
-    // 3. replaceAll
-
     return price;
   }
-
-
-
-
 
   success(){
     this.toastr.success('Product updated successfully!', 'Success',{ timeOut:3000,
@@ -111,7 +95,6 @@ public checkBool :boolean= false
       progressAnimation:'decreasing',
       positionClass:'toast-top-right', 
       closeButton:true});
-  
   }
 
   public setUpdatedValues(product: any): void {
@@ -139,40 +122,36 @@ public checkBool :boolean= false
         if(editbool){
           if (!(+price.replaceAll("$","").replaceAll(',','') == product.price && stock == product.stock))
           return false
-
         }
         return true
   }
 
 
   onCheckboxChange(product: any, anyEvent:any) {
-
-    const status = anyEvent.target.checked;
-
-this.http.put( `https://api-sales-app.josetovar.dev/product-status/${product.id}?status=${status}`,{}).subscribe(reponse=>{
-  if(reponse){
-  }
-});
+      const status = anyEvent.target.checked;
+      this.http.put( `https://api-sales-app.josetovar.dev/product-status/${product.id}?status=${status}`,{}).subscribe(reponse=>{
+        if(reponse){
+        }
+      });
 
   }
 
 
   delete(product: number ) {
-
       this.serviceApi.delectData(product).subscribe((responses: any) => {
          this.http
           .get<any>(`${this.url}`)
           .subscribe((responses) => {
             this.products$=of(responses);
           });
-        }); 
+      }); 
   }
 
   public setDisableValueForDelect(product: any):boolean{
     if(product.active)
     return true
     return false
-      }
+  }
 
 public setFiltersStatus(active:any):void {
   this.products$=this.http.get<any>(this.url).pipe(map((products:any)=>{

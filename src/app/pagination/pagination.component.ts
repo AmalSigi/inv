@@ -1,34 +1,27 @@
 
 
 
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { HttpService } from '../Service/http.service';
+import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
 
 @Component({
   selector: 'app-pagination',
   templateUrl: './pagination.component.html',
   styleUrls: ['./pagination.component.scss']
 })
-export class PaginationComponent implements OnInit {
+export class PaginationComponent implements  OnChanges{
 
-constructor(private dataItem: HttpService){}
-totalPage:any
+constructor(  ){}
+  
 
-
-@Input() data:any
+totalPage!: number
+  @Input() data:any
   @Output() pagination: EventEmitter<any> = new EventEmitter<any>();
     
   currentPage:number=1
   pageSize:number=5
 
 
-ngOnInit(){
-this.dataItem.getData().subscribe((response: any)=>{
-    this.totalPage=Math.ceil(response.length/this.pageSize)
-    // console.log(this.product)
 
-  })
-}
   onPagination(event:any) {
 const value=event.target.value
     switch (value) {
@@ -41,16 +34,22 @@ const value=event.target.value
       case "Next":
 
         
-        console.log(this.currentPage,value)
+        // console.log(this.currentPage,value)
   if(this.currentPage<this.totalPage){
     this.currentPage++
     this.paginationEmit(this.currentPage)
   }
         break;
       default:
-        if(this.currentPage<=this.totalPage)
-        this.currentPage=+(event.target.value)
-        this.paginationEmit(this.currentPage)
+      
+
+        if(this.currentPage<=this.totalPage){
+          this.currentPage=+(event.target.value)
+          this.paginationEmit(this.currentPage)
+        }
+        console.log(this.totalPage)
+        console.log(this.currentPage)
+      
       
 
     }
@@ -60,4 +59,13 @@ paginationEmit(currentPageValue:number){
   this.pagination.emit({ currentPage: currentPageValue, pageSize: this.pageSize });
 }
 
+ngOnChanges(): void {
+  this.data.subscribe((response: any)=>{
+    this.totalPage=Math.ceil(response.length/this.pageSize)
+  })
+
+  this.currentPage=1
+  this.paginationEmit(this.currentPage)
+
+}
 }

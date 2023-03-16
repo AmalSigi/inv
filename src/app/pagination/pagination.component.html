@@ -27,6 +27,7 @@
     class="text-gray-500 hover:text-blue-600 p-3 inline-flex items-center text-sm font-medium rounded-full"
     (click)="onPagination($event)"
     value="{{ currentPage + 1 }}"
+    [disabled]="currentPage + 1 > totalPage"
   >
     {{ currentPage + 1 }}
   </button>
