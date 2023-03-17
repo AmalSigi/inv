@@ -13,6 +13,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { TokenInterceptor } from './Active/token.interceptor';
 import { SampleProductsComponent } from './sample-products/sample-products.component';
+// import { ProductsComponent } from './products/products.component';
 
 
 
@@ -24,6 +25,7 @@ import { SampleProductsComponent } from './sample-products/sample-products.compo
     HomeComponent,
     // RegisterComponent,
     SampleProductsComponent,
+    // ProductsComponent,
     
 
 

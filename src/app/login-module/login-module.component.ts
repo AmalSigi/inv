@@ -30,7 +30,7 @@ export class LoginModuleComponent {
      if(response){
    localStorage.setItem('access_token',JSON.stringify(response.access_token));
 
-   this.router.navigate(['./dashboard'])
+   this.router.navigate(['./dashboard/product'])
    
       
      }

@@ -47,8 +47,8 @@ const value=event.target.value
           this.currentPage=+(event.target.value)
           this.paginationEmit(this.currentPage)
         }
-        console.log(this.totalPage)
-        console.log(this.currentPage)
+        // console.log(this.totalPage)
+        // console.log(this.currentPage)
       
       
 

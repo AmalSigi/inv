@@ -29,5 +29,9 @@ public delectData(product:number):any{
   return this.http.delete<any>(`${this.url}/products/${product}`)
 }
 
+public delectClient(client:number):any{
+
+  return this.http.delete<any>(`${this.url}/clients/${client}`)
+}
 
 }

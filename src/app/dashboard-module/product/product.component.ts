@@ -1,18 +1,19 @@
 
-import { formatCurrency } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ToastrService } from 'ngx-toastr';
 import { Observable, map, of } from 'rxjs';
-import { HttpService } from '../Service/http.service';
+import { ToastrService } from 'ngx-toastr';
+import { formatCurrency, getCurrencySymbol } from '@angular/common';
+import { HttpService } from 'src/app/Service/http.service';
+import { PaginationComponent } from 'src/app/pagination/pagination.component';
 
 @Component({
-  selector: 'app-dashboard-module',
-  templateUrl: './dashboard-module.component.html',
-  styleUrls: ['./dashboard-module.component.scss'],
+  selector: 'app-product',
+  templateUrl: './product.component.html',
+  styleUrls: ['./product.component.scss']
 })
-export class DashboardModuleComponent implements OnInit{
+export class ProductComponent implements OnInit{
   currentPage: number=1;
   pageSize: number=5;
   pageLength!:number
