@@ -94,7 +94,6 @@
                 class="divide-y divide-gray-200 dark:divide-gray-400 divide-gray-400"
               >
                 <tr
-                  [formGroupName]="client.id"
                   *ngFor="
                     let client of clients$
                       | pagination : currentPage : pageSize
