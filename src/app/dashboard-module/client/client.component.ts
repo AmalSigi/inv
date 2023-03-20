@@ -19,7 +19,7 @@ export class ClientComponent {
   public url: string = 'https://api-sales-app.josetovar.dev/clients';
   public clients$!: Observable<any>;
   public upClient:any
-
+public clientView:any
   public updateClientForm: FormGroup = new FormGroup({});
 
   currentPage: number=1;
@@ -81,6 +81,8 @@ public modelShow(client:any){
       })
     }
   }
-
+public view(client:any){
+  this.clientView=client
+}
 
 }

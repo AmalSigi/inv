@@ -11,8 +11,10 @@
   }
 
 body{
-    // background-color: #b3e0dc;
-    background-color: #ffaaaa70;
+
+  overflow-x: hidden;
+    background-color: #000000;
+    // background-color: #ffaaaa70;
     background-image: url('https://images.pexels.com/photos/1229861/pexels-photo-1229861.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');
 background-repeat: no-repeat;
 background-size: cover;
