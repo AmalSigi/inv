@@ -24,6 +24,7 @@ export class ProductComponent implements OnInit{
   public url: string = 'https://api-sales-app.josetovar.dev/products';
   public products$!: Observable<any>;
 
+
   public updateProductForm: FormGroup = new FormGroup({});
   public checkboxes: { [key: number]: boolean } = {};
 public checkBool :boolean= false
@@ -178,5 +179,7 @@ onPagination(event: { currentPage: number, pageSize: number }) {
   this.currentPage = event.currentPage;
   this.pageSize = event.pageSize;
 }
+
+
 
 }

@@ -18,12 +18,13 @@ export class ClientComponent {
   ) {}
   public url: string = 'https://api-sales-app.josetovar.dev/clients';
   public clients$!: Observable<any>;
+  public upClient:any
 
   public updateClientForm: FormGroup = new FormGroup({});
 
   currentPage: number=1;
   pageSize: number=5;
-
+  public showmodel:boolean = false
   ngOnInit(): void {
     this.clients$ = this.http.get<{
       first_name: string,
@@ -36,20 +37,14 @@ export class ClientComponent {
       email: string
     }>(this.url);
 
-
-
-
-
     this.clients$.subscribe((res)=>{
-      // console.log(res)
     })
   }
 
 
 
   onPagination(event: { currentPage: number, pageSize: number }) {
-    // console.log("dash"+this.currentPage)
-    // console.log("dash2"+event.currentPage)
+
   
     this.currentPage = event.currentPage;
     this.pageSize = event.pageSize;
@@ -65,5 +60,27 @@ export class ClientComponent {
         });
     }); 
 }
+
+
+
+public modelShow(client:any){
+  this.upClient=client
+  this.showmodel=true
+  
+  }
+
+  public modelUnShow(value:boolean){
+  this.showmodel=value
+
+  }
+  
+  public updateClient(value:boolean){
+    if(value){
+      this.serviceApi.getClients().subscribe((repo:any)=>{
+        this.clients$=of(repo)
+      })
+    }
+  }
+
 
 }

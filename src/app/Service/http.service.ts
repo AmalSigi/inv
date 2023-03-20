@@ -34,4 +34,8 @@ public delectClient(client:number):any{
   return this.http.delete<any>(`${this.url}/clients/${client}`)
 }
 
+public getClients():any{
+  return this.http.get(`${this.url}/clients`)
+}
+
 }
