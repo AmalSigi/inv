@@ -1,8 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { HttpService } from 'src/app/Service/http.service';
+import { LocalStoService } from 'src/app/Service/local-sto.service';
 import { Toastr } from 'src/app/Service/toastr.service';
 
 @Component({
@@ -12,7 +14,7 @@ import { Toastr } from 'src/app/Service/toastr.service';
 })
 export class ClientComponent {
   constructor(
-    private readonly http: HttpClient, private serviceApi : HttpService,private toastr: Toastr
+    private readonly http: HttpClient, private serviceApi : HttpService,private toastr: Toastr,private router:Router, private local:LocalStoService
   ) {}
   public url: string = 'https://api-sales-app.josetovar.dev/clients';
   public clients$!: Observable<any>;
@@ -83,7 +85,7 @@ public modelShow(client:any){
     }
   }
 public view(client:any){
-  this.clientView=client
+  this.local.store(client)
 }
 
 }
