@@ -19,6 +19,8 @@ public getData():any{
 }
 
 
+
+
 public putData(product:any):any{
   return this.http.put<any>(`${this.url}/products`,product)
 }
@@ -37,5 +39,7 @@ public delectClient(client:number):any{
 public getClients():any{
   return this.http.get(`${this.url}/clients`)
 }
+
+
 
 }
