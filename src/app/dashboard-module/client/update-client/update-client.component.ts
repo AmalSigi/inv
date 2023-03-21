@@ -5,6 +5,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { HttpService } from 'src/app/Service/http.service';
 import { ClientComponent } from '../client.component';
 import { ToastrService } from 'ngx-toastr';
+import { Toastr } from 'src/app/Service/toastr.service';
 
 @Component({
   selector: 'app-update-client',
@@ -18,7 +19,7 @@ export class UpdateClientComponent  implements  OnChanges {
   @Output() clientEvent = new EventEmitter<any>();
   public  updateClientForm! :FormGroup 
 
-constructor(private readonly http: HttpClient,private apiService:HttpService , private recall:ClientComponent,private toastr: ToastrService){}
+constructor(private readonly http: HttpClient,private apiService:HttpService , private recall:ClientComponent,private toastr: Toastr){}
 
   ngOnChanges(changes: SimpleChanges): void {
     if(changes['data']){
@@ -48,22 +49,13 @@ public modelUnShow(){
         this.http.put(url,this.updateClientForm.value).subscribe(((response:any)=>{
           if(response){
             this.clientEvent.emit( response);
-            this.success()
             const value:boolean = false;
             this.childEvent.emit(value)
+
           } 
         })) 
   }
  
-  success(){
-    this.toastr.success('Client updated successfully!', 'Success',{ timeOut:3000,
-      progressBar:true,
-      progressAnimation:'decreasing',
-      positionClass:'toast-top-right', 
-      closeButton:true});
-  }
-
-
 }
 
 

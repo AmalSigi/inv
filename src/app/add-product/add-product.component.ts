@@ -1,9 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { of } from 'rxjs';
 import { HttpService } from '../Service/http.service';
-import { ToastrService } from 'ngx-toastr';
+import { Toastr } from '../Service/toastr.service';
 import { DashboardModuleComponent } from '../dashboard-module/dashboard-module.component';
 
 @Component({
@@ -12,7 +11,7 @@ import { DashboardModuleComponent } from '../dashboard-module/dashboard-module.c
   styleUrls: ['./add-product.component.scss']
 })
 export class AddProductComponent {
-constructor(private readonly http: HttpClient, private dashAcess : DashboardModuleComponent , private apiService:HttpService , private toastr:ToastrService){
+constructor(private readonly http: HttpClient, private dashAcess : DashboardModuleComponent , private apiService:HttpService , private toastr:Toastr){
 
 }
 
@@ -31,7 +30,7 @@ public addProduct(){
     this.http.post(url,this.addProductForm.value).subscribe(((response:any)=>{
       if(response){
 
-        this.success()
+        this.toastr.add()
         this.apiService.getData().subscribe(((response:any)=>{
         this.dashAcess.ngOnInit()
         this.addProductForm.reset()
@@ -41,15 +40,6 @@ public addProduct(){
       } 
     }))
 
-  }
-
-  success(){
-    this.toastr.success('Product updated successfully!', 'Success',{ timeOut:3000,
-      progressBar:true,
-      progressAnimation:'decreasing',
-      positionClass:'toast-top-right', 
-      closeButton:true});
-  
   }
 
 }

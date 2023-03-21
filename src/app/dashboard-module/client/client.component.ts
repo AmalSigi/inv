@@ -1,11 +1,9 @@
-import { formatCurrency } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ToastrService } from 'ngx-toastr';
+import { FormGroup } from '@angular/forms';
 import { Observable, of } from 'rxjs';
 import { HttpService } from 'src/app/Service/http.service';
-import { PaginationComponent } from 'src/app/pagination/pagination.component';
+import { Toastr } from 'src/app/Service/toastr.service';
 
 @Component({
   selector: 'app-client',
@@ -14,7 +12,7 @@ import { PaginationComponent } from 'src/app/pagination/pagination.component';
 })
 export class ClientComponent {
   constructor(
-    private readonly http: HttpClient,private toastr: ToastrService, private serviceApi : HttpService
+    private readonly http: HttpClient, private serviceApi : HttpService,private toastr: Toastr
   ) {}
   public url: string = 'https://api-sales-app.josetovar.dev/clients';
   public clients$!: Observable<any>;
@@ -52,12 +50,14 @@ public clientView:any
 
 
   delete(client: number ) {
-    this.serviceApi.delectData(client).subscribe((responses: any) => {
+    this.serviceApi.delectClient(client).subscribe((responses: any) => {
        this.http
         .get<any>(`${this.url}`)
         .subscribe((responses) => {
           this.clients$=of(responses);
         });
+
+        this.toastr.delete()
     }); 
 }
 
@@ -78,6 +78,7 @@ public modelShow(client:any){
     if(value){
       this.serviceApi.getClients().subscribe((repo:any)=>{
         this.clients$=of(repo)
+        this.toastr.update()
       })
     }
   }

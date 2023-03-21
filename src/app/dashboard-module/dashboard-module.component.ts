@@ -6,6 +6,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { Observable, map, of } from 'rxjs';
 import { HttpService } from '../Service/http.service';
+import { Toastr } from '../Service/toastr.service';
 
 @Component({
   selector: 'app-dashboard-module',
@@ -17,7 +18,7 @@ export class DashboardModuleComponent implements OnInit{
   pageSize: number=5;
   pageLength!:number
  constructor(
-    private readonly http: HttpClient,private toastr: ToastrService, private serviceApi : HttpService
+    private readonly http: HttpClient,private toastr: Toastr, private serviceApi : HttpService
   ) {}
 
   public url: string = 'https://api-sales-app.josetovar.dev/products';
@@ -81,14 +82,6 @@ public checkBool :boolean= false
     return price;
   }
 
-  success(){
-    this.toastr.success('Product updated successfully!', 'Success',{ timeOut:3000,
-      progressBar:true,
-      progressAnimation:'decreasing',
-      positionClass:'toast-top-right', 
-      closeButton:true});
-  }
-
   public setUpdatedValues(product: any): void {
     const price=+(this.updateProductForm.controls[product.id].value.price.replaceAll("$",'').replaceAll(",",''))
     const stock=this.updateProductForm.controls[product.id].value.stock
@@ -99,7 +92,7 @@ public checkBool :boolean= false
           };
 
       this.serviceApi.putData(updatedValues).subscribe((response: any) => {
-        this.success()
+        this.toastr.update()
           this.http.get<any>(`${this.url}`).subscribe((response) => {
                 this.products$=of(response)
                 });
@@ -136,6 +129,7 @@ public checkBool :boolean= false
           .subscribe((responses) => {
             this.products$=of(responses);
           });
+          this.toastr.delete()
       }); 
   }
 

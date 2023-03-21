@@ -7,6 +7,7 @@ import { ToastrService } from 'ngx-toastr';
 import { formatCurrency, getCurrencySymbol } from '@angular/common';
 import { HttpService } from 'src/app/Service/http.service';
 import { PaginationComponent } from 'src/app/pagination/pagination.component';
+import { Toastr } from 'src/app/Service/toastr.service';
 
 @Component({
   selector: 'app-product',
@@ -18,7 +19,7 @@ export class ProductComponent implements OnInit{
   pageSize: number=5;
   pageLength!:number
  constructor(
-    private readonly http: HttpClient,private toastr: ToastrService, private serviceApi : HttpService
+    private readonly http: HttpClient,private toastr: Toastr, private serviceApi : HttpService
   ) {}
 
   public url: string = 'https://api-sales-app.josetovar.dev/products';
@@ -83,13 +84,7 @@ public checkBool :boolean= false
     return price;
   }
 
-  success(){
-    this.toastr.success('Product updated successfully!', 'Success',{ timeOut:3000,
-      progressBar:true,
-      progressAnimation:'decreasing',
-      positionClass:'toast-top-right', 
-      closeButton:true});
-  }
+
 
   public setUpdatedValues(product: any): void {
     const price=+(this.updateProductForm.controls[product.id].value.price.replaceAll("$",'').replaceAll(",",''))
@@ -101,7 +96,7 @@ public checkBool :boolean= false
           };
 
       this.serviceApi.putData(updatedValues).subscribe((response: any) => {
-        this.success()
+        this.toastr.update()
           this.http.get<any>(`${this.url}`).subscribe((response) => {
                 this.products$=of(response)
                 });
@@ -138,6 +133,8 @@ public checkBool :boolean= false
           .subscribe((responses) => {
             this.products$=of(responses);
           });
+          this.toastr.delete()
+          
       }); 
   }
 
