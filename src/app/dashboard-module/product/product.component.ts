@@ -1,11 +1,10 @@
+import { formatCurrency } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Observable, map, of } from 'rxjs';
-import { ToastrService } from 'ngx-toastr';
-import { formatCurrency, getCurrencySymbol } from '@angular/common';
+import { Observable, Subscription, map, of } from 'rxjs';
 import { HttpService } from 'src/app/Service/http.service';
-import { PaginationComponent } from 'src/app/pagination/pagination.component';
+import { MainServiceService } from 'src/app/Service/main-service.service';
 import { Toastr } from 'src/app/Service/toastr.service';
 
 @Component({
@@ -19,17 +18,26 @@ export class ProductComponent implements OnInit {
   pageLength!: number;
   constructor(
     private readonly http: HttpClient,
-    private toastr: Toastr,
-    private serviceApi: HttpService
+    private readonly toastr: Toastr,
+    private readonly serviceApi: HttpService,
+    private readonly main:MainServiceService
   ) {}
 
   public url: string = 'https://api-sales-app.josetovar.dev/products';
   public products$!: Observable<any>;
 
   public updateProductForm: FormGroup = new FormGroup({});
-  public checkboxes: { [key: number]: boolean } = {};
   public checkBool: boolean = false;
+
+  public mainServiceSubscription: Subscription=this.main.getClickEvent().subscribe(()=>{
+    this.getProduct()
+  })
+  
   ngOnInit(): void {
+    this.getProduct();
+  }
+
+  private getProduct() {
     this.products$ = this.http.get<{
       id: number;
       name: string;
@@ -46,14 +54,10 @@ export class ProductComponent implements OnInit {
           new FormGroup({
             price: new FormControl(formatCurrency(product.price, 'en-US', '$')),
             editbool: new FormControl(product.active),
-            // price: new FormControl(product.price, Validators.min(0)),
             stock: new FormControl(product.stock, Validators.min(0)),
           })
         );
       });
-      // products.forEach((product: any) => {
-      //   this.checkboxes[product.id] = false;
-      // });
     });
   }
 
@@ -169,9 +173,6 @@ export class ProductComponent implements OnInit {
   }
 
   onPagination(event: { currentPage: number; pageSize: number }) {
-    // console.log("dash"+this.currentPage)
-    // console.log("dash2"+event.currentPage)
-
     this.currentPage = event.currentPage;
     this.pageSize = event.pageSize;
   }

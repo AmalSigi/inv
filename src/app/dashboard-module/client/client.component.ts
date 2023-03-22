@@ -2,9 +2,10 @@ import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Observable, of } from 'rxjs';
+import { Observable, Subscription, of } from 'rxjs';
 import { HttpService } from 'src/app/Service/http.service';
 import { LocalStoService } from 'src/app/Service/local-sto.service';
+import { MainServiceService } from 'src/app/Service/main-service.service';
 import { Toastr } from 'src/app/Service/toastr.service';
 
 @Component({
@@ -15,10 +16,12 @@ import { Toastr } from 'src/app/Service/toastr.service';
 export class ClientComponent {
   constructor(
     private readonly http: HttpClient,
-    private serviceApi: HttpService,
-    private toastr: Toastr,
-    private router: Router,
-    private local: LocalStoService
+    private readonly serviceApi: HttpService,
+    private readonly toastr: Toastr,
+    private readonly router: Router,
+    private readonly local: LocalStoService,
+    private readonly main:MainServiceService
+
   ) {}
   public url: string = 'https://api-sales-app.josetovar.dev/clients';
   public clients$!: Observable<any>;
@@ -29,7 +32,16 @@ export class ClientComponent {
   currentPage: number = 1;
   pageSize: number = 5;
   public showmodel: boolean = false;
+
+public mainServiceSubscription: Subscription=this.main.getClickEvent().subscribe(()=>{
+  this.getClient()
+})
+
   ngOnInit(): void {
+    this.getClient();
+  }
+
+  private getClient() {
     this.clients$ = this.http.get<{
       first_name: string;
       last_name: string;
@@ -41,7 +53,7 @@ export class ClientComponent {
       email: string;
     }>(this.url);
 
-    this.clients$.subscribe((res) => {});
+    this.clients$.subscribe((res) => { });
   }
 
   onPagination(event: { currentPage: number; pageSize: number }) {

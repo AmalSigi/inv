@@ -3,7 +3,8 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpService } from 'src/app/Service/http.service';
 import { Toastr } from 'src/app/Service/toastr.service';
-import { DashboardModuleComponent } from '../../dashboard-module.component';
+import { ClientComponent } from '../client.component';
+import { MainServiceService } from 'src/app/Service/main-service.service';
 
 @Component({
   selector: 'app-add-client',
@@ -13,7 +14,8 @@ import { DashboardModuleComponent } from '../../dashboard-module.component';
 export class AddClientComponent {
   constructor(
     private readonly http: HttpClient,
-    private dashAcess: DashboardModuleComponent,
+    // private clientAcess: ClientComponent,
+    private readonly clientAcess:MainServiceService,
     private apiService: HttpService,
     private toastr: Toastr
   ) {}
@@ -39,7 +41,7 @@ export class AddClientComponent {
         if (response) {
           this.toastr.add();
           this.apiService.getData().subscribe((response: any) => {
-            this.dashAcess.ngOnInit();
+            this.clientAcess.clickEventActivated();
             this.addProductForm.reset();
           });
         }

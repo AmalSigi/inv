@@ -3,7 +3,8 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpService } from '../Service/http.service';
 import { Toastr } from '../Service/toastr.service';
-import { DashboardModuleComponent } from '../dashboard-module/dashboard-module.component';
+import { ProductComponent } from '../dashboard-module/product/product.component';
+import { MainServiceService } from '../Service/main-service.service';
 
 @Component({
   selector: 'app-add-product',
@@ -13,7 +14,7 @@ import { DashboardModuleComponent } from '../dashboard-module/dashboard-module.c
 export class AddProductComponent {
   constructor(
     private readonly http: HttpClient,
-    private dashAcess: DashboardModuleComponent,
+    private productAcess: MainServiceService,
     private apiService: HttpService,
     private toastr: Toastr
   ) {}
@@ -36,7 +37,7 @@ export class AddProductComponent {
         if (response) {
           this.toastr.add();
           this.apiService.getData().subscribe((response: any) => {
-            this.dashAcess.ngOnInit();
+            this.productAcess.clickEventActivated();
             this.addProductForm.reset();
             this.addProductForm.patchValue({ active: true });
           });
