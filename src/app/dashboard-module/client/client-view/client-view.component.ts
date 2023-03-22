@@ -24,7 +24,6 @@ export class ClientViewComponent {
       for (let client of respo) {
         if (this.clientid == client.id) {
           this.client = client;
-        
         }
       }
     });

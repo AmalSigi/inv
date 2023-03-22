@@ -4,14 +4,8 @@ import { CommonModule } from '@angular/common';
 import { ClientViewRoutingModule } from './client-view-routing.module';
 import { ClientViewComponent } from './client-view.component';
 
-
 @NgModule({
-  declarations: [
-    ClientViewComponent
-  ],
-  imports: [
-    CommonModule,
-    ClientViewRoutingModule
-  ]
+  declarations: [ClientViewComponent],
+  imports: [CommonModule, ClientViewRoutingModule],
 })
-export class ClientViewModule { }
+export class ClientViewModule {}

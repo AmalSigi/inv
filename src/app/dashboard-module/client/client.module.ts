@@ -8,21 +8,14 @@ import { ClientComponent } from './client.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { UpdateClientComponent } from './update-client/update-client.component';
 
-
-
-
 @NgModule({
-  declarations: [
-    ClientComponent,
-    AddClientComponent,
-    UpdateClientComponent,
-  ],
+  declarations: [ClientComponent, AddClientComponent, UpdateClientComponent],
   imports: [
     CommonModule,
     ClientRoutingModule,
-    ReactiveFormsModule ,
+    ReactiveFormsModule,
     FormsModule,
-    SharedModule
-  ]
+    SharedModule,
+  ],
 })
-export class ClientModule { }
+export class ClientModule {}

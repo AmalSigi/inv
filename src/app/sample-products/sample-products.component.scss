@@ -1,47 +1,39 @@
+.price {
+  color: grey;
+  font-size: 22px;
+}
 
-  
-  .price {
-    color: grey;
-    font-size: 22px;
+h1 {
+  font-size: 43px;
+}
+
+.viewCard {
+  max-width: 25%;
+  height: auto;
+  background-color: #ffffff3b;
+  margin-left: 35%;
+  border-radius: 5px;
+  box-shadow: rgba(24, 92, 148, 0.25) 0px 54px 55px,
+    rgba(46, 23, 224, 0.12) 0px -12px 30px, rgba(17, 150, 239, 0.12) 0px 4px 6px,
+    rgba(57, 19, 163, 0.425) 0px 12px 13px,
+    rgba(40, 164, 164, 0.09) 0px -3px 5px;
+  text-align: center;
+  .imgCard {
+    width: 100%;
   }
-  
+  button {
+    border: none;
 
-
-
-  h1{
-    font-size: 43px;
-  }
-
-  // .indpro{
-  //   background-color: #fff;
-  //   box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
-  // }
-
-
-  .viewCard{
-    max-width: 25%;
-    height: auto;
-    background-color: #ffffff3b;
-    margin-left: 35%;
-    border-radius: 5px;
-    box-shadow: rgba(24, 92, 148, 0.25) 0px 54px 55px, rgba(46, 23, 224, 0.12) 0px -12px 30px, rgba(17, 150, 239, 0.12) 0px 4px 6px, rgba(57, 19, 163, 0.425) 0px 12px 13px, rgba(40, 164, 164, 0.09) 0px -3px 5px;
+    outline: 0;
+    padding: 12px;
+    color: white;
+    background-color: #000;
     text-align: center;
-    .imgCard{
-      width: 100%;
-    }
-    button {
-      border: none;
-      
-      outline: 0;
-      padding: 12px;
-      color: white;
-      background-color: #000;
-      text-align: center;
-      cursor: pointer;
-      width: 100%;
-      font-size: 18px;
-    }
-    button:hover {
-      opacity: 0.7;
-    }
+    cursor: pointer;
+    width: 100%;
+    font-size: 18px;
   }
+  button:hover {
+    opacity: 0.7;
+  }
+}

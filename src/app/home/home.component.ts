@@ -6,12 +6,13 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent {
-
-  constructor(private readonly router :Router , private readonly http: HttpClient){}
-
+  constructor(
+    private readonly router: Router,
+    private readonly http: HttpClient
+  ) {}
 
   public registerForm = new FormGroup({
     firstName: new FormControl('', Validators.required),
@@ -24,16 +25,13 @@ export class HomeComponent {
     return this.registerForm.controls;
   }
 
+  public signUp() {
+    const url: string = 'https://63bfcce3e262345656f0627b.mockapi.io/actors';
 
-  public signUp(){
-  const url:string='https://63bfcce3e262345656f0627b.mockapi.io/actors'
-
-this.http.post(url,this.registerForm.value).subscribe((response=>{
-  if(response){
-    this.router.navigate(['login'])
+    this.http.post(url, this.registerForm.value).subscribe((response) => {
+      if (response) {
+        this.router.navigate(['login']);
+      }
+    });
   }
-}))
-   }
-
-
 }

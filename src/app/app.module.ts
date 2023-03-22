@@ -15,9 +15,6 @@ import { TokenInterceptor } from './Active/token.interceptor';
 import { SampleProductsComponent } from './sample-products/sample-products.component';
 // import { ProductsComponent } from './products/products.component';
 
-
-
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,9 +23,6 @@ import { SampleProductsComponent } from './sample-products/sample-products.compo
     // RegisterComponent,
     SampleProductsComponent,
     // ProductsComponent,
-    
-
-
   ],
   imports: [
     BrowserModule,
@@ -37,14 +31,12 @@ import { SampleProductsComponent } from './sample-products/sample-products.compo
     HttpClientModule,
     CommonModule,
     FormsModule,
-    ToastrModule.forRoot(), 
-    BrowserAnimationsModule
-
+    ToastrModule.forRoot(),
+    BrowserAnimationsModule,
   ],
   providers: [
-
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

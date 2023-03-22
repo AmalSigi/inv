@@ -7,24 +7,35 @@ import { ActiveGuard } from './Active/active.guard';
 import { DashboardGuard } from './Active/dashboard.guard';
 import { SampleProductsComponent } from './sample-products/sample-products.component';
 
-
 const routes: Routes = [
-  {path:'',component:HomeComponent },
-  {path:'home',component:HomeComponent },
-  //  { path:'login', component:LoginComponent, 
-  //  canActivate:[ActiveGuard] 
-  // },  
+  { path: '', component: HomeComponent },
+  { path: 'home', component: HomeComponent },
+  //  { path:'login', component:LoginComponent,
+  //  canActivate:[ActiveGuard]
+  // },
   //  { path:'dashboard', component:DashboardComponent,
-    // canActivate:[DashboardGuard] 
+  // canActivate:[DashboardGuard]
   //  },
   //  { path:'register', component:RegisterComponent },
-   { path:'product/:productId', component:SampleProductsComponent },
-  { path: 'login', loadChildren: () => import('./login-module/login-module.module').then(m => m.LoginModuleModule) },
-  { path: 'dashboard', loadChildren: () => import('./dashboard-module/dashboard-module.module').then(m => m.DashboardModuleModule),canActivate:[DashboardGuard] },
-
-]
+  { path: 'product/:productId', component: SampleProductsComponent },
+  {
+    path: 'login',
+    loadChildren: () =>
+      import('./login-module/login-module.module').then(
+        (m) => m.LoginModuleModule
+      ),
+  },
+  {
+    path: 'dashboard',
+    loadChildren: () =>
+      import('./dashboard-module/dashboard-module.module').then(
+        (m) => m.DashboardModuleModule
+      ),
+    canActivate: [DashboardGuard],
+  },
+];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

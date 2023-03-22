@@ -6,10 +6,13 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss']
+  styleUrls: ['./register.component.scss'],
 })
 export class RegisterComponent {
-  constructor(private readonly router :Router , private readonly http: HttpClient){}
+  constructor(
+    private readonly router: Router,
+    private readonly http: HttpClient
+  ) {}
   public registerForm = new FormGroup({
     first_name: new FormControl('', Validators.required),
     last_name: new FormControl('', Validators.required),
@@ -17,20 +20,18 @@ export class RegisterComponent {
     password: new FormControl('', Validators.required),
   });
 
-
   public get controls() {
     return this.registerForm.controls;
   }
 
+  public signUp() {
+    // const url:string='https://63bfcce3e262345656f0627b.mockapi.io/actors'
+    const url: string = 'https://api-sales-app.josetovar.dev/users';
 
-  public signUp(){
-  // const url:string='https://63bfcce3e262345656f0627b.mockapi.io/actors'
-  const url:string='https://api-sales-app.josetovar.dev/users'
-
-this.http.post(url,this.registerForm.value).subscribe((response=>{
-  if(response){
-    this.router.navigate(['login'])
+    this.http.post(url, this.registerForm.value).subscribe((response) => {
+      if (response) {
+        this.router.navigate(['login']);
+      }
+    });
   }
-}))
-   }
 }

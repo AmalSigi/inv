@@ -4,17 +4,18 @@ import {
   HttpHandler,
   HttpEvent,
   HttpInterceptor,
-  HttpErrorResponse
+  HttpErrorResponse,
 } from '@angular/common/http';
 import { Observable, catchError, throwError } from 'rxjs';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
-
   constructor() {}
 
-  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-
+  intercept(
+    request: HttpRequest<any>,
+    next: HttpHandler
+  ): Observable<HttpEvent<any>> {
     const access_token = JSON.parse(
       localStorage.getItem('access_token') || '{}'
     );
@@ -30,9 +31,7 @@ export class TokenInterceptor implements HttpInterceptor {
     } else {
       return next.handle(request);
     }
-   
   }
-
 
   handleErrors(error: HttpErrorResponse) {
     switch (error.status) {
@@ -42,6 +41,4 @@ export class TokenInterceptor implements HttpInterceptor {
         return throwError(() => new Error('Error!'));
     }
   }
-
-
 }

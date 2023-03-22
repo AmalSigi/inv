@@ -1,21 +1,18 @@
 import { Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class LocalStoService {
+  constructor() {}
 
-  constructor() { }
+  LocalStoring!: any;
 
-LocalStoring!:any
+  public store(value: any) {
+    this.LocalStoring = value;
+  }
 
-public store(value:any){
-  this.LocalStoring=value
-
-}
-
-public getvalue(){
-  return this.LocalStoring
-}
-
+  public getvalue() {
+    return this.LocalStoring;
+  }
 }

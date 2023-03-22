@@ -11,19 +11,13 @@ import { ProductComponent } from './product.component';
 // import { NavigationComponent } from '../navigation/na
 
 @NgModule({
-  declarations: [
-    ProductComponent,
-    AddProductComponent,
-
-
-  ],
+  declarations: [ProductComponent, AddProductComponent],
   imports: [
     CommonModule,
     ProductRoutingModule,
-    ReactiveFormsModule ,
+    ReactiveFormsModule,
     FormsModule,
-    SharedModule
-
-  ]
+    SharedModule,
+  ],
 })
-export class ProductModule { }
+export class ProductModule {}
