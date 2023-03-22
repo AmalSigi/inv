@@ -15,10 +15,15 @@
           alt=""
         />
         <div>
-          <p class="ml-14" style="font-size: 50px">
+          <p
+            class="ml-14 text-decoration-color-zinc-800 uppercase"
+            style="font-size: 50px"
+          >
             {{ client?.first_name }} {{ client?.last_name }}
           </p>
-          <h1 class="ml-14">{{ client?.email }}</h1>
+          <h1 class="ml-14 text-black">
+            {{ client?.email }}
+          </h1>
           <h1 class="ml-14">Phone : {{ client?.phone }}</h1>
         </div>
       </div>

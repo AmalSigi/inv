@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ClientViewComponent } from './client-view.component';
-import { ClientComponent } from '../client.component';
 
 const routes: Routes = [{ path: '', component: ClientViewComponent },];
 

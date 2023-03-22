@@ -29,7 +29,7 @@ export class LoginModuleComponent {
    
      if(response){
    localStorage.setItem('access_token',JSON.stringify(response.access_token));
-
+   localStorage.setItem('logged','true');
    this.router.navigate(['./dashboard/product'])
    
       

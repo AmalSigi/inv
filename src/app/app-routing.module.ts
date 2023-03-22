@@ -20,7 +20,7 @@ const routes: Routes = [
   //  { path:'register', component:RegisterComponent },
    { path:'product/:productId', component:SampleProductsComponent },
   { path: 'login', loadChildren: () => import('./login-module/login-module.module').then(m => m.LoginModuleModule) },
-  { path: 'dashboard', loadChildren: () => import('./dashboard-module/dashboard-module.module').then(m => m.DashboardModuleModule) },
+  { path: 'dashboard', loadChildren: () => import('./dashboard-module/dashboard-module.module').then(m => m.DashboardModuleModule),canActivate:[DashboardGuard] },
 
 ]
 @NgModule({
