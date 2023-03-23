@@ -34,7 +34,7 @@
   </div>
 
   <div class="formboxMain">
-    <h2>If You Are New Here Register To Sign In</h2>
+    <h2 class="text-emerald-400">If You Are New Here Register To Sign In</h2>
     <form [formGroup]="registerForm" (ngSubmit)="signUp()">
       <div class="formbox max-w-[400px] mx-auto mt-14 p-8">
         <div class="my-6">
@@ -134,13 +134,98 @@
       </div>
     </form>
   </div>
+
+  <div></div>
 </div>
 
 <footer>
-  <div class="mt-5">
-    <div class="row">
-      <div class="text-slate-400">
-        <p>&copy; 2023 MyWebsite. All rights reserved.</p>
+  <div class="flex">
+    <div class="justify-between">
+      <h1
+        class="mainTitle flex-non font-semibold dark:text-white text-white ml-10"
+      >
+        INVENTORY
+      </h1>
+      <p class="flex-non dark:text-white text-white ml-10">lets be organized</p>
+      <div class="flex">
+        <div class="ml-28 flex flex-col">
+          <a
+            href=""
+            class="text-3xs dark:text-slate-400 text-slate-400 ml-28 mt-6"
+            >Contact
+          </a>
+          <a href="" class="text-3xs dark:text-slate-400 text-slate-400 ml-28"
+            >About</a
+          >
+          <a href="" class="text-3xs dark:text-slate-400 text-slate-400 ml-28"
+            >Direction</a
+          >
+          <a href="" class="text-3xs dark:text-slate-400 text-slate-400 ml-28"
+            >Blog</a
+          >
+        </div>
+
+        <div class="ml-28 flex flex-col">
+          <a
+            href=""
+            class="text-3xs dark:text-slate-400 text-slate-400 ml-8 mt-6"
+            >Promotion</a
+          >
+          <a href="" class="text-3xs dark:text-slate-400 text-slate-400 ml-8"
+            >Partners</a
+          >
+          <a href="" class="text-3xs dark:text-slate-400 text-slate-400 ml-8"
+            >Careers</a
+          >
+          <a href="" class="text-3xs dark:text-slate-400 text-slate-400 ml-8"
+            >FAQs</a
+          >
+        </div>
+        <div class="ml-28 flex flex-col">
+          <a
+            href=""
+            class="text-3xs dark:text-slate-400 text-slate-400 ml-8 mt-6"
+            >Privacy</a
+          >
+          <a href="" class="text-3xs dark:text-slate-400 text-slate-400 ml-8"
+            >Policies</a
+          >
+          <a href="" class="text-3xs dark:text-slate-400 text-slate-400 ml-8"
+            >Library</a
+          >
+        </div>
+        <div class="ml-28 flex mt-8">
+          <a href="https://www.instagram.com/accounts/login/">
+            <img
+              src="https://cdn-icons-png.flaticon.com/512/174/174855.png"
+              alt="instagram icon"
+              class="mr-5"
+            />
+          </a>
+          <a href="https://www.facebook.com/login/">
+            <img
+              src="https://cdn-icons-png.flaticon.com/512/4494/4494475.png"
+              alt="Facebook icon"
+              class="mr-5"
+            />
+          </a>
+          <a
+            href="https://twitter.com/i/flow/login?input_flow_data=%7B%22requested_variant%22%3A%22eyJsYW5nIjoiZW4ifQ%3D%3D%22%7D"
+          >
+            <img
+              src="https://cdn-icons-png.flaticon.com/512/4494/4494477.png"
+              alt="twitter icon"
+              class="mr-5"
+            />
+          </a>
+          <a
+            href="https://accounts.google.com/v3/signin/identifier?dsh=S637735976%3A1679549081785580&continue=https%3A%2F%2Fmail.google.com%2Fmail%2Fu%2F0%2F&emr=1&followup=https%3A%2F%2Fmail.google.com%2Fmail%2Fu%2F0%2F&ifkv=AWnogHeesF-iM8Gnh5-Syvjo6NIJqXHxCSrK-nV7sXBpPnKcO3pODLY_aI8P-kfkrXwJkDlYQCBUag&osid=1&passive=1209600&service=mail&flowName=GlifWebSignIn&flowEntry=ServiceLogin"
+            ><img
+              src="https://cdn-icons-png.flaticon.com/512/732/732200.png"
+              alt="mail icon"
+              class="mr-5"
+          /></a>
+        </div>
       </div>
     </div>
   </div>

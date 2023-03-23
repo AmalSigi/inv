@@ -1,8 +1,6 @@
 .main-container {
-  height: 100%
+  height: 100%;
 }
-
-
 
 .firstInner {
   background: url("https://images.pexels.com/photos/1797428/pexels-photo-1797428.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1");
@@ -11,12 +9,13 @@
   clip-path: polygon(0 0, 100% 0, 100% 82%, 59% 74%, 16% 100%, 0 60%);
   height: 50em;
   border-radius: 50px;
+  h1 {
+    font-size: 277px;
+    padding-left: 80px;
+    color: khaki;
+  }
 }
-h1 {
-  font-size: 277px;
-  padding-left: 80px;
-  color: khaki;
-}
+
 .login {
   margin-left: 50em;
 }
@@ -57,7 +56,7 @@ h1 {
     }
   }
   .third2 {
-    margin:16px 5% auto;
+    margin: 16px 5% auto;
     width: auto;
     height: 100%;
     background-repeat: no-repeat;
@@ -81,14 +80,7 @@ h1 {
   background-color: #8660e077;
 }
 
-footer {
-  width: 100%;
-  height: 5em;
-  background-color: rgba(0, 0, 0, 0.591);
-  bottom: 0;
-  z-index: 0;
-  text-align: center;
-}
+
 
 .formboxMain {
   border-radius: 5px;
@@ -96,8 +88,8 @@ footer {
 
   h2 {
     font-size: 64px;
-
-    color: rgba(96, 225, 169, 0.653);
+    text-align: center;
+    
     font-weight: bolder;
     font-weight: bold;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
@@ -108,5 +100,21 @@ footer {
   .formbox {
     max-width: 35%;
   }
+}
+
+footer {
+  width: 100%;
+  height: auto;
+  background-color: rgba(0, 0, 0, 0.591);
+  bottom: 0;
+  margin-top: 150px;
+
+  img {
+   max-width:  100%;
+    height: 20%;
+
+
+}
+
 
 }
