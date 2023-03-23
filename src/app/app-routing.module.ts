@@ -24,6 +24,7 @@ const routes: Routes = [
       import('./login-module/login-module.module').then(
         (m) => m.LoginModuleModule
       ),
+      canActivate: [ActiveGuard],
   },
   {
     path: 'dashboard',
