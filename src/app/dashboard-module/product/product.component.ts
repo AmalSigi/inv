@@ -38,15 +38,7 @@ export class ProductComponent implements OnInit {
   }
 
   private getProduct() {
-    this.products$ = this.http.get<{
-      id: number;
-      name: string;
-      price: number;
-      sku: string;
-      stock: number;
-      active: boolean;
-    }>(this.url);
-
+    this.products$= this.serviceApi.getData()
     this.products$.subscribe((products) => {
       products.map((product: any) => {
         this.updateProductForm.addControl(

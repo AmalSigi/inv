@@ -42,18 +42,10 @@ public mainServiceSubscription: Subscription=this.main.getClickEvent().subscribe
   }
 
   private getClient() {
-    this.clients$ = this.http.get<{
-      first_name: string;
-      last_name: string;
-      address: string;
-      city: string;
-      state: string;
-      country: string;
-      phone: string;
-      email: string;
-    }>(this.url);
+  
+    this.clients$ =  this.serviceApi.getClients()
 
-    this.clients$.subscribe((res) => { });
+    // this.clients$.subscribe((res) => { });
   }
 
   onPagination(event: { currentPage: number; pageSize: number }) {
@@ -63,10 +55,10 @@ public mainServiceSubscription: Subscription=this.main.getClickEvent().subscribe
 
   delete(client: number) {
     this.serviceApi.delectClient(client).subscribe((responses: any) => {
-      this.http.get<any>(`${this.url}`).subscribe((responses) => {
-        this.clients$ = of(responses);
-      });
-
+      // this.http.get<any>(`${this.url}`).subscribe((responses) => {
+      //   this.clients$ = of(responses);
+      // });
+      this.getClient()
       this.toastr.delete();
     });
   }

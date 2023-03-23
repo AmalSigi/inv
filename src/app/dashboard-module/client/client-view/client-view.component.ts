@@ -12,15 +12,14 @@ export class ClientViewComponent {
   clientid: any;
   client!: any;
   constructor(
-    private local: LocalStoService,
     private activatedRoute: ActivatedRoute,
-    private http: HttpService
+    private apiService: HttpService
   ) {
     this.activatedRoute.params.subscribe((params) => {
       this.clientid = +params['id'];
     });
 
-    this.http.getClients().subscribe((respo: any[]) => {
+    this.apiService.getClients().subscribe((respo: any[]) => {
       for (let client of respo) {
         if (this.clientid == client.id) {
           this.client = client;

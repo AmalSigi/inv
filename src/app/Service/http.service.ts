@@ -30,7 +30,15 @@ export class HttpService {
   public getClients(): Observable<any> {
     return this.http.get(`${this.url}/clients`);
   }
+
+  public putClients(clients: any): Observable<any> {
+    return this.http.put<any>(`${this.url}/clients`, clients);
+  }
+
+  public postClients(client:any)  {}
+
   public delectClient(client: number): Observable<any> {
     return this.http.delete<any>(`${this.url}/clients/${client}`);
   }
+
 }

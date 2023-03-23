@@ -28,10 +28,7 @@ export class UpdateClientComponent implements OnChanges {
   public updateClientForm!: FormGroup;
 
   constructor(
-    private readonly http: HttpClient,
-    private apiService: HttpService,
-    private recall: ClientComponent,
-    private toastr: Toastr
+    private apiService: HttpService,  
   ) {}
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -56,10 +53,7 @@ export class UpdateClientComponent implements OnChanges {
   }
 
   public editClient() {
-    const url: string = 'https://api-sales-app.josetovar.dev/clients';
-    this.http
-      .put(url, this.updateClientForm.value)
-      .subscribe((response: any) => {
+      this.apiService.putClients(this.updateClientForm.value).subscribe((response: any) => {
         if (response) {
           this.clientEvent.emit(response);
           const value: boolean = false;
