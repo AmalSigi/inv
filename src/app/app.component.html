@@ -1,6 +1,27 @@
 <header
   class="flex flex-wrap sm:justify-start sm:flex-nowrap z-50 w-full text-sm py-4 dark:bg-teal-800 bg-teal-800"
 >
+  <button (click)="toggleMenu()">
+    <svg
+      class="w-5 h-5"
+      width="30"
+      height="30"
+      fill="currentColor"
+      viewBox="0 0 16 16"
+      class="ml-10"
+    >
+      <path
+        fill-rule="evenodd"
+        d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"
+      />
+    </svg>
+  </button>
+  <div class="off-canvas" [ngClass]="{ open: menuOpen }"></div>
+  <div class="overlay" *ngIf="menuOpen" (click)="toggleMenu()">
+    <div class="w-5">
+      <h1 class="text-7xl text-slate-50">Account</h1>
+    </div>
+  </div>
   <nav
     class="max-w-[85rem] w-full mx-auto px-4 sm:flex sm:items-center sm:justify-between"
     aria-label="Global"

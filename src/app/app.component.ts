@@ -7,16 +7,21 @@ import { Router } from '@angular/router';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
+  menuOpen = false;
+
   dashboardView: boolean = false;
   title = 'Inventory';
   constructor(private readonly route: Router) {
-  // localStorage.setItem('logged', 'false');
-
+    // localStorage.setItem('logged', 'false');
   }
   logout() {
     localStorage.setItem('logged', 'false');
     localStorage.setItem('access_token', '');
     this.dashboardView = true;
     this.route.navigate(['/home']);
+  }
+
+  toggleMenu() {
+    this.menuOpen = !this.menuOpen;
   }
 }

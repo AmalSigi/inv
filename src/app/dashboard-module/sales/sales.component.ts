@@ -8,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SalesComponent implements OnInit {
  sales: any[]=[]
+
  ngOnInit(){
 
   this.sales=[
