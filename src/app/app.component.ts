@@ -10,7 +10,7 @@ export class AppComponent {
   dashboardView: boolean = false;
   title = 'Inventory';
   constructor(private readonly route: Router) {
-  localStorage.setItem('logged', 'false');
+  // localStorage.setItem('logged', 'false');
 
   }
   logout() {
