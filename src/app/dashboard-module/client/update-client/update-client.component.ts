@@ -1,19 +1,13 @@
-import { formatCurrency } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
 import {
   Component,
   EventEmitter,
   Input,
   OnChanges,
-  OnInit,
   Output,
-  SimpleChanges,
+  SimpleChanges
 } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { HttpService } from 'src/app/Service/http.service';
-import { ClientComponent } from '../client.component';
-import { ToastrService } from 'ngx-toastr';
-import { Toastr } from 'src/app/Service/toastr.service';
 
 @Component({
   selector: 'app-update-client',

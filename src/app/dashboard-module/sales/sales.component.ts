@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { HttpService } from 'src/app/Service/http.service';
 
 
 @Component({
@@ -7,27 +9,28 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./sales.component.scss']
 })
 export class SalesComponent implements OnInit {
- sales: any[]=[]
+  public sales$!:Observable<any>
+  public showmodel: boolean = false;
+ constructor(private readonly apiService:HttpService){}
+ ngOnInit(): void {
+  this.mainCall()
+ }
 
- ngOnInit(){
+ public mainCall(){
+  this.sales$=this.apiService.getSale()
+  this.sales$.subscribe((respo)=>{
+    console.log(respo)
+  })
+ }
+public convDate(date:any){
+}
 
-  this.sales=[
-    {id:'1',name:"amal"},
-    {id:'2',name:"akshara"},
-    {id:'3',name:"agnes"},
-    {id:'4',name:"krish"},
-  ]
- }
- onRefresh(){
-  this.sales=[
-    {id:'1',name:"amal"},
-    {id:'2',name:"akshara"},
-    {id:'3',name:"agnes"},
-    {id:'4',name:"krish"},
-    {id:'5',name:"Vishnu"},
-  ]
- }
- onTrackBy(index:any,sales:any){
-  return sales.id;
- }
+public modelShow() {
+  // this.upClient = client;
+  this.showmodel = true;
+}
+
+public modelUnShow(value: boolean) {
+  this.showmodel = value;
+}
 }

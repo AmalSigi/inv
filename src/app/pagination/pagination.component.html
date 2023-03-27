@@ -1,6 +1,8 @@
-<nav class="flex items-center space-x-2 border-2 border-slate-700 mt-5">
+<nav
+  class="flex items-center space-x-2 border-2 border-green-50 mt-5 rounded-xl"
+>
   <button
-    class="text-gray-500 hover:text-blue-600 p-3 inline-flex items-center gap-2 rounded-md disabled:cursor-not-allowed"
+    class="text-slate-50 hover:text-blue-600 p-3 inline-flex items-center gap-2 rounded-md disabled:cursor-not-allowed"
     value="Previous"
     (click)="onPagination($event)"
     [disabled]="currentPage == 1"
@@ -9,7 +11,7 @@
   </button>
   <button
     *ngIf="!(currentPage == 1)"
-    class="text-gray-500 hover:text-blue-600 p-3 inline-flex items-center text-sm font-medium rounded-full"
+    class="text-slate-50 hover:text-blue-600 p-3 inline-flex items-center text-sm font-medium rounded-full"
     [value]="currentPage - 1"
     (click)="onPagination($event)"
     aria-current="page"
@@ -17,14 +19,14 @@
     {{ currentPage - 1 }}
   </button>
   <button
-    class="text-red-500 hover:text-blue-600 p-3 inline-flex items-center text-sm font-medium rounded-full"
+    class="text-teal-300 hover:text-blue-600 p-3 inline-flex items-center text-xl font-medium rounded-full"
     (click)="onPagination($event)"
     value="{{ currentPage }}"
   >
     {{ currentPage }}
   </button>
   <button
-    class="text-gray-500 hover:text-blue-600 p-3 inline-flex items-center text-sm font-medium rounded-full"
+    class="text-slate-50 hover:text-blue-600 p-3 inline-flex items-center text-sm font-medium rounded-full"
     (click)="onPagination($event)"
     value="{{ currentPage + 1 }}"
     [disabled]="currentPage + 1 > totalPage"
@@ -32,7 +34,7 @@
     {{ currentPage + 1 }}
   </button>
   <button
-    class="text-gray-500 hover:text-blue-600 p-3 inline-flex items-center gap-2 rounded-md disabled:cursor-not-allowed"
+    class="text-slate-50 hover:text-blue-600 p-3 inline-flex items-center gap-2 rounded-md disabled:cursor-not-allowed"
     value="Next"
     (click)="onPagination($event)"
     [disabled]="currentPage >= totalPage"

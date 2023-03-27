@@ -35,10 +35,25 @@ export class HttpService {
     return this.http.put<any>(`${this.url}/clients`, clients);
   }
 
-  public postClients(client:any)  {}
+  public postClients(client: any) {}
 
   public delectClient(client: number): Observable<any> {
     return this.http.delete<any>(`${this.url}/clients/${client}`);
   }
+  // ********************** Sale Function**************************
+  public getSale(): Observable<any> {
+    return this.http.get(`${this.url}/sales`);
+  }
 
+  public postSale(salesVale:any) {
+    this.http.post(`${this.url}/sales`,salesVale)
+  }
+  public getSaleByID(saleId:number){
+  
+    this.http.get(`${this.url}/sales/${saleId}`).subscribe((res)=>{
+      console.log(res)
+    })
+    return this.http.get(`${this.url}/sales/${saleId}`);
+
+  }
 }
