@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { HttpService } from 'src/app/Service/http.service';
+import { MainServiceService } from 'src/app/Service/main-service.service';
 
 
 @Component({
@@ -11,16 +12,20 @@ import { HttpService } from 'src/app/Service/http.service';
 export class SalesComponent implements OnInit {
   public sales$!:Observable<any>
   public showmodel: boolean = false;
- constructor(private readonly apiService:HttpService){}
+
+ constructor(private readonly apiService:HttpService,private readonly main:MainServiceService){}
+ public mainServiceSubscription: Subscription=this.main.getClickEvent().subscribe(()=>{
+  this.mainCall()
+})
  ngOnInit(): void {
   this.mainCall()
  }
 
  public mainCall(){
   this.sales$=this.apiService.getSale()
-  this.sales$.subscribe((respo)=>{
-    console.log(respo)
-  })
+  // this.sales$.subscribe((respo)=>{
+  //   console.log(respo)
+  // })
  }
 public convDate(date:any){
 }

@@ -19,26 +19,22 @@
             class="ml-14 text-decoration-color-zinc-800 uppercase"
             style="font-size: 50px"
           >
-            {{ (salesInv$ | async)?.client.first_name }}
-            {{ (salesInv$ | async)?.client.last_name }}
+            {{ salesInv?.client.first_name }}
+            {{ salesInv?.client.last_name }}
           </p>
           <h1 class="ml-14 text-black">
-            {{ (salesInv$ | async)?.client.email }}
+            {{ salesInv?.client.email }}
           </h1>
           <div class="ml-14">
-            <p>Phone : {{ (salesInv$ | async)?.client?.phone }}</p>
+            <p>Phone : {{ salesInv?.client?.phone }}</p>
 
             <div class="flex">
-              <p class="">
-                Address : {{ (salesInv$ | async)?.client.address }}
-              </p>
-              <p class="px-5">City : {{ (salesInv$ | async)?.client.city }}</p>
+              <p class="">Address : {{ salesInv?.client.address }}</p>
+              <p class="px-5">City : {{ salesInv?.client.city }}</p>
             </div>
             <div class="flex">
-              <p>State : {{ (salesInv$ | async)?.client.state }}</p>
-              <p class="px-5">
-                Country : {{ (salesInv$ | async)?.client.country }}
-              </p>
+              <p>State : {{ salesInv?.client.state }}</p>
+              <p class="px-5">Country : {{ salesInv?.client.country }}</p>
             </div>
           </div>
         </div>
@@ -86,7 +82,7 @@
                     </tr>
                   </thead>
                   <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
-                    <tr *ngFor="let sale of (salesInv$ | async)?.items">
+                    <tr *ngFor="let sale of salesInv?.items">
                       <td
                         class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-gray-200"
                       >
@@ -110,9 +106,7 @@
                       <td
                         class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium"
                       >
-                        <a class="text-blue-500 hover:text-blue-700" href="#"
-                          >Delete</a
-                        >
+                        <a class="text-blue-500 hover:text-blue-700">Delete</a>
                       </td>
                     </tr>
                   </tbody>

@@ -3,6 +3,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Observable, map } from 'rxjs';
 import { HttpService } from 'src/app/Service/http.service';
+import { MainServiceService } from 'src/app/Service/main-service.service';
 
 @Component({
   selector: 'app-add-sales',
@@ -13,11 +14,20 @@ export class AddSalesComponent implements OnInit {
   public url: string = 'https://api-sales-app.josetovar.dev';
 
   @Output() childEvent = new EventEmitter<boolean>();
+  public serachView: boolean = false;
+  public productView: boolean = false;
   public clientName: any;
+  public productName: any;
   public client$!: Observable<any>;
-  constructor(private readonly apiService: HttpService, private readonly http:HttpClient) {}
+  public product$!: Observable<any>;
+  constructor(
+    private readonly apiService: HttpService,
+    private readonly http: HttpClient,
+    private readonly main: MainServiceService
+  ) {}
   ngOnInit(): void {
     this.client$ = this.apiService.getClients();
+    this.product$ = this.apiService.getData();
   }
   public saleForm: FormGroup = new FormGroup({
     client_id: new FormControl('', Validators.required),
@@ -29,9 +39,10 @@ export class AddSalesComponent implements OnInit {
   }
 
   public addSales() {
+    this.productView=true
     this.products.push(
       new FormGroup({
-        productId: new FormControl(null, Validators.required),
+        id: new FormControl(null, Validators.required),
         quantity: new FormControl(null, Validators.required),
       })
     );
@@ -47,23 +58,53 @@ export class AddSalesComponent implements OnInit {
   }
 
   public getClientName() {
+    if(this.clientName!=""){
+    this.serachView = true;
+    }
+    else{
+    this.serachView = false;
+
+    }
     this.client$ = this.client$.pipe(
-      map((products: any) => {
-        return products.filter((product: any) =>
-          product.first_name.toLowerCase().includes(this.clientName.toLowerCase())|| product.last_name.toLowerCase().includes(this.clientName.toLowerCase())
+      map((clients: any) => {
+        return clients.filter(
+          (client: any) =>
+            client.first_name
+              .toLowerCase()
+              .includes(this.clientName.toLowerCase()) ||
+            client.last_name
+              .toLowerCase()
+              .includes(this.clientName.toLowerCase())
         );
       })
     );
-
   }
-  public getClientId(clientId:number){
-    this.saleForm.get('clientId')?.setValue(clientId)
+  public getClientId(clientId: number, first_name: string, last_name: string) {
+    this.serachView = false;
+
+    this.saleForm.get('client_id')?.setValue(clientId);
+    this.clientName = first_name + last_name;
   }
-public save(){
-  console.log(this.saleForm.value)
-
-  this.http.post(`${this.url}/sales`,this.saleForm.value).subscribe((respo)=>{
-  })
-}
-
+  public getProductName() {
+    this.product$ = this.product$.pipe(
+      map((products: any) => {
+        return products.filter((product: any) =>
+          product.name.toLowerCase().includes(this.productName.toLowerCase())
+        );
+      })
+    );
+    this.product$.subscribe((res) => {
+      console.log(res);
+    });
+  }
+  public save() {
+    console.log(this.saleForm.value);
+    this.http.post(`${this.url}/sales`, this.saleForm.value).subscribe({
+      next: () => {
+        this.main.clickEventActivated();
+      },
+      error: () => {},
+      complete: () => {},
+    });
+  }
 }

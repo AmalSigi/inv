@@ -10,7 +10,7 @@ import { HttpService } from 'src/app/Service/http.service';
 })
 export class SalesViewComponent implements OnInit {
   public salesId!: number;
-  public salesInv$!:Observable<any>;
+  public salesInv:any;
   constructor(
     private readonly activatedRoute: ActivatedRoute,
     private readonly apiService: HttpService
@@ -25,6 +25,9 @@ export class SalesViewComponent implements OnInit {
 
   public mainCall() {
     console.log(this.salesId);
-    this.salesInv$=this.apiService.getSaleByID(this.salesId)
+    this.apiService.getSaleByID(this.salesId).subscribe((repo)=>{
+      this.salesInv=repo
+    })
+
   }
 }

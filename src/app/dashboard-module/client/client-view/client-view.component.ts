@@ -9,8 +9,8 @@ import { LocalStoService } from 'src/app/Service/local-sto.service';
   styleUrls: ['./client-view.component.scss'],
 })
 export class ClientViewComponent {
-  clientid: any;
-  client!: any;
+ public clientid: any;
+ public client!: any;
   constructor(
     private activatedRoute: ActivatedRoute,
     private apiService: HttpService

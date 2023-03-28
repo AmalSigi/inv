@@ -114,7 +114,7 @@ export class ProductComponent implements OnInit {
     const status = anyEvent.target.checked;
     this.http
       .put(
-        `https://api-sales-app.josetovar.dev/product-status/${product.id}?status=${status}`,
+        `https://api-sales-app.josetovar.dev/products/status/${product.id}?status=${status}`,
         {}
       )
       .subscribe((reponse) => {
