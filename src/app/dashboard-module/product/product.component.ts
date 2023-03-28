@@ -20,7 +20,7 @@ export class ProductComponent implements OnInit {
     private readonly http: HttpClient,
     private readonly toastr: Toastr,
     private readonly serviceApi: HttpService,
-    private readonly main:MainServiceService
+    private readonly main: MainServiceService
   ) {}
 
   public url: string = 'https://api-sales-app.josetovar.dev/products';
@@ -29,16 +29,18 @@ export class ProductComponent implements OnInit {
   public updateProductForm: FormGroup = new FormGroup({});
   public checkBool: boolean = false;
 
-  public mainServiceSubscription: Subscription=this.main.getClickEvent().subscribe(()=>{
-    this.getProduct()
-  })
-  
+  public mainServiceSubscription: Subscription = this.main
+    .getClickEvent()
+    .subscribe(() => {
+      this.getProduct();
+    });
+
   ngOnInit(): void {
     this.getProduct();
   }
 
   private getProduct() {
-    this.products$= this.serviceApi.getData()
+    this.products$ = this.serviceApi.getData();
     this.products$.subscribe((products) => {
       products.map((product: any) => {
         this.updateProductForm.addControl(
@@ -168,4 +170,5 @@ export class ProductComponent implements OnInit {
     this.currentPage = event.currentPage;
     this.pageSize = event.pageSize;
   }
+  
 }

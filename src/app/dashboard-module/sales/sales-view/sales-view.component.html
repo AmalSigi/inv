@@ -11,12 +11,12 @@
       </button>
       <div class="flex">
         <img
-          src="https://images.pexels.com/photos/3777943/pexels-photo-3777943.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+          src="https://st.depositphotos.com/2218212/2938/i/600/depositphotos_29387653-stock-photo-facebook-profile.jpg"
           alt=""
         />
         <div>
           <p
-            class="ml-14 text-decoration-color-zinc-800 uppercase"
+            class="ml-14 uppercase text-slate-50 font-extrabold"
             style="font-size: 50px"
           >
             {{ salesInv?.client.first_name }}
@@ -84,22 +84,22 @@
                   <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
                     <tr *ngFor="let sale of salesInv?.items">
                       <td
-                        class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-gray-200"
+                        class="px-6 py-4 whitespace-nowrap text-sm font-medium text-black dark:text-black"
                       >
                         {{ sale.id }}
                       </td>
                       <td
-                        class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200"
+                        class="px-6 py-4 whitespace-nowrap text-sm text-black dark:text-black"
                       >
                         {{ sale.product_id }}
                       </td>
                       <td
-                        class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200"
+                        class="px-6 py-4 whitespace-nowrap text-sm text-black dark:text-black"
                       >
                         {{ sale.price }}
                       </td>
                       <td
-                        class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200"
+                        class="px-6 py-4 whitespace-nowrap text-sm text-black dark:text-black"
                       >
                         {{ sale.quantity }}
                       </td>

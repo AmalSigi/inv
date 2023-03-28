@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Observable, Subscription, of } from 'rxjs';
+import { Observable, Subscription, map, of } from 'rxjs';
 import { HttpService } from 'src/app/Service/http.service';
 import { LocalStoService } from 'src/app/Service/local-sto.service';
 import { MainServiceService } from 'src/app/Service/main-service.service';
@@ -28,6 +28,7 @@ export class ClientComponent {
   public upClient: any;
   public clientView: any;
   public updateClientForm: FormGroup = new FormGroup({});
+  public searchValue!:any
 
   currentPage: number = 1;
   pageSize: number = 5;
@@ -82,5 +83,14 @@ public mainServiceSubscription: Subscription=this.main.getClickEvent().subscribe
   }
   public view(client: any) {
     this.local.store(client);
+  }
+  searchClient() {
+    this.clients$ = this.clients$.pipe(
+      map((clients: any) => {
+        return clients.filter((client: any) =>
+        client.first_name.toLowerCase().includes(this.searchValue.toLowerCase())||client.last_name.toLowerCase().includes(this.searchValue.toLowerCase())
+        );
+      })
+    );
   }
 }
