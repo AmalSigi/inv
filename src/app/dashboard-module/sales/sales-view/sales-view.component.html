@@ -1,46 +1,48 @@
-<div class="main">
+<div class="main max-w-7xl">
   <div class="sec mt-5">
-    <div>
-      <button
-        type="button"
-        class="py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md bg-green-100 border border-transparent font-semibold text-black-500 hover:text-white hover:bg-green-500 focus:outline-none focus:ring-2 ring-offset-white focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm"
-        style="margin-left: 96%"
-        routerLink="../../"
-      >
-        Back
-      </button>
-      <div class="flex">
+    <button
+      type="button"
+      class="py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md bg-green-100 border border-transparent font-semibold text-black-500 hover:text-white hover:bg-green-500 focus:outline-none focus:ring-2 ring-offset-white focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm"
+      style="margin-left: 96%"
+      routerLink="../../"
+    >
+      Back
+    </button>
+    <div class="flex m-5">
+      <div>
         <img
           src="https://st.depositphotos.com/2218212/2938/i/600/depositphotos_29387653-stock-photo-facebook-profile.jpg"
           alt=""
+          class="object-cover"
         />
-        <div>
-          <p
-            class="ml-14 uppercase text-slate-50 font-extrabold"
-            style="font-size: 50px"
-          >
-            {{ salesInv?.client.first_name }}
-            {{ salesInv?.client.last_name }}
-          </p>
-          <h1 class="ml-14 text-black">
-            {{ salesInv?.client.email }}
-          </h1>
-          <div class="ml-14">
-            <p>Phone : {{ salesInv?.client?.phone }}</p>
+      </div>
+      <div>
+        <p
+          class="ml-14 uppercase text-slate-50 font-extrabold"
+          style="font-size: 50px"
+        >
+          {{ salesInv?.client.first_name }}
+          {{ salesInv?.client.last_name }}
+        </p>
+        <h1 class="ml-14 text-black">
+          {{ salesInv?.client.email }}
+        </h1>
+        <div class="ml-14">
+          <p>Phone : {{ salesInv?.client?.phone }}</p>
 
-            <div class="flex">
-              <p class="">Address : {{ salesInv?.client.address }}</p>
-              <p class="px-5">City : {{ salesInv?.client.city }}</p>
-            </div>
-            <div class="flex">
-              <p>State : {{ salesInv?.client.state }}</p>
-              <p class="px-5">Country : {{ salesInv?.client.country }}</p>
-            </div>
+          <div class="flex">
+            <p class="">Address : {{ salesInv?.client.address }}</p>
+            <p class="px-5">City : {{ salesInv?.client.city }}</p>
+          </div>
+          <div class="flex">
+            <p>State : {{ salesInv?.client.state }}</p>
+            <p class="px-5">Country : {{ salesInv?.client.country }}</p>
           </div>
         </div>
       </div>
-      <div class="mt-14 ml-14">
-        <div class="flex flex-col">
+
+      <div class="mt-14 ml-14 border-l">
+        <div class="flex flex-col ml-5">
           <div class="-m-1.5 overflow-x-auto">
             <div class="p-1.5 min-w-full inline-block align-middle">
               <div class="overflow-hidden">
@@ -51,33 +53,27 @@
                     <tr>
                       <th
                         scope="col"
-                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase"
+                        class="px-6 py-3 text-left text-xs font-medium text-gray-50 uppercase"
                       >
                         Id
                       </th>
                       <th
                         scope="col"
-                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase"
+                        class="px-6 py-3 text-left text-xs font-medium text-gray-50 uppercase"
                       >
                         Product Id
                       </th>
                       <th
                         scope="col"
-                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase"
+                        class="px-6 py-3 text-left text-xs font-medium text-gray-50 uppercase"
                       >
                         Price
                       </th>
                       <th
                         scope="col"
-                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase"
+                        class="px-6 py-3 text-left text-xs font-medium text-gray-50 uppercase"
                       >
                         Quantity
-                      </th>
-                      <th
-                        scope="col"
-                        class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase"
-                      >
-                        Action
                       </th>
                     </tr>
                   </thead>
@@ -96,17 +92,12 @@
                       <td
                         class="px-6 py-4 whitespace-nowrap text-sm text-black dark:text-black"
                       >
-                        {{ sale.price }}
+                        $ {{ sale.price }}
                       </td>
                       <td
                         class="px-6 py-4 whitespace-nowrap text-sm text-black dark:text-black"
                       >
                         {{ sale.quantity }}
-                      </td>
-                      <td
-                        class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium"
-                      >
-                        <a class="text-blue-500 hover:text-blue-700">Delete</a>
                       </td>
                     </tr>
                   </tbody>

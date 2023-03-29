@@ -1,4 +1,4 @@
-<div class="w-full h-full fixed top-10 overflow-x-hidden overflow-y-auto">
+<div class="main w-full h-full fixed top-10 overflow-x-hidden overflow-y-auto">
   <div
     class="mt-7 opacity-100 duration-500 mt-0 opacity-0 ease-out transition-all md:max-w-2xl md:w-full m-3 md:mx-auto"
   >
@@ -8,9 +8,23 @@
       <div
         class="flex justify-between items-center py-3 px-4 border-b dark:border-gray-700"
       >
-        <h1 class="font-bold dark:text-black" style="font-size: 28px">
+        <p
+          class="font-bold dark:text-gray-800 font-mono flex"
+          style="font-size: 28px"
+        >
           Add Sales
-        </h1>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            class="mt-2.5 ml-1"
+          >
+            <path
+              d="M10 19.5c0 .829-.672 1.5-1.5 1.5s-1.5-.671-1.5-1.5c0-.828.672-1.5 1.5-1.5s1.5.672 1.5 1.5zm3.5-1.5c-.828 0-1.5.671-1.5 1.5s.672 1.5 1.5 1.5 1.5-.671 1.5-1.5c0-.828-.672-1.5-1.5-1.5zm-10.563-5l-2.937-7h16.812l-1.977 7h-11.898zm11.233-5h-11.162l1.259 3h9.056l.847-3zm5.635-5l-3.432 12h-12.597l.839 2h13.239l3.474-12h1.929l.743-2h-4.195z"
+            />
+          </svg>
+        </p>
         <button
           type="button"
           (click)="modelUnShow()"
@@ -41,7 +55,7 @@
               type="text"
               [(ngModel)]="clientName"
               id="input-label-with-helper-text"
-              class="py-3 px-4 block w-15 border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-700 border-gray-700 dark:text-black text-black"
+              class="boxSadow py-3 px-4 block w-15 border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-700 border-gray-700 dark:text-black text-black"
               aria-describedby="hs-input-helper-text"
               (input)="getClientName()"
             />
@@ -51,22 +65,39 @@
                 (click)="addSales()"
                 class="py-2 px-3 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800"
               >
-                + ADD Product
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 448 512"
+                  width="16"
+                  height="16"
+                >
+                  <path
+                    d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z"
+                  />
+                </svg>
+                ADD Product
               </button>
             </div>
           </div>
-          <ng-container *ngIf="serachView">
-            <div
+          <div
+            *ngIf="serachView"
+            class="clientList w-48 mt-5 py-2 px-5 rounded-lg"
+          >
+            <tr
               *ngFor="let client of client$ | async"
               (click)="
                 getClientId(client.id, client.first_name, client.last_name)
               "
-              class="text-slate-50"
+              class="text-slate-50 hover:bg-white hover:text-black cursor-grabbing"
             >
-              {{ client.first_name }}
-              {{ client.last_name }}
-            </div>
-          </ng-container>
+              {{
+                client.first_name
+              }}
+              {{
+                client.last_name
+              }}
+            </tr>
+          </div>
 
           <div *ngIf="productView">
             <label class="block text-sm font-medium mb-2 mt-2">Product :</label>
@@ -78,7 +109,7 @@
                 (input)="getProductName()"
                 id="hs-trailing-button-add-on-with-icon"
                 name="hs-trailing-button-add-on-with-icon"
-                class="py-3 px-4 block w-full border-gray-200 shadow-sm rounded-l-md text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-100 dark:border-gray-700 dark:text-gray-400"
+                class="boxSadow py-3 px-4 block w-full border-gray-200 shadow-sm rounded-l-md text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-100 dark:border-gray-700 dark:text-gray-400"
               />
               <button
                 type="button"
@@ -102,7 +133,7 @@
           <form [formGroup]="saleForm">
             <div
               class="formbox max-w-[400] mx-auto mt-7 p-8"
-              *ngIf="productView"
+              *ngIf="productName"
             >
               <div class="">
                 <ng-container *ngIf="productName">
@@ -143,19 +174,23 @@
                               <tbody
                                 class="divide-y divide-gray-200 dark:divide-gray-700"
                               >
-                                <tr *ngFor="let product of product$ | async">
+                                <tr
+                                  *ngFor="let product of product$ | async"
+                                  (click)="addProduct(product.id)"
+                                  class="cursor-grab hover:bg-green-100"
+                                >
                                   <td
-                                    class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-gray-200"
+                                    class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-500 dark:text-gray-500"
                                   >
                                     {{ product.id }}
                                   </td>
                                   <td
-                                    class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200"
+                                    class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-gray-500"
                                   >
                                     {{ product.name }}
                                   </td>
                                   <td
-                                    class="px-6 py-4 whitespace-nowrap text-sm uppercase font-bold"
+                                    class="px-6 py-4 whitespace-nowrap text-sm uppercase"
                                     [class.text-green-500]="product.stock > 0"
                                     [class.text-red-500]="product.stock == 0"
                                   >
@@ -177,22 +212,6 @@
                     </div>
                   </div></ng-container
                 >
-                <ng-container *ngIf="serachView">
-                  <div
-                    *ngFor="let client of client$ | async"
-                    (click)="
-                      getClientId(
-                        client.id,
-                        client.first_name,
-                        client.last_name
-                      )
-                    "
-                    class="text-slate-50"
-                  >
-                    {{ client.first_name }}
-                    {{ client.last_name }}
-                  </div>
-                </ng-container>
 
                 <div formArrayName="products">
                   <div *ngFor="let product of products.controls; let i = index">
@@ -207,7 +226,7 @@
                           type="text"
                           formControlName="id"
                           id="input-label-with-helper-text"
-                          class="py-3 px-4 block border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-700 border-gray-700 dark:text-gray-400 text-gray-400"
+                          class="boxSadow py-3 px-4 block border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-700 border-gray-700 dark:text-gray-400 text-gray-400"
                           aria-describedby="hs-input-helper-text"
                         />
                       </div>
@@ -221,7 +240,7 @@
                           type="text"
                           id="input-label-with-helper-text"
                           formControlName="quantity"
-                          class="py-3 px-4 block border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-700 border-gray-700 dark:text-gray-400 text-gray-400"
+                          class="boxSadow py-3 px-4 block border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-700 border-gray-700 dark:text-gray-400 text-gray-400"
                           aria-describedby="hs-input-helper-text"
                         />
                       </div>
@@ -244,14 +263,15 @@
               <button
                 type="button"
                 (click)="modelUnShow()"
-                class="hs-dropdown-toggle py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border font-medium bg-white text-gray-700 shadow-sm align-middle hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-blue-600 transition-all text-sm dark:bg-slate-900 dark:hover:bg-slate-800 dark:border-gray-700 dark:text-gray-400 dark:hover:text-white dark:focus:ring-offset-gray-800"
+                class="hs-dropdown-toggle py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md font-medium bg-white text-gray-700 shadow-sm align-middle focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-blue-600 transition-all text-sm dark:text-gray-400 border-red-300 dark:hover:text-gray-900 dark:hover:innerBoxShadow dark:focus:ring-offset-gray-800"
               >
                 Close
               </button>
               <button
                 type="submit"
                 (click)="save()"
-                class="py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-green-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800"
+                class="disabled:cursor-not-allowed disabled:bg-gray-600 py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-green-500 text-white hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800"
+                [disabled]="clientName == ''"
               >
                 Confirm
               </button>

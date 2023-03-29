@@ -16,7 +16,7 @@ const routes: Routes = [
       import('./login-module/login-module.module').then(
         (m) => m.LoginModuleModule
       ),
-      canActivate: [ActiveGuard],
+      // canActivate: [ActiveGuard],
   },
   {
     path: 'dashboard',
@@ -24,7 +24,7 @@ const routes: Routes = [
       import('./dashboard-module/dashboard-module.module').then(
         (m) => m.DashboardModuleModule
       ),
-    canActivate: [DashboardGuard],
+    // canActivate: [DashboardGuard],
   },
 ];
 @NgModule({

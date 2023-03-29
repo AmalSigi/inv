@@ -15,7 +15,7 @@
   ></app-pagination>
 </div>
 
-<section class="container mx-auto mt-8">
+<section class="formbox container mx-auto mt-8">
   <div class="flex flex-col">
     <div class="-m-1.5 overflow-x-auto">
       <div class="p-1.5 min-w-full inline-block align-middle">
@@ -107,13 +107,13 @@
                   <td
                     class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200 text-gray-200"
                   >
-                    {{ sales.total }}
+                    $ {{ sales.total }}
                   </td>
 
                   <td
                     class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200 text-gray-200"
                   >
-                    {{ sales.created_at }}
+                    {{ sales.created_at | date }}
                   </td>
                   <button
                     type="button"

@@ -4,6 +4,7 @@ import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Observable, map } from 'rxjs';
 import { HttpService } from 'src/app/Service/http.service';
 import { MainServiceService } from 'src/app/Service/main-service.service';
+import { Toastr } from 'src/app/Service/toastr.service';
 
 @Component({
   selector: 'app-add-sales',
@@ -16,14 +17,15 @@ export class AddSalesComponent implements OnInit {
   @Output() childEvent = new EventEmitter<boolean>();
   public serachView: boolean = false;
   public productView: boolean = false;
-  public clientName: any;
+  public clientName: any='';
   public productName: any;
   public client$!: Observable<any>;
   public product$!: Observable<any>;
   constructor(
     private readonly apiService: HttpService,
     private readonly http: HttpClient,
-    private readonly main: MainServiceService
+    private readonly main: MainServiceService,
+    private readonly toastr:Toastr,
   ) {}
   ngOnInit(): void {
     this.client$ = this.apiService.getClients();
@@ -39,14 +41,18 @@ export class AddSalesComponent implements OnInit {
   }
 
   public addSales() {
-    this.productView=true
+    this.productView = true;
+    
+  }
+  public addProduct(productId:number){
     this.products.push(
       new FormGroup({
-        id: new FormControl(null, Validators.required),
+        id: new FormControl(productId, Validators.required),
         quantity: new FormControl(null, Validators.required),
       })
     );
   }
+
 
   public removeSale(formInedx: number): void {
     this.products.removeAt(formInedx);
@@ -58,12 +64,10 @@ export class AddSalesComponent implements OnInit {
   }
 
   public getClientName() {
-    if(this.clientName!=""){
-    this.serachView = true;
-    }
-    else{
-    this.serachView = false;
-
+    if (this.clientName != '') {
+      this.serachView = true;
+    } else {
+      this.serachView = false;
     }
     this.client$ = this.client$.pipe(
       map((clients: any) => {
@@ -88,8 +92,13 @@ export class AddSalesComponent implements OnInit {
   public getProductName() {
     this.product$ = this.product$.pipe(
       map((products: any) => {
-        return products.filter((product: any) =>
-          product.name.toLowerCase().includes(this.productName.toLowerCase())
+        return products.filter(
+          (product: any) =>
+            product.name
+              .toLowerCase()
+              .includes(this.productName.toLowerCase()) &&
+            product.active == true &&
+            product.stock > 0
         );
       })
     );
@@ -98,13 +107,16 @@ export class AddSalesComponent implements OnInit {
     });
   }
   public save() {
+    this.modelUnShow()
     console.log(this.saleForm.value);
     this.http.post(`${this.url}/sales`, this.saleForm.value).subscribe({
       next: () => {
         this.main.clickEventActivated();
+        this.toastr.add()
       },
       error: () => {},
       complete: () => {},
     });
   }
+ 
 }
