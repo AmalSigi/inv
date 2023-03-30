@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Observable, map } from 'rxjs';
+import { Observable, elementAt, map } from 'rxjs';
 import { HttpService } from 'src/app/Service/http.service';
 import { MainServiceService } from 'src/app/Service/main-service.service';
 import { Toastr } from 'src/app/Service/toastr.service';
@@ -44,11 +44,11 @@ export class AddSalesComponent implements OnInit {
     this.productView = true;
     
   }
-  public addProduct(productId:number){
+  public addProduct(product:any){
     this.products.push(
       new FormGroup({
-        id: new FormControl(productId, Validators.required),
-        quantity: new FormControl(null, Validators.required),
+        id: new FormControl(product.id, Validators.required),
+        quantity: new FormControl(null, [Validators.required,Validators.min(0),Validators.max(product.stock)]),
       })
     );
   }
@@ -108,15 +108,21 @@ export class AddSalesComponent implements OnInit {
   }
   public save() {
     this.modelUnShow()
-    console.log(this.saleForm.value);
-    this.http.post(`${this.url}/sales`, this.saleForm.value).subscribe({
-      next: () => {
-        this.main.clickEventActivated();
-        this.toastr.add()
-      },
-      error: () => {},
-      complete: () => {},
-    });
+    // console.log(this.saleForm.valid);
+    if(this.saleForm.valid){
+      this.http.post(`${this.url}/sales`, this.saleForm.value).subscribe({
+        next: () => {
+          this.main.clickEventActivated();
+          this.toastr.add()
+        },
+        error: () => {},
+        complete: () => {},
+      });
+    }
+    else{
+      this.toastr.error()
+    }
+   
   }
  
 }

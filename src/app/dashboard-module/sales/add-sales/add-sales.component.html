@@ -176,7 +176,7 @@
                               >
                                 <tr
                                   *ngFor="let product of product$ | async"
-                                  (click)="addProduct(product.id)"
+                                  (click)="addProduct(product)"
                                   class="cursor-grab hover:bg-green-100"
                                 >
                                   <td

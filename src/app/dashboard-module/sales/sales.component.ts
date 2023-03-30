@@ -26,7 +26,7 @@ export class SalesComponent implements OnInit {
  public mainCall(){
   this.sales$=this.apiService.getSale()
   this.sales$.subscribe((respo)=>{
-    console.log(respo)
+    // console.log(respo)
   })
  }
 public convDate(date:any){

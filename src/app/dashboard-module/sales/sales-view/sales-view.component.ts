@@ -24,7 +24,7 @@ export class SalesViewComponent implements OnInit {
   }
 
   public mainCall() {
-    console.log(this.salesId);
+    // console.log(this.salesId);
     this.apiService.getSaleByID(this.salesId).subscribe((repo)=>{
       this.salesInv=repo
     })

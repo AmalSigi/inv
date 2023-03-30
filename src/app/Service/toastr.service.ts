@@ -33,4 +33,14 @@ export class Toastr {
       closeButton: true,
     });
   }
+
+  error() {
+    this.toastr.error('Error in adding sales . Enter valid Quanity', 'Error', {
+      timeOut: 4000,
+      progressBar: true,
+      progressAnimation: 'decreasing',
+      positionClass: 'toast-top-center',
+      closeButton: true,
+    });
+  }
 }
