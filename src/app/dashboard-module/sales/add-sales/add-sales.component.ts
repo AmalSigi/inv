@@ -103,7 +103,7 @@ export class AddSalesComponent implements OnInit {
       })
     );
     this.product$.subscribe((res) => {
-      console.log(res);
+      // console.log(res);
     });
   }
   public save() {
