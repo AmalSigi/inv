@@ -1,8 +1,10 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, elementAt, map } from 'rxjs';
 import { HttpService } from 'src/app/Service/http.service';
+import { LocalStoService } from 'src/app/Service/local-sto.service';
 import { MainServiceService } from 'src/app/Service/main-service.service';
 import { Toastr } from 'src/app/Service/toastr.service';
 
@@ -11,14 +13,17 @@ import { Toastr } from 'src/app/Service/toastr.service';
   templateUrl: './add-sales.component.html',
   styleUrls: ['./add-sales.component.scss'],
 })
-export class AddSalesComponent implements OnInit {
+export class AddSalesComponent implements OnInit, OnDestroy {
   public url: string = 'https://api-sales-app.josetovar.dev';
 
   @Output() childEvent = new EventEmitter<boolean>();
   public serachView: boolean = false;
   public productView: boolean = false;
+  public confirmBox: boolean = true;
+
   public clientName: any='';
-  public productName: any;
+  public productName: any='';
+  public selectedProduct:any;
   public client$!: Observable<any>;
   public product$!: Observable<any>;
   constructor(
@@ -26,10 +31,24 @@ export class AddSalesComponent implements OnInit {
     private readonly http: HttpClient,
     private readonly main: MainServiceService,
     private readonly toastr:Toastr,
+    private readonly local:LocalStoService,
+    private readonly router:Router,
+    private readonly route:ActivatedRoute,
   ) {}
+ 
   ngOnInit(): void {
     this.client$ = this.apiService.getClients();
     this.product$ = this.apiService.getData();
+    
+    if(this.local.getvalue()){this.saleForm=this.local.getvalue()}
+    this.route.queryParams.subscribe((params:{[source:string]:string})=>{
+      console.log(params)
+      if(params['source']){
+        this.productView = true;
+        this.productName=""
+        this.confirmBox= false
+      }
+       })
   }
   public saleForm: FormGroup = new FormGroup({
     client_id: new FormControl('', Validators.required),
@@ -45,15 +64,19 @@ export class AddSalesComponent implements OnInit {
     
   }
   public addProduct(product:any){
-    this.products.push(
-      new FormGroup({
-        id: new FormControl(product.id, Validators.required),
-        quantity: new FormControl(null, [Validators.required,Validators.min(0),Validators.max(product.stock)]),
-      })
-    );
+  this.confirmBox= false;
+    const isObjectInArray = this.products.value.some((obj: any) => JSON.stringify(obj.id) === JSON.stringify(product.id));
+    if(!(isObjectInArray)){
+      this.products.push(
+        new FormGroup({
+          // name:new FormControl(product.name, Validators.required),
+          id: new FormControl(product.id, Validators.required),
+          price:new FormControl(product.price,Validators.required),
+          quantity: new FormControl(null, [Validators.required,Validators.min(0),Validators.max(product.stock)]),
+        })
+      );
+    }
   }
-
-
   public removeSale(formInedx: number): void {
     this.products.removeAt(formInedx);
   }
@@ -64,6 +87,7 @@ export class AddSalesComponent implements OnInit {
   }
 
   public getClientName() {
+    
     if (this.clientName != '') {
       this.serachView = true;
     } else {
@@ -84,6 +108,7 @@ export class AddSalesComponent implements OnInit {
     );
   }
   public getClientId(clientId: number, first_name: string, last_name: string) {
+    this.addSales()
     this.serachView = false;
 
     this.saleForm.get('client_id')?.setValue(clientId);
@@ -124,5 +149,13 @@ export class AddSalesComponent implements OnInit {
     }
    
   }
+  public addNewClient(){
+    this.router.navigate(['/dashboard/client'],{queryParams:{source:'newsale'}})
+  }
+
+  ngOnDestroy(): void {
+  this.local.store(this.saleForm)
+  }
+
  
 }

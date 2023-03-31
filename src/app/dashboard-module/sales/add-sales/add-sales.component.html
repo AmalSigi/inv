@@ -1,6 +1,6 @@
 <div class="main w-full h-full fixed top-10 overflow-x-hidden overflow-y-auto">
   <div
-    class="mt-7 opacity-100 duration-500 mt-0 opacity-0 ease-out transition-all md:max-w-2xl md:w-full m-3 md:mx-auto"
+    class="mt-7 opacity-100 duration-500 mt-0 opacity-0 ease-out transition-all md:max-w-4xl md:w-full m-3 md:mx-auto"
   >
     <div
       class="addSale flex flex-col border shadow-sm rounded-xl dark:border-gray-700 dark:shadow-slate-700/[.7]"
@@ -51,14 +51,37 @@
         <div class="">
           <label class="block text-sm font-medium mb-2 mt-2">Client :</label>
           <div class="flex gap-x-2">
-            <input
-              type="text"
-              [(ngModel)]="clientName"
-              id="input-label-with-helper-text"
-              class="boxSadow py-3 px-4 block w-15 border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-700 border-gray-700 dark:text-black text-black"
-              aria-describedby="hs-input-helper-text"
-              (input)="getClientName()"
-            />
+            <div>
+              <input
+                type="text"
+                [(ngModel)]="clientName"
+                id="input-label-with-helper-text"
+                class="boxSadow py-2 px-4 block w-[500px] mt-3 border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-700 border-gray-700 dark:text-black text-black"
+                aria-describedby="hs-input-helper-text"
+                (input)="getClientName()"
+              />
+              <p
+                *ngIf="!clientName && productName"
+                class="text-sm text-red-600 mt-2 flex"
+                id="hs-input-helper-text"
+              >
+                <svg
+                  class="ml-2"
+                  width="16"
+                  height="16"
+                  stroke-linejoin="round"
+                  stroke-miterlimit="2"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="m2.095 19.886 9.248-16.5c.133-.237.384-.384.657-.384.272 0 .524.147.656.384l9.248 16.5c.064.115.096.241.096.367 0 .385-.309.749-.752.749h-18.496c-.44 0-.752-.36-.752-.749 0-.126.031-.252.095-.367zm1.935-.384h15.939l-7.97-14.219zm7.972-6.497c-.414 0-.75.336-.75.75v3.5c0 .414.336.75.75.75s.75-.336.75-.75v-3.5c0-.414-.336-.75-.75-.75zm-.002-3c.552 0 1 .448 1 1s-.448 1-1 1-1-.448-1-1 .448-1 1-1z"
+                    fill-rule="nonzero"
+                  />
+                </svg>
+                Enter Client Name For adding sales
+              </p>
+            </div>
             <div class="mt-5">
               <button
                 type="button"
@@ -78,27 +101,35 @@
                 ADD Product
               </button>
             </div>
+            <div class="mt-5"></div>
           </div>
-          <div
-            *ngIf="serachView"
-            class="clientList w-48 mt-5 py-2 px-5 rounded-lg"
-          >
-            <tr
-              *ngFor="let client of client$ | async"
-              (click)="
-                getClientId(client.id, client.first_name, client.last_name)
-              "
-              class="text-slate-50 hover:bg-white hover:text-black cursor-grabbing"
+          <div *ngIf="serachView">
+            <div
+              class="clientList scrollable-div w-48 mt-5 py-2 px-5 rounded-lg max-h-[200px] overflow-y-auto scroll-smooth"
             >
-              {{
-                client.first_name
-              }}
-              {{
-                client.last_name
-              }}
-            </tr>
+              <tr
+                *ngFor="let client of client$ | async"
+                (click)="
+                  getClientId(client.id, client.first_name, client.last_name)
+                "
+                class="text-slate-50 hover:bg-white hover:text-black cursor-grabbing"
+              >
+                {{
+                  client.first_name
+                }}
+                {{
+                  client.last_name
+                }}
+              </tr>
+            </div>
+            <button
+              type="button"
+              (click)="addNewClient()"
+              class="px-4 w-48 inline-flex justify-center items-center gap-2 rounded-md font-semibold text-gray-100 hover:text-white bg-blue-500 hover:bg-blue-800 hover:border-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:border-gray-700 dark:hover:border-blue-500"
+            >
+              Add Client
+            </button>
           </div>
-
           <div *ngIf="productView">
             <label class="block text-sm font-medium mb-2 mt-2">Product :</label>
 
@@ -109,31 +140,14 @@
                 (input)="getProductName()"
                 id="hs-trailing-button-add-on-with-icon"
                 name="hs-trailing-button-add-on-with-icon"
-                class="boxSadow py-3 px-4 block w-full border-gray-200 shadow-sm rounded-l-md text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-100 dark:border-gray-700 dark:text-gray-400"
+                class="boxSadow py-3 px-4 block w-[500px] border-gray-200 shadow-sm rounded-l-md text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-100 dark:border-gray-700 dark:text-gray-400"
               />
-              <button
-                type="button"
-                class="inline-flex flex-shrink-0 justify-center items-center h-[2.875rem] w-[2.875rem] rounded-r-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:z-10 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all text-sm"
-              >
-                <svg
-                  class="h-4 w-4"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  fill="currentColor"
-                  viewBox="0 0 16 16"
-                >
-                  <path
-                    d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"
-                  />
-                </svg>
-              </button>
             </div>
           </div>
           <form [formGroup]="saleForm">
             <div
               class="formbox max-w-[400] mx-auto mt-7 p-8"
-              *ngIf="productName"
+              *ngIf="!saleForm.controls[0]"
             >
               <div class="">
                 <ng-container *ngIf="productName">
@@ -178,6 +192,7 @@
                                   *ngFor="let product of product$ | async"
                                   (click)="addProduct(product)"
                                   class="cursor-grab hover:bg-green-100"
+                                  [hidden]="product.id == selectedProduct"
                                 >
                                   <td
                                     class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-500 dark:text-gray-500"
@@ -185,21 +200,17 @@
                                     {{ product.id }}
                                   </td>
                                   <td
-                                    class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-gray-500"
+                                    class="px-6 py-4 whitespace-nowrap text-sm text-gray-800"
                                   >
                                     {{ product.name }}
                                   </td>
                                   <td
-                                    class="px-6 py-4 whitespace-nowrap text-sm uppercase"
-                                    [class.text-green-500]="product.stock > 0"
-                                    [class.text-red-500]="product.stock == 0"
+                                    class="px-6 py-4 whitespace-nowrap text-sm uppercase dark:text-gray-500"
                                   >
                                     {{ product.stock }}
                                   </td>
                                   <td
-                                    class="px-6 py-4 whitespace-nowrap text-sm uppercase"
-                                    [class.text-green-500]="product.active"
-                                    [class.text-red-500]="!product.active"
+                                    class="px-6 py-4 whitespace-nowrap text-sm uppercase dark:text-gray-500"
                                   >
                                     {{ product.active }}
                                   </td>
@@ -220,15 +231,18 @@
                         <label
                           for="input-label-with-helper-text"
                           class="block text-sm font-medium mb-2"
-                          >Product Id :</label
+                          >Product id :</label
                         >
                         <input
                           type="text"
                           formControlName="id"
-                          id="input-label-with-helper-text"
                           class="boxSadow py-3 px-4 block border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-700 border-gray-700 dark:text-gray-400 text-gray-400"
+                          id="input-label-with-helper-text"
                           aria-describedby="hs-input-helper-text"
                         />
+                        <div class="mt-4">
+                          Price: {{ product.value.price | currency : "USD" }}
+                        </div>
                       </div>
                       <div class="my-6 ml-5 mt-6">
                         <label
@@ -236,23 +250,81 @@
                           class="block text-sm font-medium mb-2"
                           >Quantity :</label
                         >
-                        <input
-                          type="text"
-                          id="input-label-with-helper-text"
-                          formControlName="quantity"
-                          class="boxSadow py-3 px-4 block border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-700 border-gray-700 dark:text-gray-400 text-gray-400"
-                          aria-describedby="hs-input-helper-text"
-                        />
+                        <div class="flex">
+                          <button type="button" class="mr-2">
+                            <svg
+                              width="24"
+                              height="24"
+                              xmlns="http://www.w3.org/2000/svg"
+                              fill-rule="evenodd"
+                              clip-rule="evenodd"
+                            >
+                              <path
+                                d="M11.5 0c6.347 0 11.5 5.153 11.5 11.5s-5.153 11.5-11.5 11.5-11.5-5.153-11.5-11.5 5.153-11.5 11.5-11.5zm0 1c5.795 0 10.5 4.705 10.5 10.5s-4.705 10.5-10.5 10.5-10.5-4.705-10.5-10.5 4.705-10.5 10.5-10.5zm-6.5 10h13v1h-13v-1z"
+                              />
+                            </svg>
+                          </button>
+                          <input
+                            type="number"
+                            id="input-label-with-helper-text"
+                            formControlName="quantity"
+                            class="boxSadow w-15 py-3 px-4 block rounded-md text-sm dark:text-gray-400 text-gray-400"
+                            aria-describedby="hs-input-helper-text"
+                          />
+                          <button type="button">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              class="ml-2"
+                            >
+                              <path
+                                d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm6 13h-5v5h-2v-5h-5v-2h5v-5h2v5h5v2z"
+                              />
+                            </svg>
+                          </button>
+                        </div>
                       </div>
-                      <button
-                        type="button"
-                        (click)="removeSale(i)"
-                        class="ml-5 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800"
-                        style="height: 45px; margin-top: 9%; width: 16%"
-                      >
-                        REMOVE
-                      </button>
+                      <div class="my-6 ml-5 mt-6">
+                        <label
+                          for="input-label-with-helper-text"
+                          class="block text-sm font-medium mb-2"
+                          >Sub Total :</label
+                        >
+                        <div>
+                          {{
+                            product.value.price * product.value.quantity
+                              | currency : "USD"
+                          }}
+                        </div>
+                      </div>
+                      <div>
+                        <button
+                          type="button"
+                          (click)="removeSale(i)"
+                          class="ml-5 inline-flex justify-center items-center gap-2 rounded-full border border-transparent font-semibold bg-slate-200 hover:bg-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800"
+                          style="height: 45px; margin-top: 112%; width: 86%"
+                        >
+                          <svg
+                            clip-rule="evenodd"
+                            fill-rule="evenodd"
+                            stroke-linejoin="round"
+                            stroke-miterlimit="2"
+                            viewBox="0 0 24 24"
+                            width="24"
+                            height="24"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="m20.015 6.506h-16v14.423c0 .591.448 1.071 1 1.071h14c.552 0 1-.48 1-1.071 0-3.905 0-14.423 0-14.423zm-5.75 2.494c.414 0 .75.336.75.75v8.5c0 .414-.336.75-.75.75s-.75-.336-.75-.75v-8.5c0-.414.336-.75.75-.75zm-4.5 0c.414 0 .75.336.75.75v8.5c0 .414-.336.75-.75.75s-.75-.336-.75-.75v-8.5c0-.414.336-.75.75-.75zm-.75-5v-1c0-.535.474-1 1-1h4c.526 0 1 .465 1 1v1h5.254c.412 0 .746.335.746.747s-.334.747-.746.747h-16.507c-.413 0-.747-.335-.747-.747s.334-.747.747-.747zm4.5 0v-.5h-3v.5z"
+                              fill-rule="nonzero"
+                            />
+                          </svg>
+                        </button>
+                      </div>
                     </div>
+                    <div class="border-t dark:border-gray-700">Total :</div>
                   </div>
                 </div>
               </div>
@@ -271,7 +343,7 @@
                 type="submit"
                 (click)="save()"
                 class="disabled:cursor-not-allowed disabled:bg-gray-600 py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-green-500 text-white hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800"
-                [disabled]="clientName == ''"
+                [disabled]="clientName == '' || confirmBox"
               >
                 Confirm
               </button>

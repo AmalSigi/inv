@@ -5,6 +5,7 @@ import { HttpService } from 'src/app/Service/http.service';
 import { Toastr } from 'src/app/Service/toastr.service';
 import { ClientComponent } from '../client.component';
 import { MainServiceService } from 'src/app/Service/main-service.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-client',
@@ -14,8 +15,11 @@ import { MainServiceService } from 'src/app/Service/main-service.service';
 export class AddClientComponent {
   constructor(
     private readonly http: HttpClient,
-    // private clientAcess: ClientComponent,
-    private readonly clientAcess:MainServiceService,
+    private route: ActivatedRoute,
+
+    private router: Router,
+
+    private readonly clientAcess: MainServiceService,
     private apiService: HttpService,
     private toastr: Toastr
   ) {}
@@ -35,16 +39,24 @@ export class AddClientComponent {
 
     const url: string = 'https://api-sales-app.josetovar.dev/clients';
 
-    this.http
-      .post(url, this.addProductForm.value)
-      .subscribe((response: any) => {
-        if (response) {
-          this.toastr.add();
-          this.apiService.getData().subscribe((response: any) => {
-            this.clientAcess.clickEventActivated();
-            this.addProductForm.reset();
-          });
+    // this.http
+    //   .post(url, this.addProductForm.value)
+    //   .subscribe((response: any) => {
+    //     if (response) {
+    //       this.toastr.add();
+    //       this.apiService.getData().subscribe((response: any) => {
+    //         this.clientAcess.clickEventActivated();
+    //         this.addProductForm.reset();
+    //       });
+
+    //     }
+    //   });
+      
+      this.route.queryParams.subscribe(
+        (params: { [source: string]: string }) => {
+          if (params['source'])
+            this.router.navigate(['/dashboard/sales'],{queryParams:{source:'client'}});
         }
-      });
+      );
   }
 }

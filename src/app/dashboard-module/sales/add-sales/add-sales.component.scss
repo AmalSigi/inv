@@ -18,3 +18,17 @@ border-radius: 5px;
 }
 
 .innerBoxShadow{box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;}
+
+
+.scrollable-div::-webkit-scrollbar {
+    width: 0.5em;
+}
+  .scrollable-div::-webkit-scrollbar-thumb {
+    background-color: #cccccc00;
+    border-radius: 0.5em;
+  }
+  
+  .scrollable-div::-webkit-scrollbar-track {
+    background-color: #f2f2f200;
+    border-radius: 0.5em;
+  }

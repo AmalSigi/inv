@@ -92,7 +92,7 @@
                       <td
                         class="px-6 py-4 whitespace-nowrap text-sm text-black dark:text-black"
                       >
-                        $ {{ sale.price }}
+                        {{ sale.price | currency : "USD" }}
                       </td>
                       <td
                         class="px-6 py-4 whitespace-nowrap text-sm text-black dark:text-black"

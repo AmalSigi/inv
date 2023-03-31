@@ -10,6 +10,7 @@ export class LocalStoService {
 
   public store(value: any) {
     this.LocalStoring = value;
+    console.log(this.LocalStoring)
   }
 
   public getvalue() {

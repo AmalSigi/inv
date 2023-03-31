@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { HttpService } from 'src/app/Service/http.service';
 import { MainServiceService } from 'src/app/Service/main-service.service';
@@ -15,12 +16,18 @@ export class SalesComponent implements OnInit {
   currentPage: number = 1;
   pageSize: number = 5;
   pageLength!: number;
- constructor(private readonly apiService:HttpService,private readonly main:MainServiceService){}
+ constructor(private readonly apiService:HttpService,private readonly main:MainServiceService, private readonly route:ActivatedRoute){}
  public mainServiceSubscription: Subscription=this.main.getClickEvent().subscribe(()=>{
   this.mainCall()
 })
  ngOnInit(): void {
   this.mainCall()
+  this.route.queryParams.subscribe((params:{[source:string]:string})=>{
+    console.log(params)
+    if(params['source']){
+      this.showmodel=true
+    }
+     })
  }
 
  public mainCall(){
