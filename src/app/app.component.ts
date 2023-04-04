@@ -15,8 +15,8 @@ export class AppComponent {
     // localStorage.setItem('logged', 'false');
   }
   logout() {
-    localStorage.setItem('logged', 'false');
     localStorage.setItem('access_token', '');
+    console.log(localStorage.getItem('access_token'));
     this.dashboardView = true;
     this.route.navigate(['/home']);
   }

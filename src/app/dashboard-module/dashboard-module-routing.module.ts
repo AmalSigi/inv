@@ -3,12 +3,18 @@ import { RouterModule, Routes } from '@angular/router';
 import { DashboardModuleComponent } from './dashboard-module.component';
 // import { ProductsComponent } from '../products/products.component';
 import { ProductComponent } from './product/product.component';
+import { ActiveGuard } from '../Active/active.guard';
 
 const routes: Routes = [
   {
     path: '',
     component: DashboardModuleComponent,
     children: [
+      {
+        path: 'overView',
+        loadChildren: () =>
+          import('./over-view/over-view.module').then((m) => m.OverViewModule),
+      },
       {
         path: 'product',
         loadChildren: () =>
@@ -25,6 +31,7 @@ const routes: Routes = [
           import('./sales/sales.module').then((m) => m.SalesModule),
       },
     ],
+    canActivateChild: [ActiveGuard],
   },
 ];
 

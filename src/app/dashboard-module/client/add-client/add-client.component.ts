@@ -39,18 +39,18 @@ export class AddClientComponent {
 
     const url: string = 'https://api-sales-app.josetovar.dev/clients';
 
-    // this.http
-    //   .post(url, this.addProductForm.value)
-    //   .subscribe((response: any) => {
-    //     if (response) {
-    //       this.toastr.add();
-    //       this.apiService.getData().subscribe((response: any) => {
-    //         this.clientAcess.clickEventActivated();
-    //         this.addProductForm.reset();
-    //       });
+    this.http
+      .post(url, this.addProductForm.value)
+      .subscribe((response: any) => {
+        if (response) {
+          this.toastr.add();
+          this.apiService.getData().subscribe((response: any) => {
+            this.clientAcess.clickEventActivated();
+            this.addProductForm.reset();
+          });
 
-    //     }
-    //   });
+        }
+      });
       
       this.route.queryParams.subscribe(
         (params: { [source: string]: string }) => {

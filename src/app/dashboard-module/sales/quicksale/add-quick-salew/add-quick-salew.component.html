@@ -12,7 +12,7 @@
           class="font-bold dark:text-gray-800 font-mono flex"
           style="font-size: 28px"
         >
-          Add Sales
+          Add Quick Sales
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -54,14 +54,11 @@
             <div>
               <input
                 type="text"
-                [(ngModel)]="clientName"
                 id="input-label-with-helper-text"
                 class="boxSadow py-2 px-4 block w-[500px] mt-3 border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-700 border-gray-700 dark:text-black text-black"
                 aria-describedby="hs-input-helper-text"
-                (input)="getClientName()"
               />
               <p
-                *ngIf="!clientName && productName"
                 class="text-sm text-red-600 mt-2 flex"
                 id="hs-input-helper-text"
               >
@@ -85,7 +82,6 @@
             <div class="mt-5">
               <button
                 type="button"
-                (click)="addSales()"
                 class="py-2 px-3 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800"
               >
                 <svg
@@ -105,54 +101,37 @@
             </div>
             <div class="mt-5"></div>
           </div>
-          <div *ngIf="serachView">
+          <div>
             <div
               class="clientList scrollable-div w-48 mt-5 py-2 px-5 rounded-lg max-h-[200px] overflow-y-auto scroll-smooth"
             >
               <tr
-                *ngFor="let client of client$ | async"
-                (click)="
-                  getClientId(client.id, client.first_name, client.last_name)
-                "
                 class="text-slate-50 hover:bg-white hover:text-black cursor-grabbing"
-              >
-                {{
-                  client.first_name
-                }}
-                {{
-                  client.last_name
-                }}
-              </tr>
+              ></tr>
             </div>
             <button
               type="button"
-              (click)="addNewClient()"
               class="px-4 w-48 inline-flex justify-center items-center gap-2 rounded-md font-semibold text-gray-100 hover:text-white bg-blue-500 hover:bg-blue-800 hover:border-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:border-gray-700 dark:hover:border-blue-500"
             >
               Add Client
             </button>
           </div>
-          <div *ngIf="productView">
+          <div>
             <label class="block text-sm font-medium mb-2 mt-2">Product :</label>
 
             <div class="flex rounded-md shadow-sm">
               <input
                 type="text"
-                [(ngModel)]="productName"
-                (input)="getProductName()"
                 id="hs-trailing-button-add-on-with-icon"
                 name="hs-trailing-button-add-on-with-icon"
                 class="boxSadow py-3 px-4 block w-[500px] border-gray-200 shadow-sm rounded-l-md text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-100 dark:border-gray-700 dark:text-gray-400"
               />
             </div>
           </div>
-          <form [formGroup]="saleForm">
-            <div
-              class="formbox max-w-[400] mx-auto mt-7 p-8"
-              *ngIf="!saleForm.controls[0]"
-            >
+          <form>
+            <div class="formbox max-w-[400] mx-auto mt-7 p-8">
               <div class="">
-                <ng-container *ngIf="productName">
+                <ng-container>
                   <div class="text-slate-50">
                     <div class="flex flex-col">
                       <div class="-m-1.5 overflow-x-auto">
@@ -190,45 +169,31 @@
                               <tbody
                                 class="divide-y divide-gray-200 dark:divide-gray-700"
                               >
-                                <tr
-                                  *ngFor="let product of product$ | async"
-                                  (click)="addProduct(product)"
-                                  class="cursor-grab hover:bg-green-100"
-                                  [hidden]="product.id == selectedProduct"
-                                >
+                                <tr class="cursor-grab hover:bg-green-100">
                                   <td
                                     class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-500 dark:text-gray-500"
-                                  >
-                                    {{ product.id }}
-                                  </td>
+                                  ></td>
                                   <td
                                     class="px-6 py-4 whitespace-nowrap text-sm text-gray-800"
-                                  >
-                                    {{ product.name }}
-                                  </td>
+                                  ></td>
                                   <td
                                     class="px-6 py-4 whitespace-nowrap text-sm uppercase dark:text-gray-500"
-                                  >
-                                    {{ product.stock }}
-                                  </td>
+                                  ></td>
                                   <td
                                     class="px-6 py-4 whitespace-nowrap text-sm uppercase dark:text-gray-500"
-                                  >
-                                    {{ product.active }}
-                                  </td>
+                                  ></td>
                                 </tr>
                               </tbody>
                             </table>
                           </div>
                         </div>
                       </div>
-                    </div>
-                  </div></ng-container
-                >
+                    </div></div
+                ></ng-container>
 
-                <div formArrayName="products">
-                  <div *ngFor="let product of products.controls; let i = index">
-                    <div formGroupName="{{ i }}" class="flex">
+                <div>
+                  <div>
+                    <div class="flex">
                       <div class="ml-5 mt-6">
                         <label
                           for="input-label-with-helper-text"
@@ -237,14 +202,11 @@
                         >
                         <input
                           type="text"
-                          formControlName="id"
                           class="boxSadow py-3 px-4 block border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-700 border-gray-700 dark:text-gray-400 text-gray-400"
                           id="input-label-with-helper-text"
                           aria-describedby="hs-input-helper-text"
                         />
-                        <div class="mt-4">
-                          Price: {{ product.value.price | currency : "USD" }}
-                        </div>
+                        <div class="mt-4"></div>
                       </div>
                       <div class="my-6 ml-5 mt-6">
                         <label
@@ -253,11 +215,7 @@
                           >Quantity :</label
                         >
                         <div class="flex">
-                          <button
-                            type="button"
-                            class="mr-2"
-                            (click)="quanityDec(i)"
-                          >
+                          <button type="button" class="mr-2">
                             <svg
                               width="24"
                               height="24"
@@ -273,11 +231,10 @@
                           <input
                             type="text"
                             id="input-label-with-helper-text"
-                            formControlName="quantity"
                             class="boxSadow w-15 py-3 px-4 block rounded-md text-sm dark:text-gray-400 text-gray-400"
                             aria-describedby="hs-input-helper-text"
                           />
-                          <button type="button" (click)="quanityInc(i)">
+                          <button type="button">
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
                               width="24"
@@ -298,17 +255,11 @@
                           class="block text-sm font-medium mb-2"
                           >Sub Total :</label
                         >
-                        <div>
-                          {{
-                            product.value.price * product.value.quantity
-                              | currency : "USD"
-                          }}
-                        </div>
+                        <div></div>
                       </div>
                       <div>
                         <button
                           type="button"
-                          (click)="removeSale(i)"
                           class="ml-5 inline-flex justify-center items-center gap-2 rounded-full border border-transparent font-semibold bg-slate-200 hover:bg-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800"
                           style="height: 45px; margin-top: 112%; width: 86%"
                         >
@@ -331,13 +282,8 @@
                       </div>
                     </div>
                   </div>
-                  <div
-                    class="border-t dark:border-gray-700 mt-5"
-                    *ngIf="productName"
-                  >
-                    <p class="mt-2">
-                      Total : {{ updateOrderTotal() | currency }}
-                    </p>
+                  <div class="border-t dark:border-gray-700 mt-5">
+                    <p class="mt-2"></p>
                   </div>
                 </div>
               </div>
@@ -347,16 +293,13 @@
             >
               <button
                 type="button"
-                (click)="modelUnShow()"
                 class="hs-dropdown-toggle py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md font-medium bg-white text-gray-700 shadow-sm align-middle focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-blue-600 transition-all text-sm dark:text-gray-400 border-red-300 dark:hover:text-gray-900 dark:hover:innerBoxShadow dark:focus:ring-offset-gray-800"
               >
                 Close
               </button>
               <button
                 type="submit"
-                (click)="save()"
                 class="disabled:cursor-not-allowed disabled:bg-gray-600 py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-green-500 text-white hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800"
-                [disabled]="clientName == '' || confirmBox"
               >
                 Confirm
               </button>

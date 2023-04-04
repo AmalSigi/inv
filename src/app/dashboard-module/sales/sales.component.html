@@ -1,137 +1,41 @@
-<div
-  class="flex justify-between"
-  style="margin-left: 183px; margin-right: 182px"
->
-  <button
-    type="button"
-    (click)="modelShow()"
-    class="py-3 px-4 h-10 mt-5 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800"
-  >
-    + ADD SALES
-  </button>
-  <app-pagination
-    [data]="sales$"
-    (pagination)="onPagination($event)"
-  ></app-pagination>
+<div>
+  <nav class="flex space-x-2" aria-label="Tabs">
+    <a
+      class="flex -mb-px py-3 px-4 text-sm font-medium text-center border-b text-slate-200 rounded-t-lg hover:text-gray-700 focus:z-10 dark:border-gray-700 dark:hover:text-gray-400"
+      routerLink="allsales"
+      routerLinkActive="act"
+    >
+      <svg
+        width="24"
+        height="24"
+        xmlns="http://www.w3.org/2000/svg"
+        fill="currentColor"
+        class="mr-1"
+      >
+        <path
+          d="M23 6.066v12.065l-11.001 5.869-11-5.869v-12.131l11-6 11.001 6.066zm-21.001 11.465l9.5 5.069v-10.57l-9.5-4.946v10.447zm20.001-10.388l-9.501 4.889v10.568l9.501-5.069v-10.388zm-5.52 1.716l-9.534-4.964-4.349 2.373 9.404 4.896 4.479-2.305zm-8.476-5.541l9.565 4.98 3.832-1.972-9.405-5.185-3.992 2.177z"
+        />
+      </svg>
+      All Sales
+    </a>
+
+    <a
+      class="flex -mb-px py-3 px-4 text-sm font-medium text-center border-b text-slate-200 rounded-t-lg hover:text-gray-700 focus:z-10 dark:border-gray-700 dark:hover:text-gray-400"
+      routerLink="quicksale"
+      routerLinkActive="act"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+        class="mr-1"
+      >
+        <path d="M8 24l3-9h-9l14-15-3 9h9l-14 15z" />
+      </svg>
+      Quick Sales
+    </a>
+  </nav>
 </div>
-
-<section class="formbox container mx-auto mt-8">
-  <div class="flex flex-col">
-    <div class="-m-1.5 overflow-x-auto">
-      <div class="p-1.5 min-w-full inline-block align-middle">
-        <div class="overflow-hidden">
-          <form>
-            <table
-              class="min-w-full divide-y dark:divide-gray-100 divide-gray-100"
-            >
-              <thead>
-                <tr>
-                  <th
-                    scope="col"
-                    class="px-6 py-3 text-left text-xs font-medium text-teal-200 uppercase"
-                  >
-                    Id
-                  </th>
-                  <th
-                    scope="col"
-                    class="px-6 py-3 text-left text-xs font-medium text-teal-200 uppercase"
-                  >
-                    Name
-                  </th>
-                  <th
-                    scope="col"
-                    class="px-6 py-3 text-left text-xs font-medium text-teal-200 uppercase"
-                  >
-                    Email
-                  </th>
-
-                  <th
-                    scope="col"
-                    class="px-6 py-3 text-left text-xs font-medium text-teal-200 uppercase"
-                  >
-                    Items In Cart
-                  </th>
-                  <th
-                    scope="col"
-                    class="px-6 py-3 text-left text-xs font-medium text-teal-200 uppercase"
-                  >
-                    Total
-                  </th>
-
-                  <th
-                    scope="col"
-                    class="px-6 py-3 text-left text-xs font-medium text-teal-200 uppercase"
-                  >
-                    Created Date
-                  </th>
-                  <th
-                    scope="col"
-                    class="px-6 py-3 text-left text-xs font-medium text-teal-200 uppercase"
-                  >
-                    Action
-                  </th>
-                </tr>
-              </thead>
-              <tbody
-                class="divide-y divide-gray-200 dark:divide-gray-400 divide-gray-400"
-              >
-                <tr
-                  *ngFor="
-                    let sales of sales$
-                      | pagination : currentPage : pageSize
-                      | async
-                  "
-                  class="hover:bg-teal-800"
-                >
-                  <td
-                    class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-gray-200 text-gray-200"
-                  >
-                    {{ sales.id }}
-                  </td>
-                  <td
-                    class="px-6 py-4 whitespace-nowrap text-sm dark:text-gray-200 text-gray-200"
-                  >
-                    {{ sales.client.first_name }} {{ sales.client.last_name }}
-                  </td>
-                  <td
-                    class="px-6 py-4 whitespace-nowrap text-sm font-medium dark:text-gray-200 text-gray-200"
-                  >
-                    {{ sales.client.email }}
-                  </td>
-
-                  <td
-                    class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200 text-gray-200"
-                  >
-                    {{ sales.items.length }}
-                  </td>
-                  <td
-                    class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200 text-gray-200"
-                  >
-                    {{ sales.total | currency : "USD" }}
-                  </td>
-
-                  <td
-                    class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200 text-gray-200"
-                  >
-                    {{ sales.created_at | date }}
-                  </td>
-                  <button
-                    type="button"
-                    routerLink="salesView/{{ sales.id }}"
-                    class="py-2 mr-2 px-3 mt-2 inline-flex justify-center disabled:cursor-not-allowed items-center gap-2 rounded-md border border-transparent font-semibold bg-green-500 text-white hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800 focus:ring-offset-gray-800"
-                  >
-                    View
-                  </button>
-                </tr>
-              </tbody>
-            </table>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-<app-add-sales
-  *ngIf="showmodel"
-  (childEvent)="modelUnShow($event)"
-></app-add-sales>
+<router-outlet></router-outlet>

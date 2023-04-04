@@ -16,14 +16,7 @@ import { SampleProductsComponent } from './sample-products/sample-products.compo
 // import { ProductsComponent } from './products/products.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    // DashboardComponent,
-    HomeComponent,
-    // RegisterComponent,
-    SampleProductsComponent,
-    // ProductsComponent,
-  ],
+  declarations: [AppComponent, HomeComponent, SampleProductsComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -33,7 +26,6 @@ import { SampleProductsComponent } from './sample-products/sample-products.compo
     FormsModule,
     ToastrModule.forRoot(),
     BrowserAnimationsModule,
-   
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },

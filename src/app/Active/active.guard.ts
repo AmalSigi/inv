@@ -1,25 +1,31 @@
 import { Injectable } from '@angular/core';
-import {
-  ActivatedRouteSnapshot,
-  CanActivate,
-  RouterStateSnapshot,
-  UrlTree,
-} from '@angular/router';
-import { Observable } from 'rxjs';
+import { CanActivate, CanActivateChild, Router } from '@angular/router';
+import { HttpService } from '../Service/http.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class ActiveGuard implements CanActivate {
-  canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ):
-    | Observable<boolean | UrlTree>
-    | Promise<boolean | UrlTree>
-    | boolean
-    | UrlTree {
-    if (localStorage.getItem('logged') === 'true') return false;
-    return true;
+export class ActiveGuard implements CanActivate, CanActivateChild {
+  constructor(
+    private readonly apiService: HttpService,
+    private readonly router: Router
+  ) {}
+
+  public getAuth() {
+    this.apiService.getAuth().subscribe({
+      next: () => {},
+      error: () => {
+        this.router.navigate(['/login']);
+        return false;
+      },
+      complete: () => true,
+    });
+  }
+  canActivate(): any {
+    this.getAuth();
+  }
+
+  canActivateChild(): any {
+    this.getAuth();
   }
 }

@@ -9,6 +9,12 @@ export class HttpService {
 
   public url: string = 'https://api-sales-app.josetovar.dev';
 
+  // ********************** Aut Function**************************
+
+  public getAuth(): Observable<any> {
+    return this.http.post(`${this.url}/auth`, {});
+  }
+
   // ********************** Product Function**************************
 
   public setApi(productId: number): Observable<any> {
@@ -45,15 +51,21 @@ export class HttpService {
     return this.http.get(`${this.url}/sales`);
   }
 
-  public postSale(salesVale:any) {
-    this.http.post(`${this.url}/sales`,salesVale)
+  public postSale(salesVale: any) {
+    this.http.post(`${this.url}/sales`, salesVale);
   }
-  public getSaleByID(saleId:number){
-  
-    this.http.get(`${this.url}/sales/${saleId}`).subscribe((res)=>{
-      console.log(res)
-    })
+  public getSaleByID(saleId: number) {
+    this.http.get(`${this.url}/sales/${saleId}`).subscribe((res) => {
+      console.log(res);
+    });
     return this.http.get(`${this.url}/sales/${saleId}`);
+  }
+  // ********************** Quick Sale Function**************************
 
+  public getQuickSale(): Observable<any> {
+    return this.http.get(`${this.url}/quick-sales`);
+  }
+  public getQuickSaleById(id: number): Observable<any> {
+    return this.http.get(`${this.url}/quick-sales/${id}`);
   }
 }

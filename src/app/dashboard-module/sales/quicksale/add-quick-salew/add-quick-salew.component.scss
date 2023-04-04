@@ -1,0 +1,34 @@
+.addSale{
+    background-color: rgba(250, 252, 254, 0.845);
+}
+
+.clientList{
+   background-color: rgb(106, 183, 129);
+    box-shadow: rgba(19, 59, 69, 0.879) 0px 10px 20px, rgba(35, 84, 97, 0.329) 0px 6px 6px;
+border-radius: 5px;
+
+}
+
+.boxSadow{
+    background-color: rgba(250, 252, 254, 0.685);
+    box-shadow: rgba(19, 59, 69, 0.402) 0px 10px 20px, rgba(35, 84, 97, 0.329) 0px 6px 6px;
+}
+.main{
+    background-color: rgba(38, 39, 38, 0.493);
+}
+
+.innerBoxShadow{box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;}
+
+
+.scrollable-div::-webkit-scrollbar {
+    width: 0.5em;
+}
+  .scrollable-div::-webkit-scrollbar-thumb {
+    background-color: #cccccc00;
+    border-radius: 0.5em;
+  }
+  
+  .scrollable-div::-webkit-scrollbar-track {
+    background-color: #f2f2f200;
+    border-radius: 0.5em;
+  }

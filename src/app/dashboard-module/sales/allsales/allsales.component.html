@@ -1,0 +1,151 @@
+<div
+  class="flex justify-between"
+  style="margin-left: 183px; margin-right: 182px"
+>
+  <div class="flex items-center mt-5">
+    <button
+      class="flex items-center font-medium px-6 py-2.5 text-white rounded-md bg-blue-500"
+      (click)="modelShow()"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+        class="w-4 stroke-2 stroke-white h-auto mr-2"
+      >
+        <path
+          fill-rule="evenodd"
+          d="M12 3.75a.75.75 0 01.75.75v6.75h6.75a.75.75 0 010 1.5h-6.75v6.75a.75.75 0 01-1.5 0v-6.75H4.5a.75.75 0 010-1.5h6.75V4.5a.75.75 0 01.75-.75z"
+          clip-rule="evenodd"
+        />
+      </svg>
+      Add new sale
+    </button>
+  </div>
+
+  <app-pagination
+    [data]="sales$"
+    (pagination)="onPagination($event)"
+  ></app-pagination>
+</div>
+
+<section class="formbox container mx-auto mt-8">
+  <div class="flex flex-col">
+    <div class="-m-1.5 overflow-x-auto">
+      <div class="p-1.5 min-w-full inline-block align-middle">
+        <div class="overflow-hidden">
+          <form>
+            <table
+              class="min-w-full divide-y dark:divide-gray-100 divide-gray-100"
+            >
+              <thead>
+                <tr>
+                  <th
+                    scope="col"
+                    class="px-6 py-3 text-left text-xs font-medium text-teal-200 uppercase"
+                  >
+                    Id
+                  </th>
+                  <th
+                    scope="col"
+                    class="px-6 py-3 text-left text-xs font-medium text-teal-200 uppercase"
+                  >
+                    Name
+                  </th>
+                  <th
+                    scope="col"
+                    class="px-6 py-3 text-left text-xs font-medium text-teal-200 uppercase"
+                  >
+                    Email
+                  </th>
+
+                  <th
+                    scope="col"
+                    class="px-6 py-3 text-left text-xs font-medium text-teal-200 uppercase"
+                  >
+                    Items In Cart
+                  </th>
+                  <th
+                    scope="col"
+                    class="px-6 py-3 text-left text-xs font-medium text-teal-200 uppercase"
+                  >
+                    Total
+                  </th>
+
+                  <th
+                    scope="col"
+                    class="px-6 py-3 text-left text-xs font-medium text-teal-200 uppercase"
+                  >
+                    Created Date
+                  </th>
+                  <th
+                    scope="col"
+                    class="px-6 py-3 text-left text-xs font-medium text-teal-200 uppercase"
+                  >
+                    Action
+                  </th>
+                </tr>
+              </thead>
+              <tbody
+                class="divide-y divide-gray-200 dark:divide-gray-400 divide-gray-400"
+              >
+                <tr
+                  *ngFor="
+                    let sales of sales$
+                      | pagination : currentPage : pageSize
+                      | async
+                  "
+                  class="hover:bg-teal-800"
+                >
+                  <td
+                    class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-gray-200 text-gray-200"
+                  >
+                    {{ sales.id }}
+                  </td>
+                  <td
+                    class="px-6 py-4 whitespace-nowrap text-sm dark:text-gray-200 text-gray-200"
+                  >
+                    {{ sales.client.first_name }} {{ sales.client.last_name }}
+                  </td>
+                  <td
+                    class="px-6 py-4 whitespace-nowrap text-sm font-medium dark:text-gray-200 text-gray-200"
+                  >
+                    {{ sales.client.email }}
+                  </td>
+
+                  <td
+                    class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200 text-gray-200"
+                  >
+                    {{ sales.items.length }}
+                  </td>
+                  <td
+                    class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200 text-gray-200"
+                  >
+                    {{ sales.total | currency : "USD" }}
+                  </td>
+
+                  <td
+                    class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200 text-gray-200"
+                  >
+                    {{ sales.created_at | date }}
+                  </td>
+                  <button
+                    type="button"
+                    routerLink="salesView/{{ sales.id }}"
+                    class="py-2 mr-2 px-3 mt-2 inline-flex justify-center disabled:cursor-not-allowed items-center gap-2 rounded-md border border-transparent font-semibold bg-green-500 text-white hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800 focus:ring-offset-gray-800"
+                  >
+                    View
+                  </button>
+                </tr>
+              </tbody>
+            </table>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<app-add-sales
+  *ngIf="showmodel"
+  (childEvent)="modelUnShow($event)"
+></app-add-sales>

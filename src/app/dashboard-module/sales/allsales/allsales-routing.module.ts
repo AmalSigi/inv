@@ -1,17 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ClientComponent } from './client.component';
+import { AllsalesComponent } from './allsales.component';
 import { ActiveGuard } from 'src/app/Active/active.guard';
 
 const routes: Routes = [
-  { path: '', component: ClientComponent },
+  { path: '', component: AllsalesComponent },
   {
-    path: 'clientView/:id',
+    path: 'salesView/:id',
     loadChildren: () =>
-      import('./client-view/client-view.module').then(
-        (m) => m.ClientViewModule
-      ),
-    canActivate: [ActiveGuard],
+      import('../sales-view/sales-view.module').then((m) => m.SalesViewModule),
+    canActivateChild: [ActiveGuard],
   },
 ];
 
@@ -19,4 +17,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class ClientRoutingModule {}
+export class AllsalesRoutingModule {}

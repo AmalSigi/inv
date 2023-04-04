@@ -5,11 +5,11 @@ import { HttpService } from 'src/app/Service/http.service';
 import { MainServiceService } from 'src/app/Service/main-service.service';
 
 @Component({
-  selector: 'app-sales',
-  templateUrl: './sales.component.html',
-  styleUrls: ['./sales.component.scss'],
+  selector: 'app-allsales',
+  templateUrl: './allsales.component.html',
+  styleUrls: ['./allsales.component.scss'],
 })
-export class SalesComponent implements OnInit {
+export class AllsalesComponent implements OnInit {
   public sales$!: Observable<any>;
   public showmodel: boolean = false;
   currentPage: number = 1;

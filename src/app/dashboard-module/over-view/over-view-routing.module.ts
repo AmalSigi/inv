@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ClientViewComponent } from './client-view.component';
+import { OverViewComponent } from './over-view.component';
 import { ActiveGuard } from 'src/app/Active/active.guard';
 
 const routes: Routes = [
-  { path: '', component: ClientViewComponent, canActivate: [ActiveGuard] },
+  { path: '', component: OverViewComponent, canActivate: [ActiveGuard] },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class ClientViewRoutingModule {}
+export class OverViewRoutingModule {}

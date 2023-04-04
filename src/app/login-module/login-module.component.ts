@@ -34,8 +34,8 @@ export class LoginModuleComponent {
           'access_token',
           JSON.stringify(response.access_token)
         );
-        localStorage.setItem('logged', 'true');
-        this.router.navigate(['./dashboard/product']);
+
+        this.router.navigate(['./dashboard/overView']);
       }
 
       // if(user.email === this.loginForm.value.email && user.password === this.loginForm.value.password){

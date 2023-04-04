@@ -8,7 +8,7 @@
       height="30"
       fill="currentColor"
       viewBox="0 0 16 16"
-      class="ml-10"
+      class="mr-10"
     >
       <path
         fill-rule="evenodd"
@@ -16,12 +16,6 @@
       />
     </svg>
   </button>
-  <div class="off-canvas" [ngClass]="{ open: menuOpen }"></div>
-  <div class="overlay" *ngIf="menuOpen" (click)="toggleMenu()">
-    <div class="w-5">
-      <h1 class="text-7xl text-slate-50">Account</h1>
-    </div>
-  </div>
   <nav
     class="max-w-[85rem] w-full mx-auto px-4 sm:flex sm:items-center sm:justify-between"
     aria-label="Global"
@@ -82,6 +76,7 @@
           >Home</a
         >
         <a
+          *ngIf=""
           routerLinkActive="active"
           routerLink="login"
           class="font-medium dark:text-gray-400 text-gray-400 dark:hover:text-gray-500 hover:text-gray-500"
@@ -90,7 +85,7 @@
 
         <button
           routerLinkActive="active"
-          routerLink="dashboard/product"
+          routerLink="dashboard"
           class="font-medium dark:text-gray-400 text-gray-400 dark:hover:text-gray-500 hover:text-gray-500"
         >
           Dashboard
@@ -102,6 +97,13 @@
       </div>
     </div>
   </nav>
+
+  <div class="off-canvas formbox" [ngClass]="{ open: menuOpen }"></div>
+  <div class="overlay" *ngIf="menuOpen" (click)="toggleMenu()">
+    <div class="w-5">
+      <h1 class="text-7xl text-slate-50">Account</h1>
+    </div>
+  </div>
 </header>
 
 <router-outlet></router-outlet>

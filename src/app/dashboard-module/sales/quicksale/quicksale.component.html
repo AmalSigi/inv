@@ -1,40 +1,31 @@
-<div class="flex" style="margin-left: 183px; margin-right: 182px">
-  <section class="container mx-auto">
-    <div class="flex item-center mb-6">
-      <div>
-        <label
-          for="hs-search-box-with-loading-4"
-          class="block text-sm font-medium mb-2 dark:text-white"
-          >Search</label
-        >
-        <div class="flex rounded-md shadow-sm">
-          <input
-            type="text"
-            [(ngModel)]="searchValue"
-            (input)="searchClient()"
-            id="hs-search-box-with-loading-4"
-            name="hs-search-box-with-loading-4"
-            class="py-3 px-4 block w-full border-gray-200 shadow-sm rounded-l-md text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400"
-            placeholder="Input search"
-          />
-          <button
-            type="button"
-            class="py-3 px-4 inline-flex flex-shrink-0 justify-center items-center gap-2 rounded-r-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:z-10 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all text-sm"
-          >
-            Search
-          </button>
-        </div>
-      </div>
-    </div>
-  </section>
-
+<div
+  class="flex justify-between"
+  style="margin-left: 183px; margin-right: 182px"
+>
+  <button
+    [disabled]="true"
+    class="flex items-center mr-4 h-10 mt-7 font-medium px-6 py-2.5 rounded-md text-black bg-yellow-400 disabled:bg-black disabled:cursor-not-allowed disabled:text-white"
+    (click)="modelShow()"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="20"
+      height="20"
+      viewBox="0 0 24 24"
+      class="mr-2"
+      fill="currentcolor"
+    >
+      <path d="M24 9h-9v-9h-6v9h-9v6h9v9h6v-9h9z" />
+    </svg>
+    New quick Sale
+  </button>
   <app-pagination
-    [data]="clients$"
+    [data]="quicksale$"
     (pagination)="onPagination($event)"
   ></app-pagination>
 </div>
 
-<section class="container mx-auto">
+<section class="formbox container mx-auto mt-10">
   <div class="flex flex-col">
     <div class="-m-1.5 overflow-x-auto">
       <div class="p-1.5 min-w-full inline-block align-middle">
@@ -55,26 +46,19 @@
                     scope="col"
                     class="px-6 py-3 text-left text-xs font-medium text-teal-200 uppercase"
                   >
-                    First Name
+                    Sales Name
                   </th>
                   <th
                     scope="col"
                     class="px-6 py-3 text-left text-xs font-medium text-teal-200 uppercase"
                   >
-                    Last Name
+                    Product Name
                   </th>
                   <th
                     scope="col"
                     class="px-6 py-3 text-left text-xs font-medium text-teal-200 uppercase"
                   >
-                    Country
-                  </th>
-
-                  <th
-                    scope="col"
-                    class="px-6 py-3 text-lnteft text-xs font-medium text-teal-200 uppercase"
-                  >
-                    Email
+                    Time
                   </th>
                   <th
                     scope="col"
@@ -84,49 +68,67 @@
                   </th>
                 </tr>
               </thead>
+
               <tbody
                 class="divide-y divide-gray-200 dark:divide-gray-400 divide-gray-400"
               >
                 <tr
                   *ngFor="
-                    let client of clients$
+                    let sales of quicksale$
                       | pagination : currentPage : pageSize
                       | async
                   "
-                  class="hover:bg-teal-800"
+                  class="hover:bg-teal-800 cursor-grab"
+                  (click)="addQuickSale(sales.id)"
                 >
                   <td
                     class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-gray-200 text-gray-200"
                   >
-                    {{ client.id }}
+                    {{ sales.id }}
                   </td>
                   <td
                     class="px-6 py-4 whitespace-nowrap text-sm dark:text-gray-200 text-gray-200"
                   >
-                    {{ client.first_name }}
+                    {{ sales.name }}
                   </td>
                   <td
-                    class="px-6 py-4 whitespace-nowrap text-sm dark:text-gray-200 text-gray-200"
+                    *ngFor="let product of sales.products"
+                    class="flex px-6 py-4 whitespace-nowrap text-sm dark:text-gray-200 text-gray-200"
                   >
-                    {{ client.last_name }}
+                    {{ product.name }}
                   </td>
 
                   <td
                     class="px-6 py-4 whitespace-nowrap text-sm dark:text-gray-200 text-gray-200"
                   >
-                    {{ client.country }}
-                  </td>
-                  <td
-                    class="px-6 py-4 whitespace-nowrap text-sm dark:text-gray-200 text-gray-200"
-                  >
-                    {{ client.email }}
+                    {{ sales.created_at | date }}
                   </td>
 
                   <td
                     class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium"
                   >
                     <button
-                      (click)="modelShow(client)"
+                      type="button"
+                      routerLink="quickSaleView/{{ sales.id }}"
+                      class="py-2 mr-2 px-3 inline-flex justify-center items-center disabled:bg-slate-400 disabled:cursor-not-allowed gap-2 rounded-md border border-transparent font-semibold bg-green-600 text-white hover:bg-green-800 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800 focus:ring-offset-gray-800"
+                    >
+                      <svg
+                        fill="currentColor"
+                        width="20"
+                        height="20"
+                        stroke-linejoin="round"
+                        stroke-miterlimit="2"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="m11.998 5c-4.078 0-7.742 3.093-9.853 6.483-.096.159-.145.338-.145.517s.048.358.144.517c2.112 3.39 5.776 6.483 9.854 6.483 4.143 0 7.796-3.09 9.864-6.493.092-.156.138-.332.138-.507s-.046-.351-.138-.507c-2.068-3.403-5.721-6.493-9.864-6.493zm8.413 7c-1.837 2.878-4.897 5.5-8.413 5.5-3.465 0-6.532-2.632-8.404-5.5 1.871-2.868 4.939-5.5 8.404-5.5 3.518 0 6.579 2.624 8.413 5.5zm-8.411-4c2.208 0 4 1.792 4 4s-1.792 4-4 4-4-1.792-4-4 1.792-4 4-4zm0 1.5c-1.38 0-2.5 1.12-2.5 2.5s1.12 2.5 2.5 2.5 2.5-1.12 2.5-2.5-1.12-2.5-2.5-2.5z"
+                          fill-rule="nonzero"
+                        />
+                      </svg>
+                    </button>
+                    <button
+                      [disabled]="true"
                       type="button"
                       class="py-2 mr-2 px-3 inline-flex justify-center disabled:bg-slate-400 disabled:cursor-not-allowed items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800 focus:ring-offset-gray-800"
                     >
@@ -146,29 +148,8 @@
                       </svg>
                     </button>
                     <button
+                      [disabled]="true"
                       type="button"
-                      (click)="view(client)"
-                      routerLink="clientView/{{ client.id }}"
-                      class="py-2 mr-2 px-3 inline-flex justify-center items-center disabled:bg-slate-400 disabled:cursor-not-allowed gap-2 rounded-md border border-transparent font-semibold bg-green-600 text-white hover:bg-green-800 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800 focus:ring-offset-gray-800"
-                    >
-                      <svg
-                        fill="currentColor"
-                        width="20"
-                        height="20"
-                        stroke-linejoin="round"
-                        stroke-miterlimit="2"
-                        viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="m11.998 5c-4.078 0-7.742 3.093-9.853 6.483-.096.159-.145.338-.145.517s.048.358.144.517c2.112 3.39 5.776 6.483 9.854 6.483 4.143 0 7.796-3.09 9.864-6.493.092-.156.138-.332.138-.507s-.046-.351-.138-.507c-2.068-3.403-5.721-6.493-9.864-6.493zm8.413 7c-1.837 2.878-4.897 5.5-8.413 5.5-3.465 0-6.532-2.632-8.404-5.5 1.871-2.868 4.939-5.5 8.404-5.5 3.518 0 6.579 2.624 8.413 5.5zm-8.411-4c2.208 0 4 1.792 4 4s-1.792 4-4 4-4-1.792-4-4 1.792-4 4-4zm0 1.5c-1.38 0-2.5 1.12-2.5 2.5s1.12 2.5 2.5 2.5 2.5-1.12 2.5-2.5-1.12-2.5-2.5-2.5z"
-                          fill-rule="nonzero"
-                        />
-                      </svg>
-                    </button>
-                    <button
-                      type="button"
-                      (click)="delete(client.id)"
                       class="py-2 px-3 inline-flex justify-center items-center disabled:bg-slate-400 disabled:cursor-not-allowed gap-2 rounded-md border border-transparent font-semibold bg-red-600 text-white hover:bg-red-00 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800 focus:ring-offset-gray-800"
                     >
                       <svg
@@ -195,15 +176,11 @@
       </div>
     </div>
   </div>
-  <app-add-client></app-add-client>
 </section>
 
-<!-- ************************************************************************************* -->
-
-<app-update-client
+<app-add-quick-salew
   *ngIf="showmodel"
   (childEvent)="modelUnShow($event)"
-  (clientEvent)="updateClient($event)"
-  [data]="upClient"
-></app-update-client>
-<router-outlet></router-outlet>
+></app-add-quick-salew>
+
+<!-- ************************************************************************************* -->

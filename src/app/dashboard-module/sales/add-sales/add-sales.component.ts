@@ -1,5 +1,11 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, elementAt, map } from 'rxjs';
@@ -20,36 +26,67 @@ export class AddSalesComponent implements OnInit, OnDestroy {
   public serachView: boolean = false;
   public productView: boolean = false;
   public confirmBox: boolean = true;
+  public totalView: boolean = true;
 
-  public clientName: any='';
-  public productName: any='';
-  public selectedProduct:any;
+  public clientName: any = '';
+  public productName: any = '';
+  public selectedProduct: any;
   public client$!: Observable<any>;
   public product$!: Observable<any>;
+
+  public total: number = 0;
   constructor(
     private readonly apiService: HttpService,
     private readonly http: HttpClient,
     private readonly main: MainServiceService,
-    private readonly toastr:Toastr,
-    private readonly local:LocalStoService,
-    private readonly router:Router,
-    private readonly route:ActivatedRoute,
+    private readonly toastr: Toastr,
+    private readonly local: LocalStoService,
+    private readonly router: Router,
+    private readonly route: ActivatedRoute
   ) {}
- 
+
   ngOnInit(): void {
     this.client$ = this.apiService.getClients();
     this.product$ = this.apiService.getData();
-    
-    if(this.local.getvalue()){this.saleForm=this.local.getvalue()}
-    this.route.queryParams.subscribe((params:{[source:string]:string})=>{
-      console.log(params)
-      if(params['source']){
-        this.productView = true;
-        this.productName=""
-        this.confirmBox= false
+
+    if (this.local.getvalue()) {
+      this.saleForm = this.local.getvalue();
+    }
+    this.route.queryParams.subscribe((params: { [source: string]: string }) => {
+      console.log(params);
+      switch (true) {
+        case Boolean(params['source']):
+          this.productView = true;
+          this.productName = '';
+          this.confirmBox = false;
+          break;
+        case Boolean(params['quickSale']):
+          this.productView = true;
+          this.products.clear();
+          this.quickSale(params['quickSale']);
+          break;
+        case Boolean(params['quickAdd']):
+          this.productView = true;
+          this.productView = true;
+          this.productName = '';
+          this.confirmBox = false;
+          this.products.clear();
+
+          break;
+        default:
+          break;
       }
-       })
+    });
   }
+
+  public quickSale(id: any) {
+    this.apiService.getQuickSaleById(id).subscribe((res) => {
+      res.products.forEach((element: any) => {
+        this.addProduct(element);
+      });
+    });
+  }
+
   public saleForm: FormGroup = new FormGroup({
     client_id: new FormControl('', Validators.required),
     products: new FormArray([]),
@@ -61,20 +98,32 @@ export class AddSalesComponent implements OnInit, OnDestroy {
 
   public addSales() {
     this.productView = true;
-    
   }
-  public addProduct(product:any){
-  this.confirmBox= false;
-    const isObjectInArray = this.products.value.some((obj: any) => JSON.stringify(obj.id) === JSON.stringify(product.id));
-    if(!(isObjectInArray)){
+  public addProduct(product: any) {
+    this.confirmBox = false;
+    const isObjectInArray = this.products.value.some(
+      (obj: any) => JSON.stringify(obj.id) === JSON.stringify(product.id)
+    );
+    console.log(isObjectInArray);
+    if (!isObjectInArray) {
       this.products.push(
         new FormGroup({
           // name:new FormControl(product.name, Validators.required),
           id: new FormControl(product.id, Validators.required),
-          price:new FormControl(product.price,Validators.required),
-          quantity: new FormControl(null, [Validators.required,Validators.min(0),Validators.max(product.stock)]),
+          price: new FormControl(product.price, Validators.required),
+          quantity: new FormControl(1, [
+            Validators.required,
+            Validators.min(0),
+            Validators.max(product.stock),
+          ]),
         })
       );
+      this.updateOrderTotal();
+      // for (let i = 0; i < this.products.value.length; i++) {
+      //   this.total+=this.products.value[i].price
+      //   console.log(this.total)
+      //   }
+      console.log(this.products);
     }
   }
   public removeSale(formInedx: number): void {
@@ -87,7 +136,6 @@ export class AddSalesComponent implements OnInit, OnDestroy {
   }
 
   public getClientName() {
-    
     if (this.clientName != '') {
       this.serachView = true;
     } else {
@@ -108,7 +156,7 @@ export class AddSalesComponent implements OnInit, OnDestroy {
     );
   }
   public getClientId(clientId: number, first_name: string, last_name: string) {
-    this.addSales()
+    this.addSales();
     this.serachView = false;
 
     this.saleForm.get('client_id')?.setValue(clientId);
@@ -127,35 +175,57 @@ export class AddSalesComponent implements OnInit, OnDestroy {
         );
       })
     );
-    this.product$.subscribe((res) => {
-      // console.log(res);
-    });
+    // this.product$.subscribe((res) => {
+    //   console.log(res);
+    // });
   }
+  public quanityDec(index: number) {
+    if (this.products.at(index).get('quantity')?.value > 0) {
+      this.products.controls[index].patchValue({
+        quantity: this.products.at(index).get('quantity')?.value - 1,
+      });
+    }
+    this.updateOrderTotal();
+  }
+  public quanityInc(index: number) {
+    this.products.controls[index].patchValue({
+      quantity: this.products.at(index).get('quantity')?.value + 1,
+    });
+    this.updateOrderTotal();
+  }
+
   public save() {
-    this.modelUnShow()
+    this.modelUnShow();
     // console.log(this.saleForm.valid);
-    if(this.saleForm.valid){
+    if (this.saleForm.valid) {
       this.http.post(`${this.url}/sales`, this.saleForm.value).subscribe({
         next: () => {
           this.main.clickEventActivated();
-          this.toastr.add()
+          this.toastr.add();
         },
         error: () => {},
         complete: () => {},
       });
+    } else {
+      this.toastr.error();
     }
-    else{
-      this.toastr.error()
-    }
-   
   }
-  public addNewClient(){
-    this.router.navigate(['/dashboard/client'],{queryParams:{source:'newsale'}})
+  public addNewClient() {
+    this.router.navigate(['/dashboard/client'], {
+      queryParams: { source: 'newsale' },
+    });
+  }
+
+  public updateOrderTotal() {
+    this.total = 0;
+    for (let product of this.products.controls) {
+      this.total = this.total + product.value.quantity * product.value.price;
+      console.log(this.total);
+    }
+    return this.total;
   }
 
   ngOnDestroy(): void {
-  this.local.store(this.saleForm)
+    this.local.store(this.saleForm);
   }
-
- 
 }
