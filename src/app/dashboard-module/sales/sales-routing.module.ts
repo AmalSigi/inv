@@ -18,6 +18,11 @@ const routes: Routes = [
         loadChildren: () =>
           import('./allsales/allsales.module').then((m) => m.AllsalesModule),
       },
+      {
+        path: '',
+        loadChildren: () =>
+          import('./allsales/allsales.module').then((m) => m.AllsalesModule),
+      },
     ],
     canActivateChild: [ActiveGuard],
   },
