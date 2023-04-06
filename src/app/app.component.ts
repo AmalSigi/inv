@@ -11,15 +11,6 @@ export class AppComponent {
 
   dashboardView: boolean = false;
   title = 'Inventory';
-  constructor(private readonly route: Router) {
-    // localStorage.setItem('logged', 'false');
-  }
-  logout() {
-    localStorage.setItem('access_token', '');
-    console.log(localStorage.getItem('access_token'));
-    this.dashboardView = true;
-    this.route.navigate(['/home']);
-  }
 
   toggleMenu() {
     this.menuOpen = !this.menuOpen;

@@ -68,7 +68,7 @@
 <div class="flex">
   <div class="flex formbox items-center flex-col h-screen w-[18rem]">
     <nav class="w-full">
-      <p class="px-6 mb-3 font-medium">Menu</p>
+      <p class="px-6 mb-3 font-medium text-3xl">Menu</p>
       <ul class="font-medium">
         <li class="mb-4">
           <a
@@ -162,25 +162,24 @@
 
             Sales</a
           >
-          <!-- </li>
+        </li>
         <li class="mb-4">
-          <a
-            class="flex items-center pl-8 h-10 border-l-4 border-r-0 border-y-0 border-transparent hover:border-white hover:text-gray-50 w-full"
+          <button
+            (click)="logout()"
+            class="dark:text-red-400 text-red-400 flex items-center pl-8 h-10 border-l-4 border-r-0 border-y-0 border-transparent hover:border-white w-full"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
               viewBox="0 0 24 24"
-              fill="currentColor"
-              class="w-6 h-6 mr-4"
             >
               <path
-                d="M18.375 2.25c-1.035 0-1.875.84-1.875 1.875v15.75c0 1.035.84 1.875 1.875 1.875h.75c1.035 0 1.875-.84 1.875-1.875V4.125c0-1.036-.84-1.875-1.875-1.875h-.75zM9.75 8.625c0-1.036.84-1.875 1.875-1.875h.75c1.036 0 1.875.84 1.875 1.875v11.25c0 1.035-.84 1.875-1.875 1.875h-.75a1.875 1.875 0 01-1.875-1.875V8.625zM3 13.125c0-1.036.84-1.875 1.875-1.875h.75c1.036 0 1.875.84 1.875 1.875v6.75c0 1.035-.84 1.875-1.875 1.875h-.75A1.875 1.875 0 013 19.875v-6.75z"
+                d="M16 9v-4l8 7-8 7v-4h-8v-6h8zm-16-7v20h14v-2h-12v-16h12v-2h-14z"
               />
             </svg>
-
-            Reports</a
-          >
-        </li> -->
+            Logout
+          </button>
         </li>
       </ul>
     </nav>
