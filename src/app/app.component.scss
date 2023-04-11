@@ -1,6 +1,4 @@
-header {
-  height: 100px;
-}
+
 
 .off-canvas {
   position: fixed;
@@ -30,8 +28,6 @@ header {
   right: 400px;
   width: 100%;
   height: 100%;
-
- 
   transition: transform 0.3s ease-in-out;
 
   z-index: 100;

@@ -1,0 +1,97 @@
+<div class="">
+  <form [formGroup]="addProductForm" (ngSubmit)="addProduct()">
+    <div class="formbox max-w-[400] mx-auto mt-14 p-8">
+      <H1> Add Products </H1>
+      <div class="flex">
+        <div class="my-6">
+          <label
+            for="input-label-with-helper-text"
+            class="block text-sm font-medium mb-2"
+          >
+            Name</label
+          >
+          <input
+            formControlName="name"
+            type="text"
+            id="input-label-with-helper-text"
+            class="py-3 px-4 block w-full rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-700 border-gray-700 dark:text-gray-400 text-gray-400"
+            placeholder="enter product name"
+            aria-describedby="hs-input-helper-text"
+          />
+        </div>
+        <div class="ml-5 mt-6">
+          <label
+            for="input-label-with-helper-text"
+            class="block text-sm font-medium mb-2"
+            >Price</label
+          >
+          <input
+            formControlName="price"
+            type="text"
+            id="input-label-with-helper-text"
+            class="py-3 px-4 block w-full rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-700 border-gray-700 dark:text-gray-400 text-gray-400"
+            placeholder="enter product price"
+            aria-describedby="hs-input-helper-text"
+          />
+        </div>
+        <div class="my-6 ml-5 mt-6">
+          <label
+            for="input-label-with-helper-text"
+            class="block text-sm font-medium mb-2"
+            >Stock</label
+          >
+          <input
+            formControlName="stock"
+            type="number"
+            id="input-label-with-helper-text"
+            class="py-3 px-4 block w-full rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-700 border-gray-700 dark:text-gray-400 text-gray-400"
+            placeholder="enter product stock"
+            aria-describedby="hs-input-helper-text"
+          />
+        </div>
+        <div class="ml-5 mt-7">
+          <label
+            for="input-label-with-helper-text"
+            clas="block text-sm font-medium mb-2"
+            >Sku</label
+          >
+          <input
+            formControlName="sku"
+            type="text"
+            id="input-label-with-helper-text"
+            class="py-3 px-4 block w-full rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-700 border-gray-700 dark:text-gray-400 text-gray-400"
+            placeholder="enter product sku"
+            aria-describedby="hs-input-helper-text"
+          />
+        </div>
+        <div class="ml-5 mt-6">
+          <label
+            for="input-label-with-helper-text"
+            clas="block text-sm font-medium mb-2"
+            >Status</label
+          >
+
+          <label
+            for="vertical-checkbox-checked-in-form"
+            class="max-w-xs flex p-3 w-full border rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 bg-slate-900 dark:border-gray-700 border-gray-700 dark:text-gray-400 text-gray-400"
+          >
+            <input
+              formControlName="active"
+              type="checkbox"
+              id="vertical-checkbox-checked-in-form"
+            />
+            <span class="text-sm text-white-500 ml-3">{{
+              addProductForm.get("active")?.value ? "Active" : "Inactive"
+            }}</span>
+          </label>
+        </div>
+        <button
+          type="submit"
+          class="py-3 h-10 px-4 ml-5 mt-12 w inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold text-white hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 transition-all text-sm bg-emerald-500"
+        >
+          Add
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
