@@ -7,7 +7,7 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { HttpService } from 'src/app/core/Service/http.service';
+import { HttpService } from '@service/http.service';
 
 @Component({
   selector: 'app-update-client',

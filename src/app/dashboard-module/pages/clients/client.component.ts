@@ -1,12 +1,12 @@
-import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 import { Component } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 import { Observable, Subscription, map, of } from 'rxjs';
-import { HttpService } from 'src/app/core/Service/http.service';
-import { LocalStoService } from 'src/app/core/Service/local-sto.service';
-import { MainServiceService } from 'src/app/core/Service/main-service.service';
-import { Toastr } from 'src/app/core/Service/toastr.service';
+import { Toastr } from '@service/toastr.service';
+import { HttpService } from '@service/http.service';
+import { LocalStoService } from '@service/local-sto.service';
+import { MainServiceService } from '@service/main-service.service';
 
 @Component({
   selector: 'app-client',
@@ -92,5 +92,9 @@ export class ClientComponent {
         );
       })
     );
+  }
+
+  public viewClient(id: number) {
+    this.router.navigate(['clientView/{{id}}']);
   }
 }

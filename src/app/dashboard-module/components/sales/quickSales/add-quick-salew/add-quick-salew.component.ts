@@ -1,7 +1,7 @@
+import { Observable, map } from 'rxjs';
+import { HttpService } from '@service/http.service';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
-import { Observable, map } from 'rxjs';
-import { HttpService } from 'src/app/core/Service/http.service';
 
 @Component({
   selector: 'app-add-quick-salew',

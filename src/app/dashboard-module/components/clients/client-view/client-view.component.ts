@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { HttpService } from 'src/app/core/Service/http.service';
+import { HttpService } from '@service/http.service';
 
 @Component({
   selector: 'app-client-view',

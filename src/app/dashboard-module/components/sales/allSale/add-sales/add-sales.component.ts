@@ -9,10 +9,10 @@ import {
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, elementAt, map } from 'rxjs';
-import { HttpService } from 'src/app/core/Service/http.service';
-import { LocalStoService } from 'src/app/core/Service/local-sto.service';
-import { MainServiceService } from 'src/app/core/Service/main-service.service';
-import { Toastr } from 'src/app/core/Service/toastr.service';
+import { HttpService } from '@service/http.service';
+import { LocalStoService } from '@service/local-sto.service';
+import { MainServiceService } from '@service/main-service.service';
+import { Toastr } from '@service/toastr.service';
 
 @Component({
   selector: 'app-add-sales',

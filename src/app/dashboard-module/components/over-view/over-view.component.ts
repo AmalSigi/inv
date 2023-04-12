@@ -1,7 +1,7 @@
+import { Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
-import { HttpService } from 'src/app/core/Service/http.service';
+import { HttpService } from '@service/http.service';
 
 @Component({
   selector: 'app-over-view',

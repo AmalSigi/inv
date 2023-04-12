@@ -1,9 +1,7 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-// import { DashboardComponent } from './dashboard/dashboard.component';
-import { ActiveGuard } from './core/Active/active.guard';
 import { PreloadAllModules } from '@angular/router';
-import { DashboardGuard } from './core/Active/dashboard.guard';
+import { RouterModule, Routes } from '@angular/router';
+import { ActiveGuard } from './core/Active/active.guard';
 import { HomeComponent } from './modules/home/home.component';
 import { SampleProductsComponent } from './modules/sample-products/sample-products.component';
 

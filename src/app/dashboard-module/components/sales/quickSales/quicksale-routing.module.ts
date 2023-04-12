@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AllsalesComponent } from './allsales.component';
+import { QuicksaleComponent } from './quicksale.component';
 import { ActiveGuard } from 'src/app/core/Active/active.guard';
+import { QuickSaleViewComponent } from './quick-sale-view/quick-sale-view.component';
 
 const routes: Routes = [
-  { path: '', component: AllsalesComponent },
+  { path: '', component: QuicksaleComponent },
   {
-    path: 'salesView/:id',
-    loadChildren: () =>
-      import('../sales-view/sales-view.module').then((m) => m.SalesViewModule),
+    path: 'quickSaleView/:id',
+    component: QuickSaleViewComponent,
     canActivateChild: [ActiveGuard],
   },
 ];
@@ -17,4 +17,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class AllsalesRoutingModule {}
+export class QuicksaleRoutingModule {}

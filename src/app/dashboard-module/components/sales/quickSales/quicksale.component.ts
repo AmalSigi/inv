@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { HttpService } from 'src/app/core/Service/http.service';
+import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { HttpService } from '@service/http.service';
 
 @Component({
   selector: 'app-quicksale',

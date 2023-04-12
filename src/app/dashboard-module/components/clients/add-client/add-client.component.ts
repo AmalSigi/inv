@@ -1,10 +1,10 @@
-import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
-import { HttpService } from 'src/app/core/Service/http.service';
-import { MainServiceService } from 'src/app/core/Service/main-service.service';
-import { Toastr } from 'src/app/core/Service/toastr.service';
+import { Toastr } from '@service/toastr.service';
+import { HttpService } from '@service/http.service';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MainServiceService } from '@service/main-service.service';
 
 @Component({
   selector: 'app-add-client',

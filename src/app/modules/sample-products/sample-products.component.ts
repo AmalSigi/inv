@@ -1,9 +1,8 @@
+import { ToastrService } from 'ngx-toastr';
+import { ActivatedRoute } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 import { Component, Injectable, OnInit } from '@angular/core';
 import { HttpService } from '../../core/Service/http.service';
-import { HttpClient } from '@angular/common/http';
-import { ActivatedRoute } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
-
 @Component({
   selector: 'app-sample-products',
   templateUrl: './sample-products.component.html',

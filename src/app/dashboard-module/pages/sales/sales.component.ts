@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
-import { HttpService } from 'src/app/core/Service/http.service';
-import { MainServiceService } from 'src/app/core/Service/main-service.service';
+import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { HttpService } from '@service/http.service';
+import { MainServiceService } from '@service/main-service.service';
 
 @Component({
   selector: 'app-sales',

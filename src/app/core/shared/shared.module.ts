@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PaginationComponent } from '../../dashboard-module/pagination/pagination.component';
 import { PaginationPipe } from 'src/app/dashboard-module/pagination/pagination.pipe';
+import { PaginationComponent } from '../../dashboard-module/pagination/pagination.component';
 
 @NgModule({
   declarations: [PaginationComponent, PaginationPipe],

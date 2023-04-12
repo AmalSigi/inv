@@ -1,9 +1,8 @@
-import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Toastr } from '../../../../core/Service/toastr.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpService } from '../../../../core/Service/http.service';
-import { Toastr } from '../../../../core/Service/toastr.service';
-import { ProductComponent } from '../../../pages/products/product.component';
 import { MainServiceService } from '../../../../core/Service/main-service.service';
 
 @Component({
