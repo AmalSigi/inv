@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HttpService } from 'src/app/core/Service/http.service';
 
 @Component({
@@ -12,7 +12,8 @@ export class ClientViewComponent {
   public client!: any;
   constructor(
     private activatedRoute: ActivatedRoute,
-    private apiService: HttpService
+    private apiService: HttpService,
+    private readonly route: Router
   ) {
     this.activatedRoute.params.subscribe((params) => {
       this.clientid = +params['id'];
@@ -25,5 +26,8 @@ export class ClientViewComponent {
         }
       }
     });
+  }
+  public back() {
+    this.route.navigate(['/dashboard/client']);
   }
 }

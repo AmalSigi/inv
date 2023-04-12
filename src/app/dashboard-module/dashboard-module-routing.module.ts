@@ -2,6 +2,10 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ActiveGuard } from '../core/Active/active.guard';
 import { DashboardModuleComponent } from './root/dashboard-module.component';
+import { OverViewComponent } from './components/over-view/over-view.component';
+import { ProductComponent } from './pages/products/product.component';
+import { ClientComponent } from './pages/clients/client.component';
+import { ClientViewComponent } from './components/clients/client-view/client-view.component';
 // import { ProductsComponent } from '../products/products.component';
 
 const routes: Routes = [
@@ -11,25 +15,22 @@ const routes: Routes = [
     children: [
       {
         path: 'overView',
-        loadChildren: () =>
-          import('./components/over-view/over-view.module').then(
-            (m) => m.OverViewModule
-          ),
+        component: OverViewComponent,
       },
       {
         path: 'product',
-        loadChildren: () =>
-          import('./components/products/product.module').then(
-            (m) => m.ProductModule
-          ),
+        component: ProductComponent,
       },
       {
         path: 'client',
-        loadChildren: () =>
-          import('./components/clients/client.module').then(
-            (m) => m.ClientModule
-          ),
+        component: ClientComponent,
       },
+      {
+        path: 'client/:id',
+        component: ClientViewComponent,
+        canActivate: [ActiveGuard],
+      },
+
       {
         path: 'sales',
         loadChildren: () =>

@@ -84,9 +84,7 @@
                   </th>
                 </tr>
               </thead>
-              <tbody
-                class="divide-y divide-gray-200 dark:divide-gray-400 divide-gray-400"
-              >
+              <tbody class="divide-y dark:divide-gray-400 divide-gray-400">
                 <tr
                   *ngFor="
                     let client of clients$
@@ -96,7 +94,7 @@
                   class="hover:bg-teal-800"
                 >
                   <td
-                    class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-gray-200 text-gray-200"
+                    class="px-6 py-4 whitespace-nowrap text-sm font-medium dark:text-gray-200 text-gray-200"
                   >
                     {{ client.id }}
                   </td>
@@ -147,8 +145,7 @@
                     </button>
                     <button
                       type="button"
-                      (click)="view(client)"
-                      routerLink="clientView/{{ client.id }}"
+                      routerLink="{{ client.id }}"
                       class="py-2 mr-2 px-3 inline-flex justify-center items-center disabled:bg-slate-400 disabled:cursor-not-allowed gap-2 rounded-md border border-transparent font-semibold bg-green-600 text-white hover:bg-green-800 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800 focus:ring-offset-gray-800"
                     >
                       <svg
@@ -206,4 +203,3 @@
   (clientEvent)="updateClient($event)"
   [data]="upClient"
 ></app-update-client>
-<router-outlet></router-outlet>
