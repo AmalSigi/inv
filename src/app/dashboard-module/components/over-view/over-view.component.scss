@@ -13,3 +13,35 @@ border-radius: 25px;
 .ad3{
     background-image: url('https://pub-static.fotor.com/assets/projects/pages/96acc39b4ac2450ca59e7487372e3cb7/600w/red-and-blue-headphone-sales-facebook-app-ad-3166c7d7c1b64ad7aa6f65606e05f234.jpg');
 }
+.quickSale{
+    animation: loginbtn 1s cubic-bezier(0.11, 0, 0.5, 0) 0s infinite normal forwards;
+}
+@keyframes loginbtn {
+	0% {
+		transform: scale3d(1, 1, 1);
+	}
+
+	30% {
+		transform: scale3d(1.25, 0.75, 1);
+	}
+
+	40% {
+		transform: scale3d(0.75, 1.25, 1);
+	}
+
+	50% {
+		transform: scale3d(1.15, 0.85, 1);
+	}
+
+	65% {
+		transform: scale3d(0.95, 1.05, 1);
+	}
+
+	75% {
+		transform: scale3d(1.05, 0.95, 1);
+	}
+
+	100% {
+		transform: scale3d(1, 1, 1);
+	}
+}
