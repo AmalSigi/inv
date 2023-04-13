@@ -1,0 +1,89 @@
+.firstInner {
+  clip-path: polygon(0 0, 100% 0, 100% 82%, 59% 74%, 16% 100%, 0 60%);
+
+  h1 {
+    animation: myAnim 5s ease 0s 1 normal forwards;
+  }
+  @keyframes myAnim {
+    0% {
+      opacity: 0;
+      transform: translateY(50px);
+    }
+
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+.secondInner {
+  clip-path: polygon(17% 36%, 58% 9%, 100% 17%, 100% 100%, 0 100%, 0 0);
+}
+
+.secondInner:hover {
+  animation: myImg 5s cubic-bezier(0.11, 0, 0.5, 0) 0s 1 normal forwards;
+}
+
+@keyframes myImg {
+  0% {
+    background-position: right center;
+    background-size: 100%;
+  }
+
+  100% {
+    background-position: right center;
+    background-size: 150%;
+  }
+}
+
+
+
+.login {
+  animation: loginbtn 1s cubic-bezier(0.11, 0, 0.5, 0) 0s 1 normal forwards;
+}
+@keyframes loginbtn {
+  0% {
+    animation-timing-function: ease-in;
+    opacity: 1;
+    transform: translateY(-45px);
+  }
+
+  24% {
+    opacity: 1;
+  }
+
+  40% {
+    animation-timing-function: ease-in;
+    transform: translateY(-24px);
+  }
+
+  65% {
+    animation-timing-function: ease-in;
+    transform: translateY(-12px);
+  }
+
+  82% {
+    animation-timing-function: ease-in;
+    transform: translateY(-6px);
+  }
+
+  93% {
+    animation-timing-function: ease-in;
+    transform: translateY(-4px);
+  }
+
+  25%,
+  55%,
+  75%,
+  87% {
+    animation-timing-function: ease-out;
+    transform: translateY(0px);
+  }
+
+  100% {
+    animation-timing-function: ease-out;
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}

@@ -108,8 +108,15 @@
     </div>
   </nav>
 
-  <div class="off-canvas formbox" [ngClass]="{ open: menuOpen }"></div>
-  <div class="overlay" *ngIf="menuOpen" (click)="toggleMenu()">
+  <div
+    class="off-canvas formbox fixed top-0 right-[-500px] w-[400px] h-[100%] mt-[5.3%] z-[99]"
+    [ngClass]="{ open: menuOpen }"
+  ></div>
+  <div
+    class="overlay fixed top-0 right-[400px] w-[100%] h-[100%] z-[100]"
+    *ngIf="menuOpen"
+    (click)="toggleMenu()"
+  >
     <div class="w-5">
       <h1 class="text-7xl text-slate-50">Account</h1>
     </div>

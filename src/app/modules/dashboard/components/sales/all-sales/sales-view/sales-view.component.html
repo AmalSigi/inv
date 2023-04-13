@@ -1,0 +1,122 @@
+<div
+  class="main max-w-7xl ml-[auto] mr-[auto] w-[82%] h-[500px] rounded-[10px]"
+  style="background-color: rgba(34, 157, 124, 0.525)"
+>
+  <div
+    class="sec mt-5 w-[99%] h-[450px]"
+    style="background-color: rgba(239, 225, 220, 0.525)"
+  >
+    <button
+      type="button"
+      class="py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md bg-green-100 border border-transparent font-semibold text-black-500 hover:text-white hover:bg-green-500 focus:outline-none focus:ring-2 ring-offset-white focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm"
+      style="margin-left: 96%"
+      routerLink="../../"
+    >
+      Back
+    </button>
+    <div class="flex m-5">
+      <div>
+        <img
+          src="https://st.depositphotos.com/2218212/2938/i/600/depositphotos_29387653-stock-photo-facebook-profile.jpg"
+          alt=""
+          class="object-cover w-[300px] h-[300px] rounded-[92px] border-[1px] border-black"
+        />
+      </div>
+      <div>
+        <p
+          class="ml-14 uppercase text-slate-50 font-extrabold"
+          style="font-size: 50px"
+        >
+          {{ salesInv?.client.first_name }}
+          {{ salesInv?.client.last_name }}
+        </p>
+        <h1 class="ml-14 text-black">
+          {{ salesInv?.client.email }}
+        </h1>
+        <div class="ml-14">
+          <p>Phone : {{ salesInv?.client?.phone }}</p>
+
+          <div class="flex">
+            <p class="">Address : {{ salesInv?.client.address }}</p>
+            <p class="px-5">City : {{ salesInv?.client.city }}</p>
+          </div>
+          <div class="flex">
+            <p>State : {{ salesInv?.client.state }}</p>
+            <p class="px-5">Country : {{ salesInv?.client.country }}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-14 ml-14 border-l">
+        <div class="flex flex-col ml-5">
+          <div class="-m-1.5 overflow-x-auto">
+            <div class="p-1.5 min-w-full inline-block align-middle">
+              <div class="overflow-hidden">
+                <table
+                  class="min-w-full divide-y divide-gray-200 dark:divide-gray-700"
+                >
+                  <thead>
+                    <tr>
+                      <th
+                        scope="col"
+                        class="px-6 py-3 text-left text-xs font-medium text-gray-50 uppercase"
+                      >
+                        Id
+                      </th>
+                      <th
+                        scope="col"
+                        class="px-6 py-3 text-left text-xs font-medium text-gray-50 uppercase"
+                      >
+                        Product Id
+                      </th>
+                      <th
+                        scope="col"
+                        class="px-6 py-3 text-left text-xs font-medium text-gray-50 uppercase"
+                      >
+                        Price
+                      </th>
+                      <th
+                        scope="col"
+                        class="px-6 py-3 text-left text-xs font-medium text-gray-50 uppercase"
+                      >
+                        Quantity
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+                    <tr *ngFor="let sale of salesInv?.items">
+                      <td
+                        class="px-6 py-4 whitespace-nowrap text-sm font-medium text-black dark:text-black"
+                      >
+                        {{ sale.id }}
+                      </td>
+                      <td
+                        class="px-6 py-4 whitespace-nowrap text-sm text-black dark:text-black"
+                      >
+                        {{ sale.product_id }}
+                      </td>
+                      <td
+                        class="px-6 py-4 whitespace-nowrap text-sm text-black dark:text-black"
+                      >
+                        {{ sale.price | currency : "USD" }}
+                      </td>
+                      <td
+                        class="px-6 py-4 whitespace-nowrap text-sm text-black dark:text-black"
+                      >
+                        {{ sale.quantity }}
+                      </td>
+                    </tr>
+                  </tbody>
+                  Total: $
+                  {{
+                    salesInv?.total
+                  }}
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

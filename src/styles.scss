@@ -15,7 +15,7 @@ body{
   overflow-x: hidden;
     background-color: #000000;
     // background-color: #ffaaaa70;
-    background-image: url('https://images.pexels.com/photos/1229861/pexels-photo-1229861.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');
+  
 background-repeat: no-repeat;
 background-size: cover;
 }
@@ -34,4 +34,15 @@ border-radius: 5px;
 .mainTitle{
   font-size: xx-large;
   font-weight: 700;
+}
+.act {
+  font-size: large;
+  background-color: rgba(241, 241, 235, 0.801);
+  border-bottom: 3px solid rgba(61, 125, 69, 0.699);
+  color: rgb(0, 0, 0);
+}
+
+.boxSadow{
+  background-color: rgba(250, 252, 254, 0.685);
+  box-shadow: rgba(19, 59, 69, 0.402) 0px 10px 20px, rgba(35, 84, 97, 0.329) 0px 6px 6px;
 }

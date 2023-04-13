@@ -14,7 +14,7 @@ export class HttpService {
 
   public url: string = 'https://api-sales-app.josetovar.dev';
 
-  // ********************** Aut Function**************************
+  // ********************** Auth Function**************************
 
   public getAuth(): Observable<any> {
     return this.http.post(`${this.url}/auth`, {});
