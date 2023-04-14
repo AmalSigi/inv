@@ -1,7 +1,7 @@
 import { Observable, Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { HttpService } from '@service/http.service';
+import { SalesService } from '@saleservice/sales.service';
 import { MainServiceService } from '@service/main-service.service';
 
 @Component({
@@ -15,7 +15,7 @@ export class AllsalesComponent implements OnInit {
   pageSize: number = 5;
   pageLength!: number;
   constructor(
-    private readonly apiService: HttpService,
+    private readonly apiService: SalesService,
     private readonly main: MainServiceService,
     private readonly route: ActivatedRoute
   ) {}
@@ -39,21 +39,20 @@ export class AllsalesComponent implements OnInit {
     });
   }
 
-  public mainCall() {
+  public mainCall(): void {
     this.sales$ = this.apiService.getSale();
     this.sales$.subscribe((respo) => {});
   }
-  public convDate(date: any) {}
 
-  public modelShow() {
+  public modelShow(): void {
     // this.upClient = client;
     this.showmodel = true;
   }
 
-  public modelUnShow(value: boolean) {
+  public modelUnShow(value: boolean): void {
     this.showmodel = value;
   }
-  onPagination(event: { currentPage: number; pageSize: number }) {
+  public onPagination(event: { currentPage: number; pageSize: number }): void {
     this.currentPage = event.currentPage;
     this.pageSize = event.pageSize;
   }

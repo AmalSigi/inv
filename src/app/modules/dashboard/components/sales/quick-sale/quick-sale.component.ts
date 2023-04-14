@@ -1,7 +1,7 @@
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { HttpService } from '@service/http.service';
+import { SalesService } from '@saleservice/sales.service';
 
 @Component({
   selector: 'app-quick-sale',
@@ -14,7 +14,7 @@ export class QuicksaleComponent implements OnInit {
   pageLength!: number;
   public showmodel: boolean = false;
   constructor(
-    private readonly apiService: HttpService,
+    private readonly apiService: SalesService,
     private readonly router: Router
   ) {}
   ngOnInit(): void {
@@ -24,20 +24,20 @@ export class QuicksaleComponent implements OnInit {
     });
   }
 
-  public addQuickSale(id: number) {
+  public addQuickSale(id: number): void {
     this.router.navigate(['/dashboard/sales/allsales'], {
       queryParams: { quickSale: id },
     });
   }
-  onPagination(event: { currentPage: number; pageSize: number }) {
+  public onPagination(event: { currentPage: number; pageSize: number }): void {
     this.currentPage = event.currentPage;
     this.pageSize = event.pageSize;
   }
-  public modelUnShow(value: boolean) {
+  public modelUnShow(value: boolean): void {
     this.showmodel = value;
   }
 
-  public modelShow() {
+  public modelShow(): void {
     this.showmodel = true;
   }
 }

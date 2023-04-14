@@ -1,6 +1,6 @@
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { HttpService } from '@service/http.service';
+import { SalesService } from '@saleservice/sales.service';
 
 @Component({
   selector: 'app-sales-view',
@@ -11,7 +11,7 @@ export class SalesViewComponent implements OnInit {
   public salesInv: any;
   constructor(
     private readonly activatedRoute: ActivatedRoute,
-    private readonly apiService: HttpService
+    private readonly apiService: SalesService
   ) {}
 
   ngOnInit(): void {
@@ -21,7 +21,7 @@ export class SalesViewComponent implements OnInit {
     this.mainCall();
   }
 
-  public mainCall() {
+  public mainCall(): void {
     this.apiService.getSaleByID(this.salesId).subscribe((repo) => {
       this.salesInv = repo;
     });

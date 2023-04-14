@@ -1,6 +1,6 @@
 import { Router } from '@angular/router';
 import { Component } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpService } from '@commonservice/http.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -10,7 +10,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 export class LoginModuleComponent {
   constructor(
     private readonly router: Router,
-    private readonly http: HttpClient
+    private readonly http: HttpService
   ) {}
 
   public loginForm = new FormGroup({
@@ -22,11 +22,9 @@ export class LoginModuleComponent {
     return this.loginForm.controls;
   }
   public login() {
-    const url: string = 'https://api-sales-app.josetovar.dev/login';
-
     const body = this.loginForm.value;
 
-    this.http.post(url, body).subscribe((response: any) => {
+    this.http.login(body).subscribe((response: any) => {
       if (response) {
         localStorage.setItem(
           'access_token',

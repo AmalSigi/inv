@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpService } from '../Service/http.service';
+import { HttpService } from '../../Http/Common/http.service';
 import { CanActivate, CanActivateChild, Router } from '@angular/router';
 
 @Injectable({

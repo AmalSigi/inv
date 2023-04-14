@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
+import { ActiveGuard } from '@guards/active.guard';
 import { RouterModule, Routes } from '@angular/router';
 import { AllsalesComponent } from './all-sales.component';
-import { ActiveGuard } from 'src/app/core/Active/active.guard';
 import { SalesViewComponent } from './sales-view/sales-view.component';
 
 const routes: Routes = [

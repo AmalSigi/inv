@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { HttpService } from '@service/http.service';
+import { SalesService } from '@saleservice/sales.service';
 
 @Component({
   selector: 'app-quick-sale-view',
@@ -11,7 +11,7 @@ export class QuickSaleViewComponent {
   public quickSale!: any;
   constructor(
     private activatedRoute: ActivatedRoute,
-    private apiService: HttpService
+    private apiService: SalesService
   ) {
     this.activatedRoute.params.subscribe((params) => {
       this.quickSaleId = +params['id'];

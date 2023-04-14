@@ -7,7 +7,7 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { HttpService } from '@service/http.service';
+import { ClientService } from '@clientservice/client.service';
 
 @Component({
   selector: 'app-update-client',
@@ -20,7 +20,7 @@ export class UpdateClientComponent implements OnChanges {
   @Output() clientEvent = new EventEmitter<any>();
   public updateClientForm!: FormGroup;
 
-  constructor(private apiService: HttpService) {}
+  constructor(private apiService: ClientService) {}
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['data']) {
@@ -38,12 +38,12 @@ export class UpdateClientComponent implements OnChanges {
     }
   }
 
-  public modelUnShow() {
+  public modelUnShow(): void {
     const value: boolean = false;
     this.childEvent.emit(value);
   }
 
-  public editClient() {
+  public editClient(): void {
     this.apiService
       .putClients(this.updateClientForm.value)
       .subscribe((response: any) => {

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
+import { ActiveGuard } from '@guards/active.guard';
 import { RouterModule, Routes } from '@angular/router';
 import { QuicksaleComponent } from './quick-sale.component';
-import { ActiveGuard } from 'src/app/core/Active/active.guard';
 import { QuickSaleViewComponent } from './quick-sale-view/quick-sale-view.component';
 
 const routes: Routes = [

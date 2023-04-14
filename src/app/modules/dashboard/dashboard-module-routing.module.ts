@@ -1,12 +1,11 @@
+import { ActiveGuard } from '@guards/active.guard';
 import { NgModule, ViewChild } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ActiveGuard } from '../../core/Active/active.guard';
-import { ClientComponent } from './pages/clients/client.component';
-import { ProductComponent } from './pages/products/product.component';
+import { ClientComponent } from '@clientspage/client.component';
+import { ProductComponent } from '@productsspage/product.component';
 import { DashboardModuleComponent } from './root/dashboard-module.component';
-import { OverViewComponent } from './components/over-view/over-view.component';
-import { ClientViewComponent } from './components/clients/client-view/client-view.component';
-// import { ProductsComponent } from '../products/products.component';
+import { OverViewComponent } from './pages/over-view/over-view.component';
+import { ClientViewComponent } from '@clients/client-view/client-view.component';
 
 const routes: Routes = [
   {

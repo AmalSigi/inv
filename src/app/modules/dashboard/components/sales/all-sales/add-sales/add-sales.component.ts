@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import {
   Component,
   EventEmitter,
@@ -6,13 +5,13 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Observable, map } from 'rxjs';
+import { Toastr } from '@service/toastr.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, elementAt, map } from 'rxjs';
-import { HttpService } from '@service/http.service';
+import { HttpService } from '@commonservice/http.service';
 import { LocalStoService } from '@service/local-sto.service';
 import { MainServiceService } from '@service/main-service.service';
-import { Toastr } from '@service/toastr.service';
+import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-add-sales',
@@ -36,7 +35,6 @@ export class AddSalesComponent implements OnInit, OnDestroy {
   public total: number = 0;
   constructor(
     private readonly apiService: HttpService,
-    private readonly http: HttpClient,
     private readonly main: MainServiceService,
     private readonly toastr: Toastr,
     private readonly local: LocalStoService,
@@ -46,7 +44,7 @@ export class AddSalesComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.client$ = this.apiService.getClients();
-    this.product$ = this.apiService.getData();
+    this.product$ = this.apiService.getProduct();
 
     if (this.local.getvalue()) {
       this.saleForm = this.local.getvalue();
@@ -77,7 +75,7 @@ export class AddSalesComponent implements OnInit, OnDestroy {
     });
   }
 
-  public quickSale(id: any) {
+  public quickSale(id: any): void {
     this.apiService.getQuickSaleById(id).subscribe((res) => {
       res.products.forEach((element: any) => {
         this.addProduct(element);
@@ -94,10 +92,10 @@ export class AddSalesComponent implements OnInit, OnDestroy {
     return this.saleForm.controls['products'] as FormArray;
   }
 
-  public addSales() {
+  public addSales(): void {
     this.productView = true;
   }
-  public addProduct(product: any) {
+  public addProduct(product: any): void {
     this.confirmBox = false;
     const isObjectInArray = this.products.value.some(
       (obj: any) => JSON.stringify(obj.id) === JSON.stringify(product.id)
@@ -122,12 +120,13 @@ export class AddSalesComponent implements OnInit, OnDestroy {
     this.products.removeAt(formInedx);
   }
 
-  public modelUnShow() {
+  public modelUnShow(): void {
     const value: boolean = false;
     this.childEvent.emit(value);
   }
 
-  public getClientName() {
+  public getClientName(event: any): void {
+    this.clientName = event.target.value;
     if (this.clientName != '') {
       this.serachView = true;
     } else {
@@ -147,14 +146,19 @@ export class AddSalesComponent implements OnInit, OnDestroy {
       })
     );
   }
-  public getClientId(clientId: number, first_name: string, last_name: string) {
+  public getClientId(
+    clientId: number,
+    first_name: string,
+    last_name: string
+  ): void {
     this.addSales();
     this.serachView = false;
 
     this.saleForm.get('client_id')?.setValue(clientId);
     this.clientName = first_name + last_name;
   }
-  public getProductName() {
+  public getProductName(event: any): void {
+    this.productName = event.target.value;
     this.product$ = this.product$.pipe(
       map((products: any) => {
         return products.filter(
@@ -168,7 +172,7 @@ export class AddSalesComponent implements OnInit, OnDestroy {
       })
     );
   }
-  public quanityDec(index: number) {
+  public quanityDec(index: number): void {
     if (this.products.at(index).get('quantity')?.value > 0) {
       this.products.controls[index].patchValue({
         quantity: this.products.at(index).get('quantity')?.value - 1,
@@ -176,17 +180,17 @@ export class AddSalesComponent implements OnInit, OnDestroy {
     }
     this.updateOrderTotal();
   }
-  public quanityInc(index: number) {
+  public quanityInc(index: number): void {
     this.products.controls[index].patchValue({
       quantity: this.products.at(index).get('quantity')?.value + 1,
     });
     this.updateOrderTotal();
   }
 
-  public save() {
+  public save(): void {
     this.modelUnShow();
     if (this.saleForm.valid) {
-      this.http.post(`${this.url}/sales`, this.saleForm.value).subscribe({
+      this.apiService.postSale(this.saleForm.value).subscribe({
         next: () => {
           this.main.clickEventActivated();
           this.toastr.add();
@@ -198,13 +202,13 @@ export class AddSalesComponent implements OnInit, OnDestroy {
       this.toastr.error();
     }
   }
-  public addNewClient() {
+  public addNewClient(): void {
     this.router.navigate(['/dashboard/client'], {
       queryParams: { source: 'newsale' },
     });
   }
 
-  public updateOrderTotal() {
+  public updateOrderTotal(): number {
     this.total = 0;
     for (let product of this.products.controls) {
       this.total = this.total + product.value.quantity * product.value.price;

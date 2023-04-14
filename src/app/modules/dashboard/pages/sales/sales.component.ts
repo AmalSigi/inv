@@ -1,7 +1,7 @@
 import { Observable, Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { HttpService } from '@service/http.service';
+import { SalesService } from '@saleservice/sales.service';
 import { MainServiceService } from '@service/main-service.service';
 
 @Component({
@@ -15,7 +15,7 @@ export class SalesComponent implements OnInit {
   pageSize: number = 5;
   pageLength!: number;
   constructor(
-    private readonly apiService: HttpService,
+    private readonly apiService: SalesService,
     private readonly main: MainServiceService,
     private readonly route: ActivatedRoute
   ) {}

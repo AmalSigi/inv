@@ -1,5 +1,6 @@
 import { Observable, map } from 'rxjs';
-import { HttpService } from '@service/http.service';
+import { Toastr } from '@service/toastr.service';
+import { HttpService } from '@commonservice/http.service';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 
@@ -13,9 +14,12 @@ export class AddQuickSalewComponent implements OnInit {
   public productName: any = '';
 
   public addedProduct: any[] = [];
-  constructor(private readonly apiService: HttpService) {}
+  constructor(
+    private readonly apiService: HttpService,
+    private readonly toastr: Toastr
+  ) {}
   ngOnInit(): void {
-    this.product$ = this.apiService.getData();
+    this.product$ = this.apiService.getProduct();
   }
 
   public quicSaleForm: FormGroup = new FormGroup({
@@ -25,12 +29,12 @@ export class AddQuickSalewComponent implements OnInit {
   get products(): FormArray {
     return this.quicSaleForm.controls['products'] as FormArray;
   }
-  public addProduct(product: any) {
+  public addProduct(product: any): void {
     console.log(this.addedProduct);
     const isObjectInArray = this.products.value.some(
       (obj: any) => JSON.stringify(obj) === JSON.stringify(product.id)
     );
-    console.log(isObjectInArray);
+
     if (!isObjectInArray) {
       this.addedProduct.push(product);
 
@@ -38,12 +42,13 @@ export class AddQuickSalewComponent implements OnInit {
       console.log(this.products);
     }
   }
-  public modelUnShow() {
+  public modelUnShow(): void {
     const value: boolean = false;
     this.childEvent.emit(value);
   }
 
-  public getProductName() {
+  public getProductName(event: any): void {
+    this.productName = event.target.value;
     this.product$ = this.product$.pipe(
       map((products: any) => {
         return products.filter(
@@ -58,7 +63,13 @@ export class AddQuickSalewComponent implements OnInit {
     );
   }
 
-  public save() {
-    this.apiService.postQuickSale(this.quicSaleForm);
+  public save(): void {
+    this.apiService.postQuickSale(this.quicSaleForm).subscribe({
+      next: () => {
+        this.toastr.add();
+      },
+      error: () => {},
+      complete: () => {},
+    });
   }
 }

@@ -54,8 +54,8 @@
         <div class="flex rounded-md shadow-sm">
           <input
             type="text"
-            [(ngModel)]="productName"
-            (input)="getProductName()"
+            [value]="productName"
+            (input)="getProductName($event)"
             id="hs-trailing-button-add-on-with-icon"
             name="hs-trailing-button-add-on-with-icon"
             class="boxSadow py-3 px-4 block w-[500px] border-gray-200 shadow-sm rounded-l-md text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-100 dark:border-gray-700 dark:text-gray-400"

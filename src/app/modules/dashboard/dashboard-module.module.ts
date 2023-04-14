@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SharedModule } from '../../Shared/shared.module';
+import { SharedModule } from 'src/app/Shared/shared.module';
+import { ClientComponent } from '@clientspage/client.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ClientComponent } from './pages/clients/client.component';
-import { ProductComponent } from './pages/products/product.component';
+import { ProductComponent } from '@productsspage/product.component';
 import { DashboardModuleComponent } from './root/dashboard-module.component';
-import { OverViewComponent } from './components/over-view/over-view.component';
+import { AddClientComponent } from '@clients/add-client/add-client.component';
+import { OverViewComponent } from './pages/over-view/over-view.component';
 import { DashboardModuleRoutingModule } from './dashboard-module-routing.module';
-import { AddClientComponent } from './components/clients/add-client/add-client.component';
-import { ClientViewComponent } from './components/clients/client-view/client-view.component';
-import { AddProductComponent } from './components/products/add-product/add-product.component';
-import { UpdateClientComponent } from './components/clients/update-client/update-client.component';
+import { ClientViewComponent } from '@clients/client-view/client-view.component';
+import { UpdateClientComponent } from '@clients/update-client/update-client.component';
+import { AddProductComponent } from '@products/add-product/add-product.component';
 
 @NgModule({
   declarations: [

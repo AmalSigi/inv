@@ -1,6 +1,6 @@
 import { Router } from '@angular/router';
 import { Component } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpService } from '@commonservice/http.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -10,7 +10,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 export class RegisterComponent {
   constructor(
     private readonly router: Router,
-    private readonly http: HttpClient
+    private readonly http: HttpService
   ) {}
   public registerForm = new FormGroup({
     first_name: new FormControl('', Validators.required),
@@ -24,10 +24,7 @@ export class RegisterComponent {
   }
 
   public signUp() {
-    // const url:string='https://63bfcce3e262345656f0627b.mockapi.io/actors'
-    const url: string = 'https://api-sales-app.josetovar.dev/users';
-
-    this.http.post(url, this.registerForm.value).subscribe((response) => {
+    this.http.register(this.registerForm.value).subscribe((response) => {
       if (response) {
         this.router.navigate(['login']);
       }

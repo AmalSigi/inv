@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { HttpService } from '@service/http.service';
+import { ClientService } from '@clientservice/client.service';
 
 @Component({
   selector: 'app-client-view',
@@ -11,7 +11,7 @@ export class ClientViewComponent {
   public client!: any;
   constructor(
     private activatedRoute: ActivatedRoute,
-    private apiService: HttpService,
+    private apiService: ClientService,
     private readonly route: Router
   ) {
     this.activatedRoute.params.subscribe((params) => {

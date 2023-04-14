@@ -1,12 +1,11 @@
+import { Iproduct } from '@interface/iproduct';
 import { formatCurrency } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
+import { Toastr } from '@service/toastr.service';
 import { Component, OnInit } from '@angular/core';
 import { Observable, Subscription, map, of } from 'rxjs';
-import { Toastr } from '@service/toastr.service';
-import { HttpService } from '@service/http.service';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ProductService } from '@productservice/product.service';
 import { MainServiceService } from '@service/main-service.service';
-import { Iproduct } from 'src/app/Shared/interface/iproduct';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 @Component({
   selector: 'app-product',
   templateUrl: './product.component.html',
@@ -16,13 +15,11 @@ export class ProductComponent implements OnInit {
   pageSize: number = 5;
   pageLength!: number;
   constructor(
-    private readonly http: HttpClient,
     private readonly toastr: Toastr,
-    private readonly serviceApi: HttpService,
+    private readonly serviceApi: ProductService,
     private readonly main: MainServiceService
   ) {}
 
-  public url: string = 'https://api-sales-app.josetovar.dev/products';
   public products$!: Observable<any>;
 
   public updateProductForm: FormGroup = new FormGroup({});
@@ -39,7 +36,7 @@ export class ProductComponent implements OnInit {
   }
 
   public getProduct(): void {
-    this.products$ = this.serviceApi.getData();
+    this.products$ = this.serviceApi.getProduct();
     this.products$.subscribe((products) => {
       products.map((product: any) => {
         this.updateProductForm.addControl(
@@ -87,12 +84,14 @@ export class ProductComponent implements OnInit {
       ...value,
     };
 
-    this.serviceApi.putData(updatedValues).subscribe((response: Iproduct) => {
-      this.toastr.update();
-      this.http.get<any>(`${this.url}`).subscribe((response) => {
-        this.products$ = of(response);
+    this.serviceApi
+      .putProduct(updatedValues)
+      .subscribe((response: Iproduct) => {
+        this.toastr.update();
+        this.serviceApi.getProduct().subscribe((response) => {
+          this.products$ = of(response);
+        });
       });
-    });
   }
 
   public setDisableValueForUpdate(product: Iproduct): boolean {
@@ -113,11 +112,8 @@ export class ProductComponent implements OnInit {
 
   onCheckboxChange(product: Iproduct, anyEvent: any): void {
     const status = anyEvent.target.checked;
-    this.http
-      .put(
-        `https://api-sales-app.josetovar.dev/products/status/${product.id}?status=${status}`,
-        {}
-      )
+    this.serviceApi
+      .putProductStatus(product.id, status)
       .subscribe((reponse) => {
         if (reponse) {
         }
@@ -125,12 +121,14 @@ export class ProductComponent implements OnInit {
   }
 
   public delete(productId: number): void {
-    this.serviceApi.delectData(productId).subscribe((responses: Iproduct) => {
-      this.http.get<any>(`${this.url}`).subscribe((responses) => {
-        this.products$ = of(responses);
+    this.serviceApi
+      .delectProduct(productId)
+      .subscribe((responses: Iproduct) => {
+        this.serviceApi.getProduct().subscribe((responses) => {
+          this.products$ = of(responses);
+        });
+        this.toastr.delete();
       });
-      this.toastr.delete();
-    });
   }
 
   public setDisableValueForDelect(product: Iproduct): boolean {
@@ -139,7 +137,7 @@ export class ProductComponent implements OnInit {
   }
 
   public setFiltersStatus(active: any): void {
-    this.products$ = this.http.get<any>(this.url).pipe(
+    this.products$ = this.serviceApi.getProduct().pipe(
       map((products: any) => {
         if (active.target.value) {
           return products.filter(
@@ -152,7 +150,7 @@ export class ProductComponent implements OnInit {
     );
   }
   public setFiltersStock(active: any): void {
-    this.products$ = this.http.get<any>(this.url).pipe(
+    this.products$ = this.serviceApi.getProduct().pipe(
       map((products: any) => {
         if (active.target.value == 1) {
           return products.filter((product: any) => product.stock > 0);

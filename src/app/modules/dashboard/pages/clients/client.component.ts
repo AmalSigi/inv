@@ -1,13 +1,10 @@
-import { Router } from '@angular/router';
 import { Component } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
-import { Observable, Subscription, map, of } from 'rxjs';
+import { Iclient } from '@interface/iclient';
 import { Toastr } from '@service/toastr.service';
-import { HttpService } from '@service/http.service';
-import { LocalStoService } from '@service/local-sto.service';
+import { Observable, Subscription, map, of } from 'rxjs';
+import { ClientService } from '@clientservice/client.service';
 import { MainServiceService } from '@service/main-service.service';
-import { Iclient } from 'src/app/Shared/interface/iclient';
 
 @Component({
   selector: 'app-client',
@@ -15,19 +12,15 @@ import { Iclient } from 'src/app/Shared/interface/iclient';
 })
 export class ClientComponent {
   constructor(
-    private readonly http: HttpClient,
-    private readonly serviceApi: HttpService,
+    private readonly serviceApi: ClientService,
     private readonly toastr: Toastr,
-    private readonly router: Router,
-    private readonly local: LocalStoService,
     private readonly main: MainServiceService
   ) {}
-  public url: string = 'https://api-sales-app.josetovar.dev/clients';
   public clients$!: Observable<any>;
   public upClient: any;
   public clientView: any;
   public updateClientForm: FormGroup = new FormGroup({});
-  public searchValue!: any;
+  public searchValue: any = '';
 
   currentPage: number = 1;
   pageSize: number = 5;
@@ -77,7 +70,8 @@ export class ClientComponent {
     }
   }
 
-  public searchClient(): void {
+  public searchClient(event: any): void {
+    this.searchValue = event.target.value;
     this.clients$ = this.clients$.pipe(
       map((clients: any) => {
         return clients.filter(
