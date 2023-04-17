@@ -22,6 +22,7 @@
       "@interface/*": ["src/app/Shared/interface/*"],
       "@guards/*": ["src/app/core/Authentication/Guards/*"],
       "@quickview/*":["src/app/modules/dashboard/components/sales/quick-sale/quick-sale-view/*"],
+      "@quicksale/*":[ "src/app/modules/dashboard/components/sales/quick-sale/*"]
     },
     "forceConsistentCasingInFileNames": true,
     "strict": true,
