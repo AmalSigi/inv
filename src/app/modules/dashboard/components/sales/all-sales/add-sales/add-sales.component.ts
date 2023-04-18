@@ -18,8 +18,6 @@ import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
   templateUrl: './add-sales.component.html',
 })
 export class AddSalesComponent implements OnInit, OnDestroy {
-  public url: string = 'https://api-sales-app.josetovar.dev';
-
   @Output() childEvent = new EventEmitter<boolean>();
   public serachView: boolean = false;
   public productView: boolean = false;

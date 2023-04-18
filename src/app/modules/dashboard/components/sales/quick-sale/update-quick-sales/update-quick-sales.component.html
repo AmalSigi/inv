@@ -13,7 +13,7 @@
           class="font-bold dark:text-gray-800 font-mono flex"
           style="font-size: 28px"
         >
-          Add Quick Sales
+          Update Quick Sales
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -28,7 +28,7 @@
         </p>
         <button
           type="button"
-          (click)="modelUnShow()"
+          routerLink="../../"
           class="hs-dropdown-toggle inline-flex flex-shrink-0 justify-center items-center h-8 w-8 rounded-md text-gray-500 hover:text-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 focus:ring-offset-white transition-all text-sm dark:focus:ring-gray-700 dark:focus:ring-offset-gray-800"
           data-hs-overlay="#hs-medium-modal"
         >
@@ -56,7 +56,7 @@
             type="text"
             formControlName="name"
             id="input-label-with-helper-text"
-            class="boxSadow py-2 px-4 block w-[500px] mt-3 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-700 border-gray-700 dark:text-black text-black"
+            class="boxSadow py-3 px-4 block w-[500px] mt-3 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-700 border-gray-700 dark:text-black text-black"
             aria-describedby="hs-input-helper-text"
           />
           <p
@@ -211,9 +211,9 @@
                       <div>
                         <button
                           type="button"
-                          (click)="removeSale(product.id)"
                           class="ml-5 inline-flex justify-center items-center gap-2 rounded-full border border-transparent font-semibold bg-slate-200 hover:bg-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800"
                           style="height: 45px; margin-top: 112%; width: 86%"
+                          (click)="delect(product.id)"
                         >
                           <svg
                             clip-rule="evenodd"
@@ -246,7 +246,7 @@
             >
               <button
                 type="button"
-                (click)="modelUnShow()"
+                routerLink="../../"
                 class="hs-dropdown-toggle py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md font-medium bg-white text-gray-700 shadow-sm align-middle focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-blue-600 transition-all text-sm dark:text-gray-400 border-red-300 dark:hover:text-gray-900 dark:focus:ring-offset-gray-800"
               >
                 Close

@@ -4,7 +4,7 @@
 >
   <button
     class="flex items-center mr-4 h-10 mt-7 font-medium px-6 py-2.5 rounded-md text-black bg-yellow-400 disabled:bg-black disabled:cursor-not-allowed disabled:text-white"
-    (click)="modelShow()"
+    (click)="modelShowAdd()"
   >
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -76,7 +76,6 @@
                       | async
                   "
                   class="hover:bg-teal-800 cursor-grab"
-                  (click)="addQuickSale(sales.id)"
                 >
                   <td
                     class="px-6 py-4 whitespace-nowrap text-sm font-medium dark:text-gray-200 text-gray-200"
@@ -106,6 +105,28 @@
                   >
                     <button
                       type="button"
+                      (click)="addQuickSale(sales.id)"
+                      class="py-2 mr-2 px-3 inline-flex justify-center items-center disabled:bg-slate-400 disabled:cursor-not-allowed gap-2 rounded-md border border-transparent font-semibold bg-amber-400 text-white hover:bg-amber-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800 focus:ring-offset-gray-800"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="#ffffff"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="12" y1="8" x2="12" y2="16"></line>
+                        <line x1="8" y1="12" x2="16" y2="12"></line>
+                      </svg>
+                    </button>
+
+                    <button
+                      type="button"
                       routerLink="quickSaleView/{{ sales.id }}"
                       class="py-2 mr-2 px-3 inline-flex justify-center items-center disabled:bg-slate-400 disabled:cursor-not-allowed gap-2 rounded-md border border-transparent font-semibold bg-green-600 text-white hover:bg-green-800 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800 focus:ring-offset-gray-800"
                     >
@@ -125,7 +146,8 @@
                       </svg>
                     </button>
                     <button
-                      [disabled]="true"
+                      id="update"
+                      routerLink="quickSaleUpdate/{{ sales.id }}"
                       type="button"
                       class="py-2 mr-2 px-3 inline-flex justify-center disabled:bg-slate-400 disabled:cursor-not-allowed items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800 focus:ring-offset-gray-800"
                     >
@@ -176,8 +198,13 @@
 </section>
 
 <app-add-quick-sale
-  *ngIf="showmodel"
-  (childEvent)="modelUnShow($event)"
+  *ngIf="showmodel1"
+  (childEvent)="modelUnShowAdd($event)"
 ></app-add-quick-sale>
+
+<!-- <app-update-quick-sales
+  *ngIf="showmodel2"
+  (childEvent)="modelUnShowUpdate($event)"
+></app-update-quick-sales> -->
 
 <!-- ************************************************************************************* -->

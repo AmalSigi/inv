@@ -36,6 +36,30 @@
       </div>
     </div>
   </section>
+  <div class="form-group">
+    <label
+      class="mr-5 m-9 bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="black"
+        stroke-width="2"
+        stroke-linecap="square"
+        stroke-linejoin="round"
+      >
+        <path
+          d="M3 15v4c0 1.1.9 2 2 2h14a2 2 0 0 0 2-2v-4M17 8l-5-5-5 5M12 4.2v10.3"
+        />
+      </svg>
+      <span>Upload</span>
+
+      <input type="file" id="file" hidden="true" />
+    </label>
+  </div>
 
   <app-pagination
     [data]="products$"

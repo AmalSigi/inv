@@ -86,4 +86,16 @@ export class ClientComponent {
       })
     );
   }
+
+  public fileImport(files: Event) {
+    let fileToUpload = (files.target as HTMLInputElement).files?.item(0);
+  }
+
+  // uploadFileToActivity() {
+  //   this.fileUploadService.postFile(this.fileToUpload).subscribe(data => {
+  //     // do something, if upload success
+  //     }, error => {
+  //       console.log(error);
+  //     });
+  // }
 }

@@ -1,25 +1,45 @@
+import { Component, EventEmitter, Output } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { Toastr } from '@service/toastr.service';
 import { HttpService } from '@commonservice/http.service';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-add-quick-sale',
-  templateUrl: './add-quick-sale.component.html',
+  selector: 'app-update-quick-sales',
+  templateUrl: './update-quick-sales.component.html',
 })
-export class AddQuickSalewComponent implements OnInit {
-  @Output() childEvent = new EventEmitter<boolean>();
+export class UpdateQuickSalesComponent {
   public product$!: Observable<any>;
   public productName: any = '';
-
+  public quickSaleId: any;
+  public quickSale!: any;
   public addedProduct: any[] = [];
   constructor(
     private readonly apiService: HttpService,
-    private readonly toastr: Toastr
+    private readonly toastr: Toastr,
+    private activatedRoute: ActivatedRoute
   ) {}
   ngOnInit(): void {
     this.product$ = this.apiService.getProduct();
+    this.main();
+  }
+
+  public main(): void {
+    this.activatedRoute.params.subscribe((params) => {
+      this.quickSaleId = +params['id'];
+
+      this.apiService
+        .getQuickSaleById(this.quickSaleId)
+        .subscribe((respo: any[]) => {
+          console.log(respo);
+          this.quickSale = respo;
+          this.quicSaleForm.get('name')?.setValue(this.quickSale.name);
+          for (let product of this.quickSale.products) {
+            this.addProduct(product);
+          }
+        });
+    });
   }
 
   public quicSaleForm: FormGroup = new FormGroup({
@@ -30,19 +50,15 @@ export class AddQuickSalewComponent implements OnInit {
     return this.quicSaleForm.controls['products'] as FormArray;
   }
   public addProduct(product: any): void {
-    console.log(product);
     const isObjectInArray = this.products.value.some(
       (obj: any) => JSON.stringify(obj) === JSON.stringify(product.id)
     );
 
     if (!isObjectInArray) {
       this.addedProduct.push(product);
+
       this.products.push(new FormControl(product.id, Validators.required));
     }
-  }
-  public modelUnShow(): void {
-    const value: boolean = false;
-    this.childEvent.emit(value);
   }
 
   public getProductName(event: any): void {
@@ -60,12 +76,13 @@ export class AddQuickSalewComponent implements OnInit {
       })
     );
   }
-  public removeSale(formInedx: number): void {
+
+  public delect(productId: number): void {
     this.addedProduct = this.addedProduct.filter(
-      (product: any) => product.id != formInedx
+      (product: any) => product.id != productId
     );
     const index = this.products.controls.findIndex(
-      (x) => x.value === formInedx
+      (x) => x.value === productId
     );
     this.products.removeAt(index);
   }

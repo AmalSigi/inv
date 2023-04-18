@@ -12,7 +12,9 @@ export class QuicksaleComponent implements OnInit {
   currentPage: number = 1;
   pageSize: number = 5;
   pageLength!: number;
-  public showmodel: boolean = false;
+  public showmodel1: boolean = false;
+  public showmodel2: boolean = false;
+
   constructor(
     private readonly apiService: SalesService,
     private readonly router: Router
@@ -33,11 +35,23 @@ export class QuicksaleComponent implements OnInit {
     this.currentPage = event.currentPage;
     this.pageSize = event.pageSize;
   }
-  public modelUnShow(value: boolean): void {
-    this.showmodel = value;
+  public modelUnShowAdd(value: boolean): void {
+    this.showmodel1 = value;
+    this.showmodel2 = value;
+  }
+  public modelUnShowUpdate(value: boolean): void {
+    this.showmodel2 = value;
   }
 
-  public modelShow(): void {
-    this.showmodel = true;
+  public modelShowAdd(): void {
+    this.showmodel1 = true;
+  }
+  public modelShowUpdate(event: any): void {
+    const tdId = 'update';
+    if (event.target['id'] === tdId) {
+      console.log(`Click function disabled for ${tdId}`);
+      return;
+    }
+    this.showmodel2 = true;
   }
 }
