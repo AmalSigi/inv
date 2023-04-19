@@ -57,7 +57,12 @@
       </svg>
       <span>Upload</span>
 
-      <input type="file" id="file" hidden="true" />
+      <input
+        type="file"
+        id="file"
+        hidden="true"
+        (change)="fileImport($event)"
+      />
     </label>
   </div>
 

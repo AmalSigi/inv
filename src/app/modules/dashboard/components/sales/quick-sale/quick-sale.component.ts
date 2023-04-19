@@ -2,6 +2,7 @@ import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { SalesService } from '@saleservice/sales.service';
+import { Toastr } from '@service/toastr.service';
 
 @Component({
   selector: 'app-quick-sale',
@@ -17,13 +18,16 @@ export class QuicksaleComponent implements OnInit {
 
   constructor(
     private readonly apiService: SalesService,
-    private readonly router: Router
+    private readonly router: Router,
+    private readonly toastr: Toastr
   ) {}
   ngOnInit(): void {
+    this.main();
+  }
+
+  public main() {
     this.quicksale$ = this.apiService.getQuickSale();
-    this.quicksale$.subscribe((reso: any) => {
-      console.log(reso);
-    });
+    this.quicksale$.subscribe((reso: any) => {});
   }
 
   public addQuickSale(id: number): void {
@@ -53,5 +57,16 @@ export class QuicksaleComponent implements OnInit {
       return;
     }
     this.showmodel2 = true;
+  }
+
+  public delete(id: number) {
+    this.apiService.deleteQuickSale(id).subscribe({
+      next: () => {
+        this.toastr.delete();
+        this.main();
+      },
+      error: () => {},
+      complete: () => {},
+    });
   }
 }

@@ -3,7 +3,8 @@ import { Observable, map } from 'rxjs';
 import { Toastr } from '@service/toastr.service';
 import { HttpService } from '@commonservice/http.service';
 import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { SalesService } from '@saleservice/sales.service';
 
 @Component({
   selector: 'app-update-quick-sales',
@@ -17,8 +18,11 @@ export class UpdateQuickSalesComponent {
   public addedProduct: any[] = [];
   constructor(
     private readonly apiService: HttpService,
+    private readonly quickSaleService: SalesService,
+
     private readonly toastr: Toastr,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private route: Router
   ) {}
   ngOnInit(): void {
     this.product$ = this.apiService.getProduct();
@@ -28,12 +32,12 @@ export class UpdateQuickSalesComponent {
   public main(): void {
     this.activatedRoute.params.subscribe((params) => {
       this.quickSaleId = +params['id'];
-
       this.apiService
         .getQuickSaleById(this.quickSaleId)
         .subscribe((respo: any[]) => {
           console.log(respo);
           this.quickSale = respo;
+          this.quicSaleForm.get('id')?.setValue(this.quickSale.id);
           this.quicSaleForm.get('name')?.setValue(this.quickSale.name);
           for (let product of this.quickSale.products) {
             this.addProduct(product);
@@ -43,6 +47,7 @@ export class UpdateQuickSalesComponent {
   }
 
   public quicSaleForm: FormGroup = new FormGroup({
+    id: new FormControl('', Validators.required),
     name: new FormControl('', Validators.required),
     products: new FormArray([], Validators.required),
   });
@@ -56,7 +61,6 @@ export class UpdateQuickSalesComponent {
 
     if (!isObjectInArray) {
       this.addedProduct.push(product);
-
       this.products.push(new FormControl(product.id, Validators.required));
     }
   }
@@ -88,11 +92,15 @@ export class UpdateQuickSalesComponent {
   }
 
   public save(): void {
-    this.apiService.postQuickSale(this.quicSaleForm).subscribe({
+    let updateedQuickSale = this.quicSaleForm.value;
+    this.quickSaleService.putQuickSale(updateedQuickSale).subscribe({
       next: () => {
-        this.toastr.add();
+        this.toastr.update();
+        this.route.navigate(['/dashboard/sales/quicksale']);
       },
-      error: () => {},
+      error: () => {
+        this.toastr.error();
+      },
       complete: () => {},
     });
   }

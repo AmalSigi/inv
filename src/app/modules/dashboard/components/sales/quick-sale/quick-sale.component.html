@@ -75,7 +75,7 @@
                       | pagination : currentPage : pageSize
                       | async
                   "
-                  class="hover:bg-teal-800 cursor-grab"
+                  class="hover:bg-teal-800"
                 >
                   <td
                     class="px-6 py-4 whitespace-nowrap text-sm font-medium dark:text-gray-200 text-gray-200"
@@ -105,8 +105,9 @@
                   >
                     <button
                       type="button"
+                      title="Add"
                       (click)="addQuickSale(sales.id)"
-                      class="py-2 mr-2 px-3 inline-flex justify-center items-center disabled:bg-slate-400 disabled:cursor-not-allowed gap-2 rounded-md border border-transparent font-semibold bg-amber-400 text-white hover:bg-amber-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800 focus:ring-offset-gray-800"
+                      class="cursor-grab py-2 mr-2 px-3 inline-flex justify-center items-center disabled:bg-slate-400 disabled:cursor-not-allowed gap-2 rounded-md border border-transparent font-semibold bg-amber-400 text-white hover:bg-amber-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800 focus:ring-offset-gray-800"
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -127,8 +128,9 @@
 
                     <button
                       type="button"
+                      title="View"
                       routerLink="quickSaleView/{{ sales.id }}"
-                      class="py-2 mr-2 px-3 inline-flex justify-center items-center disabled:bg-slate-400 disabled:cursor-not-allowed gap-2 rounded-md border border-transparent font-semibold bg-green-600 text-white hover:bg-green-800 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800 focus:ring-offset-gray-800"
+                      class="cursor-point py-2 mr-2 px-3 inline-flex justify-center items-center disabled:bg-slate-400 disabled:cursor-not-allowed gap-2 rounded-md border border-transparent font-semibold bg-green-600 text-white hover:bg-green-800 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800 focus:ring-offset-gray-800"
                     >
                       <svg
                         fill="currentColor"
@@ -147,9 +149,10 @@
                     </button>
                     <button
                       id="update"
+                      title="Edit"
                       routerLink="quickSaleUpdate/{{ sales.id }}"
                       type="button"
-                      class="py-2 mr-2 px-3 inline-flex justify-center disabled:bg-slate-400 disabled:cursor-not-allowed items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800 focus:ring-offset-gray-800"
+                      class="cursor-point py-2 mr-2 px-3 inline-flex justify-center disabled:bg-slate-400 disabled:cursor-not-allowed items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800 focus:ring-offset-gray-800"
                     >
                       <svg
                         fill="currentColor"
@@ -167,9 +170,10 @@
                       </svg>
                     </button>
                     <button
-                      [disabled]="true"
+                      title="Delete"
+                      (click)="delete(sales.id)"
                       type="button"
-                      class="py-2 px-3 inline-flex justify-center items-center disabled:bg-slate-400 disabled:cursor-not-allowed gap-2 rounded-md border border-transparent font-semibold bg-red-600 text-white hover:bg-red-00 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800 focus:ring-offset-gray-800"
+                      class="cursor-point py-2 px-3 inline-flex justify-center items-center disabled:bg-slate-400 disabled:cursor-not-allowed gap-2 rounded-md border border-transparent font-semibold bg-red-600 text-white hover:bg-red-00 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800 focus:ring-offset-gray-800"
                     >
                       <svg
                         fill="currentColor"

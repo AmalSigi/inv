@@ -81,4 +81,8 @@ export class HttpService {
   public postQuickSale(sale: any): Observable<any> {
     return this.http.post(`${this.url}/quick-sales`, sale.value);
   }
+
+  public putQuickSale(sale: any): Observable<any> {
+    return this.http.put(`${this.url}/quick-sales`, sale);
+  }
 }

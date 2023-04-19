@@ -18,10 +18,10 @@ export class SalesService {
     return this.http.get(`${this.url}/sales`);
   }
 
-  public postSale(salesVale: any) {
+  public postSale(salesVale: any): Observable<any> {
     return this.http.post(`${this.url}/sales`, salesVale);
   }
-  public getSaleByID(saleId: number) {
+  public getSaleByID(saleId: number): Observable<any> {
     return this.http.get(`${this.url}/sales/${saleId}`);
   }
   // ********************** Quick Sale Function**************************
@@ -34,12 +34,20 @@ export class SalesService {
   }
   public postQuickSale(sale: any) {
     console.log(sale.value88);
-    this.http.post(`${this.url}/quick-sales`, sale.value).subscribe({
+    return this.http.post(`${this.url}/quick-sales`, sale.value).subscribe({
       next: () => {
         this.toastr.add();
       },
       error: () => {},
       complete: () => {},
     });
+  }
+
+  public deleteQuickSale(id: number): Observable<any> {
+    return this.http.delete(`${this.url}/quick-sales/${id}`);
+  }
+
+  public putQuickSale(sale: any): Observable<any> {
+    return this.http.put(`${this.url}/quick-sales`, sale);
   }
 }

@@ -20,7 +20,7 @@ export class ProductService {
   }
 
   public postProduct(product: any): Observable<any> {
-    return this.http.post<any>(`${this.url}`, product);
+    return this.http.post<any>(`${this.url}/products`, product);
   }
 
   public getSingleProduct(productId: number): Observable<any> {
@@ -28,7 +28,7 @@ export class ProductService {
   }
 
   public delectProduct(productId: number): Observable<any> {
-    return this.http.delete<any>(`${this.url}/products/${productId}`);
+    return this.http.delete(`${this.url}/products/${productId}`);
   }
   public putProductStatus(productId: number, status: any): Observable<any> {
     return this.http.put<any>(
