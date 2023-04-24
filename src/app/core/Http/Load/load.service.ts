@@ -7,14 +7,17 @@ import { Observable } from 'rxjs';
 })
 export class LoadService {
   constructor(private readonly http: HttpClient) {}
+  public url: string = 'https://api-sales-app.josetovar.dev';
 
-  // postFile(fileToUpload: File): Observable<boolean> {
-  //   const endpoint = 'your-destination-url';
-  //   const formData: FormData = new FormData();
-  //   formData.append('fileKey', fileToUpload, fileToUpload.name);
-  //   return this.http
-  //     .post(endpoint, formData, { headers: yourHeadersConfig })
-  //     .map(() => { return true; })
-  //     .catch((e) => this.handleError(e));
-  // }
+  postProductFile(fileToUpload: File) {
+    const formData: FormData = new FormData();
+    formData.append('csv', fileToUpload, fileToUpload.name);
+    return this.http.post(`${this.url}/products/import`, formData);
+  }
+
+  postClientFile(fileToUpload: File) {
+    const formData: FormData = new FormData();
+    formData.append('csv', fileToUpload, fileToUpload.name);
+    return this.http.post(`${this.url}/clients/import`, formData);
+  }
 }

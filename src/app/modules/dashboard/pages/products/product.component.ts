@@ -6,6 +6,7 @@ import { Observable, Subscription, map, of } from 'rxjs';
 import { ProductService } from '@productservice/product.service';
 import { MainServiceService } from '@service/main-service.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { LoadService } from 'src/app/core/Http/Load/load.service';
 @Component({
   selector: 'app-product',
   templateUrl: './product.component.html',
@@ -17,10 +18,13 @@ export class ProductComponent implements OnInit {
   constructor(
     private readonly toastr: Toastr,
     private readonly serviceApi: ProductService,
-    private readonly main: MainServiceService
+    private readonly main: MainServiceService,
+    private readonly fileUploadService: LoadService
   ) {}
 
   public products$!: Observable<any>;
+
+  public fileToUpload!: File;
 
   public updateProductForm: FormGroup = new FormGroup({});
   public checkBool: boolean = false;
@@ -167,15 +171,29 @@ export class ProductComponent implements OnInit {
     this.currentPage = event.currentPage;
     this.pageSize = event.pageSize;
   }
-  public fileImport(files: Event) {
-    let fileToUpload = (files.target as HTMLInputElement).files?.item(0);
+  public fileImport(event: any) {
+    this.fileToUpload = event.target.files[0];
+    // console.log(event.target.files[0]);
+    this.uploadFileToActivity(this.fileToUpload);
   }
 
-  // uploadFileToActivity() {
-  //   this.fileUploadService.postFile(this.fileToUpload).subscribe(data => {
-  //     // do something, if upload success
-  //     }, error => {
-  //       console.log(error);
-  //     });
-  // }
+  public uploadFileToActivity(file: File) {
+    this.fileUploadService.postProductFile(file).subscribe({
+      next: () => {
+        this.toastr.import();
+        this.getProduct();
+      },
+      error: () => {},
+      complete: () => {},
+    });
+  }
+
+  public downloadFile() {
+    // this.serviceApi.getProduct().subscribe((respo: any) => {
+    //   const link = document.createElement('a');
+    //   link.href = window.URL.createObjectURL(respo);
+    //   link.download = this.fileToUpload.name;
+    //   link.click();
+    // });
+  }
 }

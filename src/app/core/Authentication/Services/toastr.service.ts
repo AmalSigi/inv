@@ -43,4 +43,14 @@ export class Toastr {
       closeButton: true,
     });
   }
+
+  import() {
+    this.toastr.success('Imported successfully!', 'Imported', {
+      timeOut: 3000,
+      progressBar: true,
+      progressAnimation: 'decreasing',
+      positionClass: 'toast-top-right',
+      closeButton: true,
+    });
+  }
 }

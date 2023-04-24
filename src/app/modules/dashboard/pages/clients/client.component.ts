@@ -5,6 +5,7 @@ import { Toastr } from '@service/toastr.service';
 import { Observable, Subscription, map, of } from 'rxjs';
 import { ClientService } from '@clientservice/client.service';
 import { MainServiceService } from '@service/main-service.service';
+import { LoadService } from 'src/app/core/Http/Load/load.service';
 
 @Component({
   selector: 'app-client',
@@ -14,13 +15,15 @@ export class ClientComponent {
   constructor(
     private readonly serviceApi: ClientService,
     private readonly toastr: Toastr,
-    private readonly main: MainServiceService
+    private readonly main: MainServiceService,
+    private readonly fileUploadService: LoadService
   ) {}
   public clients$!: Observable<any>;
   public upClient: any;
   public clientView: any;
   public updateClientForm: FormGroup = new FormGroup({});
   public searchValue: any = '';
+  public fileToUpload!: File;
 
   currentPage: number = 1;
   pageSize: number = 5;
@@ -87,15 +90,29 @@ export class ClientComponent {
     );
   }
 
-  public fileImport(files: Event) {
-    let fileToUpload = (files.target as HTMLInputElement).files?.item(0);
+  public fileImport(event: any) {
+    this.fileToUpload = event.target.files[0];
+    // console.log(event.target.files[0]);
+    this.uploadFileToActivity(this.fileToUpload);
   }
 
-  // uploadFileToActivity() {
-  //   this.fileUploadService.postFile(this.fileToUpload).subscribe(data => {
-  //     // do something, if upload success
-  //     }, error => {
-  //       console.log(error);
-  //     });
-  // }
+  uploadFileToActivity(file: File) {
+    this.fileUploadService.postClientFile(file).subscribe({
+      next: () => {
+        this.toastr.import();
+        this.getClient();
+      },
+      error: () => {},
+      complete: () => {},
+    });
+  }
+
+  public downloadFile() {
+    // this.serviceApi.getProduct().subscribe((respo: any) => {
+    //   const link = document.createElement('a');
+    //   link.href = window.URL.createObjectURL(respo);
+    //   link.download = this.fileToUpload.name;
+    //   link.click();
+    // });
+  }
 }
