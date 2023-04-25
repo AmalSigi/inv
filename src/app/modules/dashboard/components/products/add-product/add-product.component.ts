@@ -3,7 +3,7 @@ import { Toastr } from '@service/toastr.service';
 import { ProductService } from '@productservice/product.service';
 import { MainServiceService } from '@service/main-service.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-
+import { Iproduct } from '@interface/product/iproduct';
 @Component({
   selector: 'app-add-product',
   templateUrl: './add-product.component.html',
@@ -11,7 +11,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 export class AddProductComponent {
   constructor(
     private productAcess: MainServiceService,
-    private apiService: ProductService,
+    private productService: ProductService,
     private toastr: Toastr
   ) {}
 
@@ -23,12 +23,12 @@ export class AddProductComponent {
     active: new FormControl(true, Validators.required),
   });
   public addProduct() {
-    this.apiService
+    this.productService
       .postProduct(this.addProductForm.value)
-      .subscribe((response: any) => {
+      .subscribe((response: Iproduct) => {
         if (response) {
           this.toastr.add();
-          this.apiService.getProduct().subscribe((response: any) => {
+          this.productService.getProduct().subscribe((response: Iproduct) => {
             this.productAcess.clickEventActivated();
             this.addProductForm.reset();
             this.addProductForm.patchValue({ active: true });

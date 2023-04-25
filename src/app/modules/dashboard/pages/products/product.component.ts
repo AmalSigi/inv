@@ -1,4 +1,4 @@
-import { Iproduct } from '@interface/iproduct';
+import * as Papa from 'papaparse';
 import { formatCurrency } from '@angular/common';
 import { Toastr } from '@service/toastr.service';
 import { Component, OnInit } from '@angular/core';
@@ -7,8 +7,7 @@ import { ProductService } from '@productservice/product.service';
 import { MainServiceService } from '@service/main-service.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { LoadService } from 'src/app/core/Http/Load/load.service';
-import { HttpClient } from '@angular/common/http';
-import * as Papa from 'papaparse';
+import { Iproduct, ImportProductResponse } from '@interface/product/iproduct';
 @Component({
   selector: 'app-product',
   templateUrl: './product.component.html',
@@ -19,10 +18,9 @@ export class ProductComponent implements OnInit {
   pageLength!: number;
   constructor(
     private readonly toastr: Toastr,
-    private readonly serviceApi: ProductService,
+    private readonly productService: ProductService,
     private readonly main: MainServiceService,
-    private readonly fileUploadService: LoadService,
-    private readonly http: HttpClient
+    private readonly fileUploadService: LoadService
   ) {}
 
   public products$!: Observable<any>;
@@ -43,7 +41,7 @@ export class ProductComponent implements OnInit {
   }
 
   public getProduct(): void {
-    this.products$ = this.serviceApi.getProduct();
+    this.products$ = this.productService.getProduct();
     this.products$.subscribe((products) => {
       products.map((product: any) => {
         this.updateProductForm.addControl(
@@ -91,11 +89,11 @@ export class ProductComponent implements OnInit {
       ...value,
     };
 
-    this.serviceApi
+    this.productService
       .putProduct(updatedValues)
       .subscribe((response: Iproduct) => {
         this.toastr.update();
-        this.serviceApi.getProduct().subscribe((response) => {
+        this.productService.getProduct().subscribe((response) => {
           this.products$ = of(response);
         });
       });
@@ -119,7 +117,7 @@ export class ProductComponent implements OnInit {
 
   onCheckboxChange(product: Iproduct, anyEvent: any): void {
     const status = anyEvent.target.checked;
-    this.serviceApi
+    this.productService
       .putProductStatus(product.id, status)
       .subscribe((reponse) => {
         if (reponse) {
@@ -128,10 +126,10 @@ export class ProductComponent implements OnInit {
   }
 
   public delete(productId: number): void {
-    this.serviceApi
+    this.productService
       .delectProduct(productId)
       .subscribe((responses: Iproduct) => {
-        this.serviceApi.getProduct().subscribe((responses) => {
+        this.productService.getProduct().subscribe((responses) => {
           this.products$ = of(responses);
         });
         this.toastr.delete();
@@ -144,11 +142,12 @@ export class ProductComponent implements OnInit {
   }
 
   public setFiltersStatus(active: any): void {
-    this.products$ = this.serviceApi.getProduct().pipe(
+    this.products$ = this.productService.getProduct().pipe(
       map((products: any) => {
         if (active.target.value) {
           return products.filter(
-            (product: any) => product.active.toString() === active.target.value
+            (product: Iproduct) =>
+              product.active.toString() === active.target.value
           );
         } else {
           return products;
@@ -157,12 +156,12 @@ export class ProductComponent implements OnInit {
     );
   }
   public setFiltersStock(active: any): void {
-    this.products$ = this.serviceApi.getProduct().pipe(
+    this.products$ = this.productService.getProduct().pipe(
       map((products: any) => {
         if (active.target.value == 1) {
-          return products.filter((product: any) => product.stock > 0);
+          return products.filter((product: Iproduct) => product.stock > 0);
         } else if (active.target.value == 2) {
-          return products.filter((product: any) => product.stock == 0);
+          return products.filter((product: Iproduct) => product.stock == 0);
         } else {
           return products;
         }
@@ -174,13 +173,12 @@ export class ProductComponent implements OnInit {
     this.currentPage = event.currentPage;
     this.pageSize = event.pageSize;
   }
-  public fileImport(event: any) {
+  public fileImport(event: any): void {
     this.fileToUpload = event.target.files[0];
-    // console.log(event.target.files[0]);
     this.uploadFileToActivity(this.fileToUpload);
   }
 
-  public uploadFileToActivity(file: File) {
+  public uploadFileToActivity(file: File): void {
     this.fileUploadService.postProductFile(file).subscribe({
       next: () => {
         this.toastr.import();
@@ -191,15 +189,14 @@ export class ProductComponent implements OnInit {
     });
   }
 
-  public downloadFile() {
-    const url = 'https://api-sales-app.josetovar.dev/products'; // Replace with your endpoint URL
-    this.http.get(url).subscribe((response: any) => {
+  public downloadFile(): void {
+    this.productService.getProduct().subscribe((response: Iproduct[]) => {
       const file = Papa.unparse(response);
       const blob = new Blob([file], { type: 'csv' });
       const downloadURL = window.URL.createObjectURL(blob);
       const link = document.createElement('a');
       link.href = downloadURL;
-      link.download = 'Product.csv'; // Replace with your desired file name
+      link.download = 'Product.csv';
       link.click();
       this.toastr.download();
     });

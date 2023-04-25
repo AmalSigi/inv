@@ -1,11 +1,12 @@
-import { Component, EventEmitter, Output } from '@angular/core';
-import { Observable, map } from 'rxjs';
-import { Toastr } from '@service/toastr.service';
-import { HttpService } from '@commonservice/http.service';
-import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
+import { Component } from '@angular/core';
+import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { HttpService } from '@commonservice/http.service';
+import { Iproduct } from '@interface/product/iproduct';
+import { Isale } from '@interface/sale/sale';
 import { SalesService } from '@saleservice/sales.service';
-
+import { Toastr } from '@service/toastr.service';
+import { Observable, map } from 'rxjs';
 @Component({
   selector: 'app-update-quick-sales',
   templateUrl: './update-quick-sales.component.html',
@@ -17,7 +18,7 @@ export class UpdateQuickSalesComponent {
   public quickSale!: any;
   public addedProduct: any[] = [];
   constructor(
-    private readonly apiService: HttpService,
+    private readonly httpService: HttpService,
     private readonly quickSaleService: SalesService,
 
     private readonly toastr: Toastr,
@@ -25,16 +26,16 @@ export class UpdateQuickSalesComponent {
     private route: Router
   ) {}
   ngOnInit(): void {
-    this.product$ = this.apiService.getProduct();
+    this.product$ = this.httpService.getProduct();
     this.main();
   }
 
   public main(): void {
     this.activatedRoute.params.subscribe((params) => {
       this.quickSaleId = +params['id'];
-      this.apiService
+      this.httpService
         .getQuickSaleById(this.quickSaleId)
-        .subscribe((respo: any[]) => {
+        .subscribe((respo: Isale[]) => {
           console.log(respo);
           this.quickSale = respo;
           this.quicSaleForm.get('id')?.setValue(this.quickSale.id);
@@ -70,7 +71,7 @@ export class UpdateQuickSalesComponent {
     this.product$ = this.product$.pipe(
       map((products: any) => {
         return products.filter(
-          (product: any) =>
+          (product: Iproduct) =>
             product.name
               .toLowerCase()
               .includes(this.productName.toLowerCase()) &&
@@ -83,7 +84,7 @@ export class UpdateQuickSalesComponent {
 
   public delect(productId: number): void {
     this.addedProduct = this.addedProduct.filter(
-      (product: any) => product.id != productId
+      (product: Iproduct) => product.id != productId
     );
     const index = this.products.controls.findIndex(
       (x) => x.value === productId

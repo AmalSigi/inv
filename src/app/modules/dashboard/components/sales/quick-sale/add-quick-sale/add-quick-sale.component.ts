@@ -1,9 +1,9 @@
-import { Observable, map } from 'rxjs';
-import { Toastr } from '@service/toastr.service';
-import { HttpService } from '@commonservice/http.service';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
-
+import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { HttpService } from '@commonservice/http.service';
+import { Iproduct } from '@interface/product/iproduct';
+import { Toastr } from '@service/toastr.service';
+import { Observable, map } from 'rxjs';
 @Component({
   selector: 'app-add-quick-sale',
   templateUrl: './add-quick-sale.component.html',
@@ -15,11 +15,11 @@ export class AddQuickSalewComponent implements OnInit {
 
   public addedProduct: any[] = [];
   constructor(
-    private readonly apiService: HttpService,
+    private readonly httpService: HttpService,
     private readonly toastr: Toastr
   ) {}
   ngOnInit(): void {
-    this.product$ = this.apiService.getProduct();
+    this.product$ = this.httpService.getProduct();
   }
 
   public quicSaleForm: FormGroup = new FormGroup({
@@ -50,7 +50,7 @@ export class AddQuickSalewComponent implements OnInit {
     this.product$ = this.product$.pipe(
       map((products: any) => {
         return products.filter(
-          (product: any) =>
+          (product: Iproduct) =>
             product.name
               .toLowerCase()
               .includes(this.productName.toLowerCase()) &&
@@ -62,7 +62,7 @@ export class AddQuickSalewComponent implements OnInit {
   }
   public removeSale(formInedx: number): void {
     this.addedProduct = this.addedProduct.filter(
-      (product: any) => product.id != formInedx
+      (product: Iproduct) => product.id != formInedx
     );
     const index = this.products.controls.findIndex(
       (x) => x.value === formInedx
@@ -71,7 +71,7 @@ export class AddQuickSalewComponent implements OnInit {
   }
 
   public save(): void {
-    this.apiService.postQuickSale(this.quicSaleForm).subscribe({
+    this.httpService.postQuickSale(this.quicSaleForm).subscribe({
       next: () => {
         this.toastr.add();
       },

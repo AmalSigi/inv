@@ -15,7 +15,7 @@ export class AllsalesComponent implements OnInit {
   pageSize: number = 5;
   pageLength!: number;
   constructor(
-    private readonly apiService: SalesService,
+    private readonly salesService: SalesService,
     private readonly main: MainServiceService,
     private readonly route: ActivatedRoute
   ) {}
@@ -40,7 +40,7 @@ export class AllsalesComponent implements OnInit {
   }
 
   public mainCall(): void {
-    this.sales$ = this.apiService.getSale();
+    this.sales$ = this.salesService.getSale();
     this.sales$.subscribe((respo) => {});
   }
 

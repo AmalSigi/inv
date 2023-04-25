@@ -8,6 +8,7 @@ import {
 } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ClientService } from '@clientservice/client.service';
+import { Iclient } from '@interface/client/iclient';
 
 @Component({
   selector: 'app-update-client',
@@ -20,7 +21,7 @@ export class UpdateClientComponent implements OnChanges {
   @Output() clientEvent = new EventEmitter<any>();
   public updateClientForm!: FormGroup;
 
-  constructor(private apiService: ClientService) {}
+  constructor(private clientService: ClientService) {}
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['data']) {
@@ -44,9 +45,9 @@ export class UpdateClientComponent implements OnChanges {
   }
 
   public editClient(): void {
-    this.apiService
+    this.clientService
       .putClients(this.updateClientForm.value)
-      .subscribe((response: any) => {
+      .subscribe((response: Iclient) => {
         if (response) {
           this.clientEvent.emit(response);
           const value: boolean = false;

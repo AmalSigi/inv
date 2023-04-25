@@ -1,9 +1,9 @@
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { SalesService } from '@saleservice/sales.service';
 import { Toastr } from '@service/toastr.service';
-
+import { Isale } from '@interface/sale/sale';
+import { SalesService } from '@saleservice/sales.service';
 @Component({
   selector: 'app-quick-sale',
   templateUrl: './quick-sale.component.html',
@@ -17,7 +17,7 @@ export class QuicksaleComponent implements OnInit {
   public showmodel2: boolean = false;
 
   constructor(
-    private readonly apiService: SalesService,
+    private readonly salesService: SalesService,
     private readonly router: Router,
     private readonly toastr: Toastr
   ) {}
@@ -26,8 +26,8 @@ export class QuicksaleComponent implements OnInit {
   }
 
   public main() {
-    this.quicksale$ = this.apiService.getQuickSale();
-    this.quicksale$.subscribe((reso: any) => {});
+    this.quicksale$ = this.salesService.getQuickSale();
+    this.quicksale$.subscribe((reso: Isale) => {});
   }
 
   public addQuickSale(id: number): void {
@@ -60,7 +60,7 @@ export class QuicksaleComponent implements OnInit {
   }
 
   public delete(id: number) {
-    this.apiService.deleteQuickSale(id).subscribe({
+    this.salesService.deleteQuickSale(id).subscribe({
       next: () => {
         this.toastr.delete();
         this.main();

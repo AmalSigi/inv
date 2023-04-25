@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ClientService } from '@clientservice/client.service';
 import { MainServiceService } from '@service/main-service.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Iclient } from '@interface/client/iclient';
 @Component({
   selector: 'app-add-client',
   templateUrl: './add-client.component.html',
@@ -13,7 +14,7 @@ export class AddClientComponent {
     private route: ActivatedRoute,
     private router: Router,
     private readonly clientAcess: MainServiceService,
-    private apiService: ClientService,
+    private clientService: ClientService,
     private toastr: Toastr
   ) {}
 
@@ -28,12 +29,12 @@ export class AddClientComponent {
     email: new FormControl('', Validators.required),
   });
   public addClient(): void {
-    this.apiService
+    this.clientService
       .postClients(this.addClientForm.value)
-      .subscribe((response: any) => {
+      .subscribe((response: Iclient) => {
         if (response) {
           this.toastr.add();
-          this.apiService.getClients().subscribe((response: any) => {
+          this.clientService.getClients().subscribe((response: Iclient) => {
             this.clientAcess.clickEventActivated();
             this.addClientForm.reset();
           });

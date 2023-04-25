@@ -3,19 +3,19 @@ import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { SalesService } from '@saleservice/sales.service';
 import { MainServiceService } from '@service/main-service.service';
-
+import { Isale, Iquicksale } from '@interface/sale/sale';
 @Component({
   selector: 'app-sales',
   templateUrl: './sales.component.html',
 })
 export class SalesComponent implements OnInit {
-  public sales$!: Observable<any>;
+  public sales$!: Observable<Isale>;
   public showmodel: boolean = false;
   currentPage: number = 1;
   pageSize: number = 5;
   pageLength!: number;
   constructor(
-    private readonly apiService: SalesService,
+    private readonly salesService: SalesService,
     private readonly main: MainServiceService,
     private readonly route: ActivatedRoute
   ) {}
@@ -40,10 +40,9 @@ export class SalesComponent implements OnInit {
   }
 
   public mainCall(): void {
-    this.sales$ = this.apiService.getSale();
-    this.sales$.subscribe((respo) => {});
+    this.sales$ = this.salesService.getSale();
+    this.sales$.subscribe((respo: Isale) => {});
   }
-  public convDate(date: any) {}
 
   public modelShow(): void {
     // this.upClient = client;

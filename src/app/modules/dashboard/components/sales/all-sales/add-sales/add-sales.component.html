@@ -11,10 +11,7 @@
       <div
         class="flex justify-between items-center py-3 px-4 border-b dark:border-gray-700"
       >
-        <p
-          class="font-bold dark:text-gray-800 font-mono flex"
-          style="font-size: 28px"
-        >
+        <p class="font-bold dark:text-gray-800 font-mono flex text-[28px]">
           Add Sales
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -110,12 +107,11 @@
           </div>
           <div *ngIf="serachView">
             <div
-              class="clientList scrollable-div w-48 mt-5 py-2 px-5 rounded-lg max-h-[200px] overflow-y-auto scroll-smooth"
+              class="clientList scrollable-div w-48 mt-5 py-2 px-5 rounded-{5px} max-h-[200px] overflow-y-auto scroll-smooth"
               style="
                 background-color: rgb(106, 183, 129);
                 box-shadow: rgba(19, 59, 69, 0.879) 0px 10px 20px,
                   rgba(35, 84, 97, 0.329) 0px 6px 6px;
-                border-radius: 5px;
               "
             >
               <tr
@@ -318,8 +314,7 @@
                         <button
                           type="button"
                           (click)="removeSale(i)"
-                          class="ml-5 inline-flex justify-center items-center gap-2 rounded-full border border-transparent font-semibold bg-slate-200 hover:bg-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800"
-                          style="height: 45px; margin-top: 112%; width: 86%"
+                          class="ml-5 h-[45px] mt-[112%] w-[86%] inline-flex justify-center items-center gap-2 rounded-full border border-transparent font-semibold bg-slate-200 hover:bg-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800"
                         >
                           <svg
                             clip-rule="evenodd"

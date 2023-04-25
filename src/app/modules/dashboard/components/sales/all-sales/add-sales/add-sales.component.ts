@@ -12,7 +12,9 @@ import { HttpService } from '@commonservice/http.service';
 import { LocalStoService } from '@service/local-sto.service';
 import { MainServiceService } from '@service/main-service.service';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
-
+import { Isale } from '@interface/sale/sale';
+import { Iclient } from '@interface/client/iclient';
+import { Iproduct } from '@interface/product/iproduct';
 @Component({
   selector: 'app-add-sales',
   templateUrl: './add-sales.component.html',
@@ -32,7 +34,7 @@ export class AddSalesComponent implements OnInit, OnDestroy {
 
   public total: number = 0;
   constructor(
-    private readonly apiService: HttpService,
+    private readonly httpService: HttpService,
     private readonly main: MainServiceService,
     private readonly toastr: Toastr,
     private readonly local: LocalStoService,
@@ -41,8 +43,8 @@ export class AddSalesComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.client$ = this.apiService.getClients();
-    this.product$ = this.apiService.getProduct();
+    this.client$ = this.httpService.getClients();
+    this.product$ = this.httpService.getProduct();
 
     if (this.local.getvalue()) {
       this.saleForm = this.local.getvalue();
@@ -74,8 +76,8 @@ export class AddSalesComponent implements OnInit, OnDestroy {
   }
 
   public quickSale(id: any): void {
-    this.apiService.getQuickSaleById(id).subscribe((res) => {
-      res.products.forEach((element: any) => {
+    this.httpService.getQuickSaleById(id).subscribe((res) => {
+      res.products.forEach((element: Isale) => {
         this.addProduct(element);
       });
     });
@@ -133,7 +135,7 @@ export class AddSalesComponent implements OnInit, OnDestroy {
     this.client$ = this.client$.pipe(
       map((clients: any) => {
         return clients.filter(
-          (client: any) =>
+          (client: Iclient) =>
             client.first_name
               .toLowerCase()
               .includes(this.clientName.toLowerCase()) ||
@@ -160,7 +162,7 @@ export class AddSalesComponent implements OnInit, OnDestroy {
     this.product$ = this.product$.pipe(
       map((products: any) => {
         return products.filter(
-          (product: any) =>
+          (product: Iproduct) =>
             product.name
               .toLowerCase()
               .includes(this.productName.toLowerCase()) &&
@@ -188,7 +190,7 @@ export class AddSalesComponent implements OnInit, OnDestroy {
   public save(): void {
     this.modelUnShow();
     if (this.saleForm.valid) {
-      this.apiService.postSale(this.saleForm.value).subscribe({
+      this.httpService.postSale(this.saleForm.value).subscribe({
         next: () => {
           this.main.clickEventActivated();
           this.toastr.add();

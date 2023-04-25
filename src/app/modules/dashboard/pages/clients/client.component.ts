@@ -1,13 +1,12 @@
 import { Component } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { Iclient } from '@interface/iclient';
 import { Toastr } from '@service/toastr.service';
 import { Observable, Subscription, map, of } from 'rxjs';
 import { ClientService } from '@clientservice/client.service';
 import { MainServiceService } from '@service/main-service.service';
 import { LoadService } from 'src/app/core/Http/Load/load.service';
 import * as Papa from 'papaparse';
-import { HttpClient } from '@angular/common/http';
+import { Iclient } from '@interface/client/iclient';
 
 @Component({
   selector: 'app-client',
@@ -15,11 +14,10 @@ import { HttpClient } from '@angular/common/http';
 })
 export class ClientComponent {
   constructor(
-    private readonly serviceApi: ClientService,
+    private readonly clientService: ClientService,
     private readonly toastr: Toastr,
     private readonly main: MainServiceService,
-    private readonly fileUploadService: LoadService,
-    private readonly http: HttpClient
+    private readonly fileUploadService: LoadService
   ) {}
   public clients$!: Observable<any>;
   public upClient: any;
@@ -43,7 +41,7 @@ export class ClientComponent {
   }
 
   private getClient(): void {
-    this.clients$ = this.serviceApi.getClients();
+    this.clients$ = this.clientService.getClients();
   }
 
   public onPagination(event: { currentPage: number; pageSize: number }): void {
@@ -52,7 +50,7 @@ export class ClientComponent {
   }
 
   delete(client: number): void {
-    this.serviceApi.delectClient(client).subscribe((responses: any) => {
+    this.clientService.delectClient(client).subscribe((responses: Iclient) => {
       this.getClient();
       this.toastr.delete();
     });
@@ -69,7 +67,7 @@ export class ClientComponent {
 
   public updateClient(value: boolean): void {
     if (value) {
-      this.serviceApi.getClients().subscribe((repo: any) => {
+      this.clientService.getClients().subscribe((repo: Iclient) => {
         this.clients$ = of(repo);
         this.toastr.update();
       });
@@ -81,7 +79,7 @@ export class ClientComponent {
     this.clients$ = this.clients$.pipe(
       map((clients: any) => {
         return clients.filter(
-          (client: any) =>
+          (client: Iclient) =>
             client.first_name
               .toLowerCase()
               .includes(this.searchValue.toLowerCase()) ||
@@ -95,7 +93,6 @@ export class ClientComponent {
 
   public fileImport(event: any) {
     this.fileToUpload = event.target.files[0];
-    // console.log(event.target.files[0]);
     this.uploadFileToActivity(this.fileToUpload);
   }
 
@@ -111,14 +108,13 @@ export class ClientComponent {
   }
 
   public downloadFile() {
-    const url = 'https://api-sales-app.josetovar.dev/clients'; // Replace with your endpoint URL
-    this.http.get(url).subscribe((response: any) => {
+    this.clientService.getClients().subscribe((response: any) => {
       const file = Papa.unparse(response);
       const blob = new Blob([file], { type: 'csv' });
       const downloadURL = window.URL.createObjectURL(blob);
       const link = document.createElement('a');
       link.href = downloadURL;
-      link.download = 'Client.csv'; // Replace with your desired file name
+      link.download = 'Client.csv';
       link.click();
       this.toastr.download();
     });
