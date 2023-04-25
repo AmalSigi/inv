@@ -6,6 +6,8 @@ import { Observable, Subscription, map, of } from 'rxjs';
 import { ClientService } from '@clientservice/client.service';
 import { MainServiceService } from '@service/main-service.service';
 import { LoadService } from 'src/app/core/Http/Load/load.service';
+import * as Papa from 'papaparse';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-client',
@@ -16,7 +18,8 @@ export class ClientComponent {
     private readonly serviceApi: ClientService,
     private readonly toastr: Toastr,
     private readonly main: MainServiceService,
-    private readonly fileUploadService: LoadService
+    private readonly fileUploadService: LoadService,
+    private readonly http: HttpClient
   ) {}
   public clients$!: Observable<any>;
   public upClient: any;
@@ -108,11 +111,15 @@ export class ClientComponent {
   }
 
   public downloadFile() {
-    // this.serviceApi.getProduct().subscribe((respo: any) => {
-    //   const link = document.createElement('a');
-    //   link.href = window.URL.createObjectURL(respo);
-    //   link.download = this.fileToUpload.name;
-    //   link.click();
-    // });
+    const url = 'https://api-sales-app.josetovar.dev/clients'; // Replace with your endpoint URL
+    this.http.get(url).subscribe((response: any) => {
+      const file = Papa.unparse(response);
+      const blob = new Blob([file], { type: 'csv' });
+      const downloadURL = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = downloadURL;
+      link.download = 'Client.csv'; // Replace with your desired file name
+      link.click();
+    });
   }
 }

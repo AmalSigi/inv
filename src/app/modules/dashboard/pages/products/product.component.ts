@@ -7,6 +7,8 @@ import { ProductService } from '@productservice/product.service';
 import { MainServiceService } from '@service/main-service.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { LoadService } from 'src/app/core/Http/Load/load.service';
+import { HttpClient } from '@angular/common/http';
+import * as Papa from 'papaparse';
 @Component({
   selector: 'app-product',
   templateUrl: './product.component.html',
@@ -19,7 +21,8 @@ export class ProductComponent implements OnInit {
     private readonly toastr: Toastr,
     private readonly serviceApi: ProductService,
     private readonly main: MainServiceService,
-    private readonly fileUploadService: LoadService
+    private readonly fileUploadService: LoadService,
+    private readonly http: HttpClient
   ) {}
 
   public products$!: Observable<any>;
@@ -189,11 +192,15 @@ export class ProductComponent implements OnInit {
   }
 
   public downloadFile() {
-    // this.serviceApi.getProduct().subscribe((respo: any) => {
-    //   const link = document.createElement('a');
-    //   link.href = window.URL.createObjectURL(respo);
-    //   link.download = this.fileToUpload.name;
-    //   link.click();
-    // });
+    const url = 'https://api-sales-app.josetovar.dev/products'; // Replace with your endpoint URL
+    this.http.get(url).subscribe((response: any) => {
+      const file = Papa.unparse(response);
+      const blob = new Blob([file], { type: 'csv' });
+      const downloadURL = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = downloadURL;
+      link.download = 'Product.csv'; // Replace with your desired file name
+      link.click();
+    });
   }
 }
