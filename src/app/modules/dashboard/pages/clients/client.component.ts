@@ -120,6 +120,7 @@ export class ClientComponent {
       link.href = downloadURL;
       link.download = 'Client.csv'; // Replace with your desired file name
       link.click();
+      this.toastr.download();
     });
   }
 }

@@ -201,6 +201,7 @@ export class ProductComponent implements OnInit {
       link.href = downloadURL;
       link.download = 'Product.csv'; // Replace with your desired file name
       link.click();
+      this.toastr.download();
     });
   }
 }

@@ -53,4 +53,13 @@ export class Toastr {
       closeButton: true,
     });
   }
+  download() {
+    this.toastr.success('Download successfully!', 'Download', {
+      timeOut: 3000,
+      progressBar: true,
+      progressAnimation: 'decreasing',
+      positionClass: 'toast-top-right',
+      closeButton: true,
+    });
+  }
 }
