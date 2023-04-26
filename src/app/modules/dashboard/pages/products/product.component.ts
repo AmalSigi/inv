@@ -115,7 +115,7 @@ export class ProductComponent implements OnInit {
     return true;
   }
 
-  onCheckboxChange(product: Iproduct, anyEvent: any): void {
+  public onCheckboxChange(product: Iproduct, anyEvent: any): void {
     const status = anyEvent.target.checked;
     this.productService
       .putProductStatus(product.id, status)
