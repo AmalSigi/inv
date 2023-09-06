@@ -26,7 +26,7 @@ const routes: Routes = [
           import('./all-sales/all-sales.module').then((m) => m.AllsalesModule),
       },
     ],
-    canActivateChild: [ActiveGuard],
+    // canActivateChild: [ActiveGuard],
   },
 ];
 

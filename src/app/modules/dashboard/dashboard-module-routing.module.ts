@@ -27,7 +27,7 @@ const routes: Routes = [
       {
         path: 'client/:id',
         component: ClientViewComponent,
-        canActivate: [ActiveGuard],
+        // canActivate: [ActiveGuard],
       },
       {
         path: 'sales',
@@ -35,7 +35,7 @@ const routes: Routes = [
           import('./components/sales/sales.module').then((m) => m.SalesModule),
       },
     ],
-    canActivateChild: [ActiveGuard],
+    // canActivateChild: [ActiveGuard],
   },
 ];
 

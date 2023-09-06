@@ -25,11 +25,19 @@ export class LoginModuleComponent {
     const body = this.loginForm.value;
 
     this.http.login(body).subscribe((response: any) => {
-      if (response) {
-        localStorage.setItem(
-          'access_token',
-          JSON.stringify(response.access_token)
-        );
+      // if (response) {
+      //   localStorage.setItem(
+      //     'access_token',
+      //     JSON.stringify(response.access_token)
+      //   );
+
+      //   this.router.navigate(['./dashboard/overView']);
+      // }
+      if (1) {
+        // localStorage.setItem(
+        //   'access_token',
+        //   JSON.stringify(response.access_token)
+        // );
 
         this.router.navigate(['./dashboard/overView']);
       }

@@ -17,6 +17,7 @@ export class ClientViewComponent {
   ) {
     this.activatedRoute.params.subscribe((params) => {
       this.clientid = +params['id'];
+      console.log(this.clientid);
     });
 
     this.clientService.getClients().subscribe((respo: Iclient[]) => {

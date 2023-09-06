@@ -10,12 +10,12 @@ const routes: Routes = [
   {
     path: 'quickSaleView/:id',
     component: QuickSaleViewComponent,
-    canActivateChild: [ActiveGuard],
+    // canActivateChild: [ActiveGuard],
   },
   {
     path: 'quickSaleUpdate/:id',
     component: UpdateQuickSalesComponent,
-    canActivateChild: [ActiveGuard],
+    // canActivateChild: [ActiveGuard],
   },
 ];
 
